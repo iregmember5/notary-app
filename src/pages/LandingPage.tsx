@@ -31,25 +31,29 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   // Scroll animation observer - triggers on both scroll down and up
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.15,
-      rootMargin: "0px 0px -100px 0px",
+      threshold: 0.1,
+      rootMargin: "0px 0px -80px 0px",
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("animate-in");
-        } else {
-          entry.target.classList.remove("animate-in");
         }
       });
     }, observerOptions);
 
+    // Observe all sections and major elements
     const animatedElements = document.querySelectorAll(
-      ".scroll-fade-up, .scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-up, .scroll-fade-down"
+      "section, .scroll-fade-up, .scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-up, .scroll-fade-down, header, footer, [class*='group'], [class*='card'], [class*='testimonial'], [class*='feature'], [class*='benefit'], [class*='prose'], [class*='blockquote'], [class*='cta'], [class*='video'], [class*='grid'] > *, article, aside"
     );
 
-    animatedElements.forEach((el) => observer.observe(el));
+    animatedElements.forEach((el) => {
+      if (!el.classList.contains('animate-in')) {
+        el.classList.add('scroll-fade-up');
+      }
+      observer.observe(el);
+    });
 
     return () => {
       animatedElements.forEach((el) => observer.unobserve(el));
@@ -198,12 +202,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         data?.dynamic_content && data.dynamic_content.length > 0 ? (
           <section
             key={`dynamic-content-${index}`}
-            className="py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background"
+            className="py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background scroll-fade-up"
           >
             <div className="w-full max-w-7xl mx-auto">
               <div className="space-y-8 sm:space-y-12">
                 {data.dynamic_content.map((block) => (
-                  <div key={block.id} className="w-full">
+                  <div key={block.id} className="w-full scroll-scale-up">
                     <DynamicContentRenderer block={block} />
                   </div>
                 ))}
@@ -253,10 +257,33 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
     return (
       <div
-        className="min-h-screen flex items-center justify-center"
+        className="min-h-screen flex items-center justify-center relative overflow-hidden"
         style={{ backgroundColor: loadingBg }}
       >
-        <div className="text-center">
+        {/* Curtains during loading */}
+        <div className="absolute inset-0 z-10">
+          <div className="absolute top-0 left-0 bottom-0 w-1/2 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute top-0 bottom-0 w-[12.5%] bg-gradient-to-b from-slate-700/30 to-transparent"
+                style={{ left: `${i * 12.5}%` }}
+              />
+            ))}
+          </div>
+          <div className="absolute top-0 right-0 bottom-0 w-1/2 bg-gradient-to-l from-slate-900 via-slate-800 to-slate-900">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute top-0 bottom-0 w-[12.5%] bg-gradient-to-b from-slate-700/30 to-transparent"
+                style={{ right: `${i * 12.5}%` }}
+              />
+            ))}
+          </div>
+          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-amber-900 via-amber-800 to-amber-900" />
+        </div>
+
+        <div className="text-center relative z-20">
           <div className="relative inline-block mb-6">
             <div
               className="animate-spin rounded-full h-20 w-20 border-4 border-solid"
