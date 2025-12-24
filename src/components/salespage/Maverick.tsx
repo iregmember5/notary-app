@@ -126,27 +126,31 @@ export default function TaxAdvisorLandingPage() {
       <style>{styles}</style>
       <div className="geometric-bg text-white fixed inset-0 w-screen h-screen overflow-y-auto">
         {/* Top Banner */}
-        <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-3 px-4 text-center font-bold">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-            <p className="text-xs sm:text-sm">
-              {pageData?.header_section?.title ||
-                "From Tax Preparer to $100K/Month In 90 Days"}
-            </p>
-            <button
-              onClick={() => setShowModal(true)}
-              className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-full text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap"
-            >
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-              </svg>
-              {pageData?.header_section?.button?.text || "Save my Spot"}
-            </button>
+        {pageData?.header_section?.title && (
+          <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-3 px-4 text-center font-bold">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
+              <p className="text-xs sm:text-sm">
+                {pageData.header_section.title}
+              </p>
+              {pageData.header_section.button?.text && (
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-full text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap"
+                >
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                  {pageData.header_section.button.text}
+                </button>
+              )}
+            </div>
           </div>
-        </div>
-        <p className="text-xl sm:text-sm mt-2 text-center font-bold text-yellow-300">
-          {pageData?.header_section?.line_one ||
-            "🔥 DON'T LIVE VIRTUAL EVENT FOR CPAS, EAS, TAX BUSINESS OWNERS"}
-        </p>
+        )}
+        {pageData?.header_section?.line_one && (
+          <p className="text-xl sm:text-sm mt-2 text-center font-bold text-yellow-300">
+            {pageData.header_section.line_one}
+          </p>
+        )}
 
         {/* Hero Section */}
         <div className="relative overflow-hidden">
@@ -155,14 +159,16 @@ export default function TaxAdvisorLandingPage() {
           <div className="container mx-auto px-4 py-12 relative max-w-7xl">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div className="text-center">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
-                  {pageData?.main_hero_section?.heading ||
-                    "THE $100K/MONTH TAX ADVISOR WORKSHOP"}
-                </h1>
-                <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mb-8">
-                  {pageData?.main_hero_section?.subheading ||
-                    "Join this to transform today's transforming clients seeking cash in $3K-$10K per client over the holidays at lightning speed, WITHOUT ANY AI expertise."}
-                </p>
+                {pageData?.main_hero_section?.heading && (
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+                    {pageData.main_hero_section.heading}
+                  </h1>
+                )}
+                {pageData?.main_hero_section?.subheading && (
+                  <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mb-8">
+                    {pageData.main_hero_section.subheading}
+                  </p>
+                )}
 
                 {/* Countdown Timer */}
                 <div className="flex justify-center gap-4 mb-8">
@@ -193,31 +199,34 @@ export default function TaxAdvisorLandingPage() {
                 </div>
 
                 <div className="text-yellow-500 font-bold mb-4 text-center">
-                  DECEMBER 16-17, 2025 9AM-3PM CST
-                  <br />
-                  <span className="text-white text-sm">
-                    ON ZOOM (Link Sent to Email)
-                  </span>
+                  {pageData?.secondary_cta_section?.announcement || ""}
+                  {pageData?.secondary_cta_section?.announcement && (
+                    <>
+                      <br />
+                      <span className="text-white text-sm">
+                        ON ZOOM (Link Sent to Email)
+                      </span>
+                    </>
+                  )}
                 </div>
 
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform"
-                >
-                  🎯{" "}
-                  {pageData?.main_hero_section?.button?.text ||
-                    "REGISTER FOR FREE WORKSHOP"}
-                </button>
+                {pageData?.main_hero_section?.button?.text && (
+                  <button
+                    onClick={() => setShowModal(true)}
+                    className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform"
+                  >
+                    🎯 {pageData.main_hero_section.button.text}
+                  </button>
+                )}
               </div>
               <div>
-                <img
-                  src={
-                    prependImageUrl(pageData?.main_hero_section?.image?.url) ||
-                    "/hero.webp"
-                  }
-                  alt="Workshop Hero"
-                  className="rounded-lg shadow-2xl w-full"
-                />
+                {pageData?.main_hero_section?.image?.url && (
+                  <img
+                    src={prependImageUrl(pageData.main_hero_section.image.url)}
+                    alt="Workshop Hero"
+                    className="rounded-lg shadow-2xl w-full"
+                  />
+                )}
               </div>
             </div>
           </div>

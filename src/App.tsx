@@ -5,7 +5,7 @@ import { FeaturesPage } from "./components/features/features-page/FeaturesPage";
 import { BlogPage } from "./components/blogs/BlogPage";
 import DebugFeaturesAPI from "./pages/DebugFeaturesApi";
 import DebugLandingAPI from "./pages/DebugLandingApi";
-import Maverick from "./components/salespage/Maverick";
+import Maverick from "./components/salespage/MaverickClean";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { SiteSettingsProvider } from "./contexts/SiteSettingsContext";
 import { DynamicHead } from "./components/DynamicHead";
