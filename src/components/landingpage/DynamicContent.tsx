@@ -448,7 +448,7 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
                       </div>
                     </div>
                   );
-                })}}
+                })}
             </div>
           </div>
         </section>
