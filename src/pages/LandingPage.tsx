@@ -16,7 +16,6 @@ import Footer from "../components/landingpage/Footer";
 import ProblemSolution from "../components/landingpage/ProblemSolution";
 import HowItWorks from "../components/landingpage/HowItWorks";
 import Pricing from "../components/landingpage/Pricing";
-import CurtainEffect from "../components/landingpage/CurtainEffect";
 
 interface LandingPageProps {
   onShowLogin?: () => void;
@@ -27,7 +26,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [themeColors, setThemeColors] = useState<any>(null);
-  const [curtainOpen, setCurtainOpen] = useState(false);
 
   // Scroll animation observer - triggers on both scroll down and up
   useEffect(() => {
@@ -139,8 +137,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         );
       } finally {
         setLoading(false);
-        // Open curtains after content loads with delay
-        setTimeout(() => setCurtainOpen(true), 1000);
       }
     };
 
@@ -353,10 +349,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   return (
     <div className="landing-page relative overflow-hidden">
       {/* Inauguration Curtains */}
-      <CurtainEffect
-        isOpen={curtainOpen} // TRUE = start opening animation
-        onAnimationComplete={() => console.log("Animation complete")}
-      />
 
       {/* Animated Background Particles */}
       <div className="fixed inset-0 pointer-events-none z-0">
