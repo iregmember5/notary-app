@@ -16,6 +16,7 @@ import Footer from "../components/landingpage/Footer";
 import ProblemSolution from "../components/landingpage/ProblemSolution";
 import HowItWorks from "../components/landingpage/HowItWorks";
 import Pricing from "../components/landingpage/Pricing";
+import CurtainEffect from "../components/landingpage/CurtainEffect";
 
 interface LandingPageProps {
   onShowLogin?: () => void;
@@ -49,8 +50,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
     );
 
     animatedElements.forEach((el) => {
-      if (!el.classList.contains('animate-in')) {
-        el.classList.add('scroll-fade-up');
+      if (!el.classList.contains("animate-in")) {
+        el.classList.add("scroll-fade-up");
       }
       observer.observe(el);
     });
@@ -353,81 +354,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
     <div className="landing-page relative overflow-hidden">
       {/* Inauguration Curtains */}
       {showCurtain && (
-        <div className="fixed inset-0 z-[9999]">
-          {/* Left Curtain */}
-          <div
-            className="absolute top-0 left-0 bottom-0 w-1/2 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-[20px_0_50px_rgba(0,0,0,0.5)]"
-            style={{
-              animation: "curtainLeft 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards",
-              animationDelay: "0.3s",
-            }}
-          >
-            <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-black/60 to-transparent" />
-            {/* Realistic Curtain Folds */}
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div
-                key={i}
-                className="absolute top-0 bottom-0 w-[8.33%]"
-                style={{
-                  left: `${i * 8.33}%`,
-                  background: i % 2 === 0 
-                    ? 'linear-gradient(to bottom, rgba(71, 85, 105, 0.4) 0%, transparent 50%, rgba(0, 0, 0, 0.3) 100%)'
-                    : 'linear-gradient(to bottom, rgba(51, 65, 85, 0.3) 0%, transparent 50%, rgba(0, 0, 0, 0.2) 100%)',
-                }}
-              />
-            ))}
-            {/* Curtain Texture */}
-            <div className="absolute inset-0 opacity-10" style={{
-              backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)'
-            }} />
-          </div>
-
-          {/* Right Curtain */}
-          <div
-            className="absolute top-0 right-0 bottom-0 w-1/2 bg-gradient-to-l from-slate-900 via-slate-800 to-slate-900 shadow-[-20px_0_50px_rgba(0,0,0,0.5)]"
-            style={{
-              animation: "curtainRight 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards",
-              animationDelay: "0.3s",
-            }}
-          >
-            <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-black/60 to-transparent" />
-            {/* Realistic Curtain Folds */}
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div
-                key={i}
-                className="absolute top-0 bottom-0 w-[8.33%]"
-                style={{
-                  right: `${i * 8.33}%`,
-                  background: i % 2 === 0 
-                    ? 'linear-gradient(to bottom, rgba(71, 85, 105, 0.4) 0%, transparent 50%, rgba(0, 0, 0, 0.3) 100%)'
-                    : 'linear-gradient(to bottom, rgba(51, 65, 85, 0.3) 0%, transparent 50%, rgba(0, 0, 0, 0.2) 100%)',
-                }}
-              />
-            ))}
-            {/* Curtain Texture */}
-            <div className="absolute inset-0 opacity-10" style={{
-              backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)'
-            }} />
-          </div>
-
-          {/* Curtain Rod with Rings */}
-          <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-amber-900 via-amber-800 to-amber-900 shadow-2xl z-10">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-600/40 to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 h-2 bg-gradient-to-b from-amber-950 to-transparent" />
-            {/* Curtain Rings */}
-            {Array.from({ length: 20 }).map((_, i) => (
-              <div
-                key={i}
-                className="absolute top-2 w-3 h-6 bg-gradient-to-b from-amber-700 to-amber-900 rounded-full shadow-md"
-                style={{ left: `${(i * 5) + 2.5}%` }}
-              />
-            ))}
-          </div>
-
-          {/* Decorative Finials */}
-          <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-amber-600 to-amber-900 rounded-full shadow-2xl z-20" style={{ transform: 'translate(-50%, -25%)' }} />
-          <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-amber-600 to-amber-900 rounded-full shadow-2xl z-20" style={{ transform: 'translate(50%, -25%)' }} />
-        </div>
+        <CurtainEffect
+          isOpen={!showCurtain}
+          curtainColor="gold" // Options: 'red', 'blue', 'green', 'purple', 'gold'
+          onAnimationComplete={() => console.log("Curtains opened!")}
+        />
       )}
 
       {/* Animated Background Particles */}
