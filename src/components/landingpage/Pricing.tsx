@@ -7,37 +7,31 @@ interface PricingProps {
 
 const Pricing: React.FC<PricingProps> = ({ data }) => {
   const section = data.pricing_section;
-  const slug = "untitled-pricing-table-79";
-  const containerId = `widget-${slug}`;
-  const containerRef = useRef<HTMLDivElement>(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.id = containerId;
-      containerRef.current.innerHTML = `
-        <div style="
-          padding: 60px 20px;
-          text-align: center;
-          color: #666;
-          font-family: system-ui, -apple-system, sans-serif;
-          font-size: 18px;
-        ">
-          Loading pricing widget...
-        </div>
-      `;
+    if (section?.widget_code && widgetRef.current) {
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = section.widget_code;
+
+      const scripts = tempDiv.querySelectorAll("script");
+      scripts.forEach((script) => {
+        const newScript = document.createElement("script");
+        if (script.src) {
+          newScript.src = script.src;
+          newScript.async = true;
+        } else {
+          newScript.textContent = script.textContent;
+        }
+        document.head.appendChild(newScript);
+      });
+
+      const nonScriptContent = tempDiv.querySelectorAll(":not(script)");
+      nonScriptContent.forEach((el) => {
+        widgetRef.current?.appendChild(el.cloneNode(true));
+      });
     }
-
-    const script = document.createElement('script');
-    script.src = `https://pricing-bundler-green.vercel.app/widget-loader.js?slug=${slug}`;
-    script.async = true;
-    containerRef.current?.appendChild(script);
-
-    return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
-      }
-    };
-  }, [slug]);
+  }, [section?.widget_code]);
 
   if (!section || !section.heading) {
     return null;
@@ -57,9 +51,23 @@ const Pricing: React.FC<PricingProps> = ({ data }) => {
           )}
         </div>
 
-        <div className="w-full mx-auto max-w-6xl">
-          <div ref={containerRef} />
-        </div>
+        {section.widget_code ? (
+          <div ref={widgetRef} className="max-w-6xl mx-auto" />
+        ) : (
+          <div className="text-center">
+            <p className="text-sm sm:text-base text-theme-neutral mb-6 sm:mb-8">
+              Pricing information coming soon...
+            </p>
+            {section.show_cta && section.cta && (
+              <a
+                href={section.cta.url || "#"}
+                className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-theme-primary text-white rounded-lg hover:bg-theme-secondary transition-colors font-semibold text-sm sm:text-base"
+              >
+                {section.cta.text}
+              </a>
+            )}
+          </div>
+        )}
 
         {section.ending_note && (
           <div className="text-center mt-8 sm:mt-12">
