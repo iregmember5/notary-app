@@ -128,11 +128,11 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
   switch (block.type) {
     case "rich_text":
       return (
-        <div className="w-full px-4 sm:px-6 max-w-5xl mx-auto mb-8 md:mb-12">
+        <div style={{ width: '100%', padding: '20px', background: 'red', minHeight: '200px', display: 'block' }}>
+          <h1 style={{ color: 'white', fontSize: '24px' }}>RICH TEXT BLOCK</h1>
           <div
             ref={richRef}
-            className="w-full px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-14 rounded-xl md:rounded-2xl bg-white shadow-lg border border-slate-200 text-slate-900 text-base leading-relaxed"
-            style={{ minHeight: '50px' }}
+            style={{ background: 'white', padding: '20px', minHeight: '100px', color: 'black' }}
             dangerouslySetInnerHTML={{ __html: block.value }}
           />
         </div>
