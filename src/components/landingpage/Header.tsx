@@ -147,22 +147,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
                     variants={itemVariants}
                   >
-                    All-in-One Business{" "}
-                    <motion.span
-                      className="relative inline-block"
-                      style={{ color: 'var(--color-primary)' }}
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ type: 'spring', stiffness: 300 }}
-                    >
-                      Automation Platform
-                      <motion.div
-                        className="absolute -inset-2 bg-blue-500/10 rounded-lg -z-10"
-                        initial={{ scale: 0, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ delay: 1.5, duration: 0.5 }}
-                      />
-                    </motion.span>
-                    {" "}by MyPowerly
+                    {header_title}
                   </motion.h3>
                 )}
 
