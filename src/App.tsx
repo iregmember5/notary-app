@@ -6,6 +6,8 @@ import { BlogPage } from "./components/blogs/BlogPage";
 import DebugFeaturesAPI from "./pages/DebugFeaturesApi";
 import DebugLandingAPI from "./pages/DebugLandingApi";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { SiteSettingsProvider } from "./contexts/SiteSettingsContext";
+import { DynamicHead } from "./components/DynamicHead";
 
 function App() {
   const [currentView, setCurrentView] = useState<{
@@ -85,40 +87,55 @@ function App() {
   // Render based on current view
   if (currentView.type === "blog") {
     return (
-      <ThemeProvider>
-        <BlogPage slug={currentView.slug} />
-      </ThemeProvider>
+      <SiteSettingsProvider>
+        <DynamicHead />
+        <ThemeProvider>
+          <BlogPage slug={currentView.slug} />
+        </ThemeProvider>
+      </SiteSettingsProvider>
     );
   }
 
   if (currentView.type === "features") {
     return (
-      <ThemeProvider>
-        <FeaturesPage slug={currentView.slug} />
-      </ThemeProvider>
+      <SiteSettingsProvider>
+        <DynamicHead />
+        <ThemeProvider>
+          <FeaturesPage slug={currentView.slug} />
+        </ThemeProvider>
+      </SiteSettingsProvider>
     );
   }
 
   if (currentView.type === "debug-features") {
     return (
-      <ThemeProvider>
-        <DebugFeaturesAPI />
-      </ThemeProvider>
+      <SiteSettingsProvider>
+        <DynamicHead />
+        <ThemeProvider>
+          <DebugFeaturesAPI />
+        </ThemeProvider>
+      </SiteSettingsProvider>
     );
   }
 
   if (currentView.type === "debug-landing") {
     return (
-      <ThemeProvider>
-        <DebugLandingAPI />
-      </ThemeProvider>
+      <SiteSettingsProvider>
+        <DynamicHead />
+        <ThemeProvider>
+          <DebugLandingAPI />
+        </ThemeProvider>
+      </SiteSettingsProvider>
     );
   }
 
   return (
-    <ThemeProvider>
-      <LandingPage />
-    </ThemeProvider>
+    <SiteSettingsProvider>
+      <DynamicHead />
+      <ThemeProvider>
+        <LandingPage />
+      </ThemeProvider>
+    </SiteSettingsProvider>
   );
 }
 
