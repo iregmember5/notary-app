@@ -5,13 +5,14 @@ import { FeaturesPage } from "./components/features/features-page/FeaturesPage";
 import { BlogPage } from "./components/blogs/BlogPage";
 import DebugFeaturesAPI from "./pages/DebugFeaturesApi";
 import DebugLandingAPI from "./pages/DebugLandingApi";
+import Maverick from "./components/salespage/Maverick";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { SiteSettingsProvider } from "./contexts/SiteSettingsContext";
 import { DynamicHead } from "./components/DynamicHead";
 
 function App() {
   const [currentView, setCurrentView] = useState<{
-    type: "landing" | "features" | "blog" | "debug-features" | "debug-landing";
+    type: "landing" | "features" | "blog" | "debug-features" | "debug-landing" | "salespage";
     slug?: string;
   }>({ type: "landing" });
 
@@ -52,6 +53,11 @@ function App() {
 
       if (path.includes("/blog") || hash.includes("#blog")) {
         setCurrentView({ type: "blog" });
+        return;
+      }
+
+      if (path.includes("/salespage") || hash.includes("#salespage")) {
+        setCurrentView({ type: "salespage" });
         return;
       }
 
@@ -124,6 +130,17 @@ function App() {
         <DynamicHead />
         <ThemeProvider>
           <DebugLandingAPI />
+        </ThemeProvider>
+      </SiteSettingsProvider>
+    );
+  }
+
+  if (currentView.type === "salespage") {
+    return (
+      <SiteSettingsProvider>
+        <DynamicHead />
+        <ThemeProvider>
+          <Maverick />
         </ThemeProvider>
       </SiteSettingsProvider>
     );

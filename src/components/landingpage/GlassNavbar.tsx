@@ -356,7 +356,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     ) : (
                       // Regular link
                       <a
-                        href={getNavigationItemUrl(link)}
+                        href={link.title.toLowerCase() === "powered by" ? "#salespage" : getNavigationItemUrl(link)}
                         className="text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2 inline-block text-theme-text"
                       >
                         {link.title}
@@ -496,7 +496,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     </div>
                   ) : (
                     <a
-                      href={getNavigationItemUrl(link)}
+                      href={link.title.toLowerCase() === "powered by" ? "#salespage" : getNavigationItemUrl(link)}
                       className="block text-base font-medium py-2 px-2 rounded transition hover:text-blue-600 text-theme-text"
                       onClick={() => setOpen(false)}
                     >

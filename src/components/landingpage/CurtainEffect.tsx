@@ -137,6 +137,12 @@ const CurtainEffect: React.FC<CurtainEffectProps> = ({
           z-index: 9999;
           pointer-events: none;
           perspective: 1500px;
+          opacity: ${isAnimating ? '1' : '1'};
+          transition: opacity 0.5s ease-out 3.5s;
+        }
+
+        .curtain-container.hiding {
+          opacity: 0;
         }
 
         .curtain-rod {
@@ -502,7 +508,7 @@ const CurtainEffect: React.FC<CurtainEffectProps> = ({
       <div className={`stage-lighting ${isOpen ? "active" : ""}`} />
 
       {/* Curtain Container */}
-      <div className="curtain-container">
+      <div className={`curtain-container ${isAnimating ? 'hiding' : ''}`}>
         {/* Decorative Finials */}
         <div className="finial left" />
         <div className="finial right" />
