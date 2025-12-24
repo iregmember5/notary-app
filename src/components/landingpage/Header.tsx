@@ -261,9 +261,26 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     </div>
                   </motion.div>
 
+                  {/* Universal TV Stand Base */}
+                  <div className="flex justify-center mt-6">
+                    <div className="relative w-64">
+                      {/* Stand Legs (V-shape) */}
+                      <div className="flex justify-center items-end gap-20">
+                        {/* Left Leg */}
+                        <div className="w-20 h-2 bg-gradient-to-r from-slate-900 to-slate-800 rounded-full shadow-lg transform -rotate-12 origin-right" />
+                        {/* Right Leg */}
+                        <div className="w-20 h-2 bg-gradient-to-r from-slate-800 to-slate-900 rounded-full shadow-lg transform rotate-12 origin-left" />
+                      </div>
+                      {/* Center Support */}
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-3 bg-gradient-to-b from-slate-700 to-slate-800 rounded-lg shadow-xl">
+                        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-slate-500 to-transparent" />
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Mobile Frame - Positioned at bottom right */}
                   <motion.div
-                    className="absolute -bottom-8 -right-8 w-32 sm:w-40"
+                    className="absolute -bottom-20 -right-8 w-32 sm:w-40"
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                   >

@@ -26,12 +26,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [themeColors, setThemeColors] = useState<any>(null);
+  const [showCurtain, setShowCurtain] = useState(true);
 
   // Scroll animation observer - triggers on both scroll down and up
   useEffect(() => {
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
+      threshold: 0.15,
+      rootMargin: "0px 0px -100px 0px",
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -54,6 +55,23 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
       animatedElements.forEach((el) => observer.unobserve(el));
     };
   }, [data]);
+
+  // Parallax scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrolled = window.scrollY;
+      const parallaxElements = document.querySelectorAll('.parallax-slow, .parallax-fast');
+      
+      parallaxElements.forEach((el) => {
+        const speed = el.classList.contains('parallax-slow') ? 0.5 : 0.3;
+        const yPos = -(scrolled * speed);
+        (el as HTMLElement).style.transform = `translateY(${yPos}px)`;
+      });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const { setTheme } = useTheme();
 
@@ -114,6 +132,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         );
       } finally {
         setLoading(false);
+        // Open curtains after content loads
+        setTimeout(() => setShowCurtain(false), 500);
       }
     };
 
@@ -291,122 +311,239 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   }
 
   return (
-    <div className="landing-page">
+    <div className="landing-page relative overflow-hidden">
+      {/* Inauguration Curtains */}
+      {showCurtain && (
+        <div className="fixed inset-0 z-[9999] pointer-events-none">
+          {/* Left Curtain */}
+          <div 
+            className="absolute top-0 left-0 bottom-0 w-1/2 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl"
+            style={{
+              animation: 'curtainLeft 2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              animationDelay: '0.5s'
+            }}
+          >
+            <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/50 to-transparent" />
+            {/* Curtain Folds */}
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute top-0 bottom-0 w-[12.5%] bg-gradient-to-b from-slate-700/30 to-transparent"
+                style={{ left: `${i * 12.5}%` }}
+              />
+            ))}
+          </div>
+          
+          {/* Right Curtain */}
+          <div 
+            className="absolute top-0 right-0 bottom-0 w-1/2 bg-gradient-to-l from-slate-900 via-slate-800 to-slate-900 shadow-2xl"
+            style={{
+              animation: 'curtainRight 2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              animationDelay: '0.5s'
+            }}
+          >
+            <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/50 to-transparent" />
+            {/* Curtain Folds */}
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute top-0 bottom-0 w-[12.5%] bg-gradient-to-b from-slate-700/30 to-transparent"
+                style={{ right: `${i * 12.5}%` }}
+              />
+            ))}
+          </div>
+
+          {/* Top Curtain Rod */}
+          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-amber-900 via-amber-800 to-amber-900 shadow-lg z-10">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-600/30 to-transparent" />
+          </div>
+        </div>
+      )}
+
+      {/* Animated Background Particles */}}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {Array.from({ length: 30 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-20 parallax-fast"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animation: `float ${Math.random() * 10 + 15}s ease-in-out infinite`,
+              animationDelay: `${Math.random() * 5}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Floating Gradient Orbs */}
+      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse parallax-slow" style={{ animationDuration: '8s' }} />
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-orange-400/20 rounded-full blur-3xl animate-pulse parallax-slow" style={{ animationDuration: '10s', animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-gradient-to-br from-indigo-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse parallax-fast" style={{ animationDuration: '12s', animationDelay: '4s' }} />
+      </div>
+
       {/* Global Animation Styles */}
       <style>{`
         @keyframes fadeUp {
           from {
             opacity: 0;
-            transform: translateY(40px);
+            transform: translateY(60px) scale(0.95);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
           }
         }
 
         @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
+          from { opacity: 0; filter: blur(10px); }
+          to { opacity: 1; filter: blur(0); }
         }
 
         @keyframes slideLeft {
           from {
             opacity: 0;
-            transform: translateX(60px);
+            transform: translateX(80px) rotate(5deg);
           }
           to {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) rotate(0);
           }
         }
 
         @keyframes slideRight {
           from {
             opacity: 0;
-            transform: translateX(-60px);
+            transform: translateX(-80px) rotate(-5deg);
           }
           to {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) rotate(0);
           }
         }
 
         @keyframes scaleUp {
           from {
             opacity: 0;
-            transform: scale(0.9);
+            transform: scale(0.8) rotate(-3deg);
           }
           to {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) rotate(0);
           }
         }
 
         @keyframes fadeDown {
           from {
             opacity: 0;
-            transform: translateY(-40px);
+            transform: translateY(-60px) scale(0.95);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
           }
         }
 
         .scroll-fade-up {
           opacity: 0;
-          transform: translateY(40px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          transform: translateY(60px) scale(0.95);
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .scroll-fade-in {
           opacity: 0;
-          transition: opacity 0.8s ease-out;
+          filter: blur(10px);
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), filter 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .scroll-slide-left {
           opacity: 0;
-          transform: translateX(60px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          transform: translateX(80px) rotate(5deg);
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .scroll-slide-right {
           opacity: 0;
-          transform: translateX(-60px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          transform: translateX(-80px) rotate(-5deg);
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .scroll-scale-up {
           opacity: 0;
-          transform: scale(0.9);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          transform: scale(0.8) rotate(-3deg);
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .scroll-fade-down {
           opacity: 0;
-          transform: translateY(-40px);
-          transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+          transform: translateY(-60px) scale(0.95);
+          transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .animate-in {
           opacity: 1 !important;
-          transform: translateY(0) translateX(0) scale(1) !important;
+          transform: translateY(0) translateX(0) scale(1) rotate(0) !important;
+          filter: blur(0) !important;
         }
 
-        /* Smooth scroll behavior */
         html {
           scroll-behavior: smooth;
         }
 
-        /* Parallax effect for background elements */
         @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
+          0%, 100% { transform: translateY(0px) translateX(0px); }
+          25% { transform: translateY(-20px) translateX(10px); }
+          50% { transform: translateY(-10px) translateX(-10px); }
+          75% { transform: translateY(-30px) translateX(5px); }
         }
 
         .animate-float {
-          animation: float 6s ease-in-out infinite;
+          animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+          0% { background-position: -1000px 0; }
+          100% { background-position: 1000px 0; }
+        }
+
+        .animate-shimmer {
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+          background-size: 1000px 100%;
+          animation: shimmer 3s infinite;
+        }
+
+        /* Smooth scroll with momentum */
+        * {
+          scroll-behavior: smooth;
+        }
+
+        /* Parallax layers */
+        .parallax-slow {
+          will-change: transform;
+          transition: transform 0.1s ease-out;
+        }
+
+        .parallax-fast {
+          will-change: transform;
+          transition: transform 0.05s ease-out;
+        }
+
+        /* Stagger animation delays */
+        .scroll-fade-up:nth-child(1) { transition-delay: 0s; }
+        .scroll-fade-up:nth-child(2) { transition-delay: 0.1s; }
+        .scroll-fade-up:nth-child(3) { transition-delay: 0.2s; }
+        .scroll-fade-up:nth-child(4) { transition-delay: 0.3s; }
+
+        /* Curtain Animations */
+        @keyframes curtainLeft {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-100%); }
+        }
+
+        @keyframes curtainRight {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(100%); }
         }
       `}</style>
 
