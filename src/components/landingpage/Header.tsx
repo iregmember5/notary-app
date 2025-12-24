@@ -222,22 +222,33 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
             </motion.div>
           </div>
 
-          {/* Image Section - Right Side - Professional Notary */}
+          {/* Image Section - Right Side - TV Frame */}
           <motion.div variants={imageVariants} className="relative">
             <div className="relative z-10">
               {rightImageUrl ? (
                 <div className="relative">
+                  {/* TV Frame */}
                   <motion.div
-                    className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white"
+                    className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-6 shadow-2xl"
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: 'spring', stiffness: 300 }}
                   >
-                    <img
-                      src={rightImageUrl}
-                      alt="Notary Platform Dashboard"
-                      className="w-full h-auto max-w-lg mx-auto"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
+                    {/* Screen */}
+                    <div className="relative bg-black rounded-2xl overflow-hidden shadow-inner">
+                      <img
+                        src={rightImageUrl}
+                        alt="Notary Platform Dashboard"
+                        className="w-full h-auto"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
+                    </div>
+                    {/* TV Stand */}
+                    <div className="flex justify-center mt-4">
+                      <div className="w-32 h-3 bg-gradient-to-b from-slate-700 to-slate-800 rounded-full" />
+                    </div>
+                    <div className="flex justify-center">
+                      <div className="w-48 h-2 bg-gradient-to-b from-slate-800 to-slate-900 rounded-t-lg" />
+                    </div>
                   </motion.div>
                   
                   {/* Professional Stats Cards */}
@@ -270,10 +281,18 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   </motion.div>
                 </div>
               ) : (
-                <div className="w-full h-96 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center border-4 border-white shadow-2xl">
-                  <div className="text-center">
-                    <EasyIcon icon="FiImage" size={48} color="#94a3b8" className="mx-auto mb-2" />
-                    <span className="text-slate-400 font-medium">Platform Preview</span>
+                <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-6 shadow-2xl">
+                  <div className="w-full h-96 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
+                    <div className="text-center">
+                      <EasyIcon icon="FiImage" size={48} color="#94a3b8" className="mx-auto mb-2" />
+                      <span className="text-slate-400 font-medium">Platform Preview</span>
+                    </div>
+                  </div>
+                  <div className="flex justify-center mt-4">
+                    <div className="w-32 h-3 bg-gradient-to-b from-slate-700 to-slate-800 rounded-full" />
+                  </div>
+                  <div className="flex justify-center">
+                    <div className="w-48 h-2 bg-gradient-to-b from-slate-800 to-slate-900 rounded-t-lg" />
                   </div>
                 </div>
               )}
