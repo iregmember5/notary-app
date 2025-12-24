@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import type { DynamicContentBlock } from "../../types/landing";
 import EasyIcon from "./IconRenderer";
 
@@ -129,69 +129,12 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
     case "rich_text":
       return (
         <div className="relative px-4 sm:px-6 max-w-5xl mx-auto mb-12 md:mb-20">
-          {/* Background decorations - hidden on very small screens */}
           <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl opacity-20 blur-2xl" />
           <div className="hidden md:block absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full blur-3xl opacity-30" />
           <div className="hidden md:block absolute -bottom-8 -right-8 w-40 h-40 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full blur-3xl opacity-30" />
-
           <div
             ref={richRef}
-            className="relative prose prose-lg md:prose-xl max-w-none 
-              px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-14 
-              rounded-2xl md:rounded-3xl 
-              bg-gradient-to-br from-white via-blue-50/80 to-purple-50/80 
-              shadow-lg md:shadow-[0_20px_70px_rgba(59,130,246,0.25)] 
-              hover:shadow-xl md:hover:shadow-[0_25px_80px_rgba(139,92,246,0.35)] 
-              backdrop-blur-sm 
-              border border-slate-200 md:border-2 md:border-transparent md:hover:border-blue-200
-              
-              [&>h1]:text-2xl [&>h1]:sm:text-3xl [&>h1]:md:text-4xl [&>h1]:lg:text-5xl 
-              [&>h1]:font-black [&>h1]:mb-4 [&>h1]:md:mb-10 
-              [&>h1]:bg-gradient-to-r [&>h1]:from-blue-600 [&>h1]:via-purple-600 [&>h1]:to-pink-600 
-              [&>h1]:bg-clip-text [&>h1]:text-transparent [&>h1]:leading-tight
-              
-              [&>h2]:text-xl [&>h2]:sm:text-2xl [&>h2]:md:text-3xl [&>h2]:lg:text-4xl 
-              [&>h2]:font-extrabold [&>h2]:mb-4 [&>h2]:md:mb-8 [&>h2]:text-slate-900 
-              [&>h2]:relative [&>h2]:pl-4 [&>h2]:md:pl-8 
-              [&>h2]:before:absolute [&>h2]:before:left-0 [&>h2]:before:top-0 [&>h2]:before:bottom-0 
-              [&>h2]:before:w-1 [&>h2]:before:md:w-2 
-              [&>h2]:before:bg-gradient-to-b [&>h2]:before:from-blue-500 [&>h2]:before:to-purple-500 
-              [&>h2]:before:rounded-full
-              
-              [&>h3]:text-lg [&>h3]:sm:text-xl [&>h3]:md:text-2xl [&>h3]:lg:text-3xl 
-              [&>h3]:font-bold [&>h3]:mb-3 [&>h3]:md:mb-6 [&>h3]:text-slate-800
-              
-              [&>p]:text-sm [&>p]:sm:text-base [&>p]:md:text-lg [&>p]:lg:text-xl 
-              [&>p]:leading-relaxed [&>p]:mb-4 [&>p]:md:mb-6 [&>p]:text-slate-700
-              
-              [&>ul]:space-y-2 [&>ul]:md:space-y-4 [&>ul]:mb-4 [&>ul]:md:mb-8 
-              [&>ul>li]:text-slate-700 [&>ul>li]:text-sm [&>ul>li]:md:text-lg 
-              [&>ul>li]:relative [&>ul>li]:pl-5 [&>ul>li]:md:pl-8 
-              [&>ul>li]:before:absolute [&>ul>li]:before:left-0 
-              [&>ul>li]:before:top-2 [&>ul>li]:before:w-2 [&>ul>li]:before:h-2 [&>ul>li]:before:md:w-3 [&>ul>li]:before:md:h-3 
-              [&>ul>li]:before:bg-gradient-to-r [&>ul>li]:before:from-blue-500 [&>ul>li]:before:to-purple-500 
-              [&>ul>li]:before:rounded-full [&>ul>li]:before:shadow-lg
-              
-              [&>ol]:space-y-2 [&>ol]:md:space-y-4 [&>ol]:mb-4 [&>ol]:md:mb-8 
-              [&>ol>li]:text-slate-700 [&>ol>li]:text-sm [&>ol>li]:md:text-lg [&>ol>li]:font-medium
-              
-              [&>a]:text-blue-600 [&>a]:font-bold [&>a]:underline 
-              [&>a]:decoration-2 [&>a]:underline-offset-4 
-              [&>a:hover]:text-purple-600 [&>a:hover]:decoration-purple-600 [&>a]:transition-all
-              
-              [&>strong]:font-extrabold [&>strong]:text-transparent 
-              [&>strong]:bg-gradient-to-r [&>strong]:from-blue-600 [&>strong]:to-purple-600 [&>strong]:bg-clip-text
-              
-              [&>blockquote]:border-l-4 [&>blockquote]:md:border-l-[6px] 
-              [&>blockquote]:border-blue-500
-              [&>blockquote]:pl-4 [&>blockquote]:md:pl-10 
-              [&>blockquote]:py-4 [&>blockquote]:md:py-8 
-              [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-blue-100/80 [&>blockquote]:to-purple-100/80 
-              [&>blockquote]:rounded-r-xl [&>blockquote]:md:rounded-r-2xl 
-              [&>blockquote]:my-4 [&>blockquote]:md:my-10 
-              [&>blockquote]:text-slate-800 [&>blockquote]:text-base [&>blockquote]:md:text-xl 
-              [&>blockquote]:font-semibold [&>blockquote]:italic [&>blockquote]:shadow-xl
-            `}
+            className="relative prose prose-lg md:prose-xl max-w-none px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-14 rounded-2xl md:rounded-3xl bg-gradient-to-br from-white via-blue-50/80 to-purple-50/80 shadow-lg md:shadow-[0_20px_70px_rgba(59,130,246,0.25)] hover:shadow-xl md:hover:shadow-[0_25px_80px_rgba(139,92,246,0.35)] backdrop-blur-sm border border-slate-200 md:border-2 md:border-transparent md:hover:border-blue-200"
             dangerouslySetInnerHTML={{ __html: block.value }}
           />
         </div>
@@ -595,4 +538,5 @@ const OldDynamicListItem: React.FC<{ item: any }> = ({ item }) => {
   );
 };
 
+export { DynamicContentRenderer };
 export default DynamicContentRenderer;
