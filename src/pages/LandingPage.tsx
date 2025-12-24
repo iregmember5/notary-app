@@ -29,9 +29,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   const [themeColors, setThemeColors] = useState<any>(null);
   const [curtainOpen, setCurtainOpen] = useState(false);
 
-  // After data loads:
-  setCurtainOpen(true);
-
   // Scroll animation observer - triggers on both scroll down and up
   useEffect(() => {
     const observerOptions = {
