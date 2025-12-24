@@ -10,39 +10,41 @@ export const PricingWidgetBlock: React.FC<PricingWidgetBlockProps> = ({
   value,
   theme,
 }) => {
-  if (!value || !value.widget_code) return null;
+  if (!value) return null;
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const slug = "untitled-pricing-table-79";
-  const containerId = `widget-${slug}`;
 
   useEffect(() => {
-    if (containerRef.current) {
-      containerRef.current.id = containerId;
-      containerRef.current.innerHTML = `
-        <div style="
-          padding: 60px 20px;
-          text-align: center;
-          color: #666;
-          font-family: system-ui, -apple-system, sans-serif;
-          font-size: 18px;
-        ">
-          Loading pricing widget...
-        </div>
-      `;
-    }
+    if (!containerRef.current || !value.widget_code) return;
 
+    // Clear any existing content
+    containerRef.current.innerHTML = '';
+
+    // Create the widget container div
+    const widgetDiv = document.createElement('div');
+    widgetDiv.id = 'widget-Untitled Pricing Table';
+    containerRef.current.appendChild(widgetDiv);
+
+    // Create and execute the script
     const script = document.createElement('script');
-    script.src = `https://pricing-bundler-green.vercel.app/widget-loader.js?slug=${slug}`;
-    script.async = true;
-    containerRef.current?.appendChild(script);
+    script.textContent = `
+      (function() {
+        var script = document.createElement('script');
+        script.src = 'https://pricing-bundler-green.vercel.app/widget-loader.js?slug=untitled-pricing-table-79';
+        script.async = true;
+        document.head.appendChild(script);
+      })();
+    `;
+    
+    containerRef.current.appendChild(script);
 
+    // Cleanup function
     return () => {
-      if (script.parentNode) {
-        script.parentNode.removeChild(script);
+      if (containerRef.current) {
+        containerRef.current.innerHTML = '';
       }
     };
-  }, [slug]);
+  }, [value.widget_code]);
 
   return (
     <section className="py-16" style={{ backgroundColor: theme.bgColor }}>
@@ -63,13 +65,20 @@ export const PricingWidgetBlock: React.FC<PricingWidgetBlockProps> = ({
             {value.description}
           </p>
         )}
-        <div className="w-full mx-auto max-w-6xl">
-          <div ref={containerRef} />
+        <div className="w-full mx-auto max-w-6xl" ref={containerRef}>
+          <div style={{
+            padding: '40px 20px',
+            textAlign: 'center',
+            color: '#666',
+            fontSize: '16px'
+          }}>
+            Loading pricing widget...
+          </div>
         </div>
-        {value.show_cta && value.cta && (
+        {value.show_cta && value.cta && value.cta.text && (
           <div className="text-center mt-8">
             <a
-              href={value.cta.url}
+              href={value.cta.url || '#'}
               className="inline-block px-8 py-3 rounded-lg font-semibold transition-colors"
               style={{
                 backgroundColor: theme.primaryColor,
