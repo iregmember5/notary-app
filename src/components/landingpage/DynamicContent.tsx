@@ -18,56 +18,7 @@ const getFullImageUrl = (url: string): string => {
   return `${API_BASE_URL}${url}`;
 };
 
-// Custom hook for intersection observer with mobile fallback
-const useInView = (options = {}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isInView, setIsInView] = useState(false);
 
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) {
-      setIsInView(true); // Fallback if no ref
-      return;
-    }
-
-    // Immediate fallback for mobile or if IntersectionObserver not supported
-    if (typeof IntersectionObserver === "undefined") {
-      setIsInView(true);
-      return;
-    }
-
-    // Set visible after a short delay as mobile fallback
-    const fallbackTimer = setTimeout(() => {
-      setIsInView(true);
-    }, 300);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsInView(true);
-            observer.unobserve(element);
-            clearTimeout(fallbackTimer);
-          }
-        });
-      },
-      {
-        threshold: 0.05, // Lower threshold for better mobile detection
-        rootMargin: "50px", // Start animation slightly before element is in view
-        ...options,
-      }
-    );
-
-    observer.observe(element);
-
-    return () => {
-      observer.disconnect();
-      clearTimeout(fallbackTimer);
-    };
-  }, []);
-
-  return { ref, isInView };
-};
 
 const ScrollAnimateCard: React.FC<any> = ({
   bgClass,
@@ -78,15 +29,12 @@ const ScrollAnimateCard: React.FC<any> = ({
   features,
   formatDescription,
 }) => {
-  const { ref: cardRef, isInView: isVisible } = useInView();
+  const cardRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={cardRef}
-      className={`
-        transition-all duration-700 ease-out
-        ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
-        group ${cardData.card_background ? "" : `bg-gradient-to-br ${bgClass}`} 
+      className={`group ${cardData.card_background ? "" : `bg-gradient-to-br ${bgClass}`} 
         rounded-2xl p-6 md:p-8 hover:shadow-2xl hover:-translate-y-1 
         border-2 border-slate-200 hover:border-blue-300
       `}
@@ -175,7 +123,7 @@ const ScrollAnimateCard: React.FC<any> = ({
 const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
   block,
 }) => {
-  const { ref: richRef, isInView: richInView } = useInView();
+  const richRef = useRef<HTMLDivElement>(null);
 
   switch (block.type) {
     case "rich_text":
@@ -188,14 +136,7 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
 
           <div
             ref={richRef}
-            className={`
-              relative transition-all duration-700 ease-out
-              ${
-                richInView
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-8"
-              }
-              prose prose-lg md:prose-xl max-w-none 
+            className="relative prose prose-lg md:prose-xl max-w-none 
               px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-14 
               rounded-2xl md:rounded-3xl 
               bg-gradient-to-br from-white via-blue-50/80 to-purple-50/80 
@@ -519,18 +460,9 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
   }
 };
 
-// Separate component for dynamic_list items with intersection observer
 const DynamicListItem: React.FC<{ item: any }> = ({ item }) => {
-  const { ref, isInView } = useInView();
-
   return (
-    <div
-      ref={ref}
-      className={`
-        group transition-all duration-700 ease-out
-        ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
-      `}
-    >
+    <div className="group">
       <div className="bg-white rounded-xl md:rounded-2xl p-5 md:p-8 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 border-2 border-slate-200 hover:border-blue-300 h-full">
         <div className="flex flex-col items-center text-center space-y-3 md:space-y-4">
           {item.image && item.image.url && (
@@ -554,19 +486,9 @@ const DynamicListItem: React.FC<{ item: any }> = ({ item }) => {
   );
 };
 
-// Separate component for dynamic_list_old items with intersection observer
 const DynamicListOldItem: React.FC<{ item: any }> = ({ item }) => {
-  const { ref, isInView } = useInView();
-
   return (
-    <div
-      ref={ref}
-      className={`
-        relative h-60 md:h-80 rounded-xl md:rounded-2xl overflow-hidden group cursor-pointer 
-        shadow-lg hover:shadow-2xl transition-all duration-700 ease-out
-        ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
-      `}
-    >
+    <div className="relative h-60 md:h-80 rounded-xl md:rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-500">
       <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500 ease-out origin-bottom-right" />
       {item.image && item.image.url && (
         <div className="absolute inset-0">
@@ -591,22 +513,12 @@ const DynamicListOldItem: React.FC<{ item: any }> = ({ item }) => {
   );
 };
 
-// Separate component for old_dynamic_list items with intersection observer
 const OldDynamicListItem: React.FC<{ item: any }> = ({ item }) => {
-  const { ref, isInView } = useInView();
   const itemType = item.type || "";
   const itemValue = item.value || {};
 
   return (
-    <div
-      ref={ref}
-      className={`
-        bg-white rounded-xl md:rounded-2xl p-6 md:p-10 hover:shadow-2xl 
-        transition-all duration-700 ease-out 
-        border-2 border-slate-200 hover:border-blue-300
-        ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}
-      `}
-    >
+    <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-10 hover:shadow-2xl transition-all duration-500 border-2 border-slate-200 hover:border-blue-300">
       {itemType === "custom_item" && (
         <>
           {itemValue.icon && (
