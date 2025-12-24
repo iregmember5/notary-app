@@ -222,77 +222,115 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
             </motion.div>
           </div>
 
-          {/* Image Section - Right Side - TV Frame */}
+          {/* Image Section - Right Side - Multi-Device Mockup */}
           <motion.div variants={imageVariants} className="relative">
             <div className="relative z-10">
               {rightImageUrl ? (
                 <div className="relative">
-                  {/* TV Frame */}
+                  {/* Desktop/Laptop Frame */}
                   <motion.div
-                    className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-6 shadow-2xl"
+                    className="relative"
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: 'spring', stiffness: 300 }}
                   >
-                    {/* Screen */}
-                    <div className="relative bg-black rounded-2xl overflow-hidden shadow-inner">
-                      <img
-                        src={rightImageUrl}
-                        alt="Notary Platform Dashboard"
-                        className="w-full h-auto"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none" />
+                    {/* Laptop Body */}
+                    <div className="relative bg-gradient-to-b from-slate-700 to-slate-800 rounded-t-2xl p-3 shadow-2xl">
+                      {/* Screen Bezel */}
+                      <div className="bg-slate-900 rounded-lg p-2">
+                        {/* Webcam */}
+                        <div className="flex justify-center mb-1">
+                          <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+                        </div>
+                        {/* Screen */}
+                        <div className="relative bg-black rounded overflow-hidden">
+                          <img
+                            src={rightImageUrl}
+                            alt="Notary Platform Dashboard"
+                            className="w-full h-auto"
+                          />
+                        </div>
+                      </div>
                     </div>
-                    {/* TV Stand */}
-                    <div className="flex justify-center mt-4">
-                      <div className="w-32 h-3 bg-gradient-to-b from-slate-700 to-slate-800 rounded-full" />
+                    {/* Laptop Base */}
+                    <div className="relative h-3 bg-gradient-to-b from-slate-800 to-slate-900 rounded-b-2xl shadow-xl">
+                      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-slate-600 to-transparent" />
                     </div>
+                    {/* Laptop Bottom */}
                     <div className="flex justify-center">
-                      <div className="w-48 h-2 bg-gradient-to-b from-slate-800 to-slate-900 rounded-t-lg" />
+                      <div className="w-3/4 h-1.5 bg-gradient-to-b from-slate-900 to-slate-950 rounded-b-lg shadow-lg" />
+                    </div>
+                  </motion.div>
+
+                  {/* Mobile Frame - Positioned at bottom right */}
+                  <motion.div
+                    className="absolute -bottom-8 -right-8 w-32 sm:w-40"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    {/* Phone Body */}
+                    <div className="relative bg-slate-900 rounded-[2rem] p-2 shadow-2xl border-4 border-slate-800">
+                      {/* Notch */}
+                      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-slate-900 rounded-b-2xl z-10" />
+                      {/* Screen */}
+                      <div className="relative bg-white rounded-[1.5rem] overflow-hidden aspect-[9/19]">
+                        <img
+                          src={rightImageUrl}
+                          alt="Mobile View"
+                          className="w-full h-full object-cover object-top"
+                        />
+                      </div>
+                      {/* Home Indicator */}
+                      <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-16 h-1 bg-slate-700 rounded-full" />
                     </div>
                   </motion.div>
                   
                   {/* Professional Stats Cards */}
                   <motion.div
-                    className="absolute -top-4 -left-4 bg-white/95 backdrop-blur-sm border border-slate-200 p-4 rounded-xl shadow-xl"
+                    className="absolute -top-4 -left-4 bg-white/95 backdrop-blur-sm border border-slate-200 p-3 sm:p-4 rounded-xl shadow-xl z-20"
                     animate={{ y: [0, -8, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                        <EasyIcon icon="FiCheckCircle" size={16} color="#10b981" />
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                        <EasyIcon icon="FiCheckCircle" size={14} color="#10b981" />
                       </div>
-                      <div className="text-2xl font-bold text-slate-900">98%</div>
+                      <div className="text-xl sm:text-2xl font-bold text-slate-900">98%</div>
                     </div>
                     <div className="text-xs font-medium text-slate-600">Success Rate</div>
                   </motion.div>
                   
                   <motion.div
-                    className="absolute -bottom-4 -right-4 bg-white/95 backdrop-blur-sm border border-slate-200 p-4 rounded-xl shadow-xl"
-                    animate={{ y: [0, 8, 0] }}
+                    className="absolute top-1/3 -left-6 bg-white/95 backdrop-blur-sm border border-slate-200 p-3 sm:p-4 rounded-xl shadow-xl z-20"
+                    animate={{ x: [-5, 5, -5] }}
                     transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                   >
                     <div className="flex items-center gap-2 mb-1">
-                      <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
-                        <EasyIcon icon="FiClock" size={16} color="#3b82f6" />
+                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                        <EasyIcon icon="FiClock" size={14} color="#3b82f6" />
                       </div>
-                      <div className="text-2xl font-bold text-slate-900">5min</div>
+                      <div className="text-xl sm:text-2xl font-bold text-slate-900">5min</div>
                     </div>
-                    <div className="text-xs font-medium text-slate-600">Average Time</div>
+                    <div className="text-xs font-medium text-slate-600">Avg Time</div>
                   </motion.div>
                 </div>
               ) : (
-                <div className="relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-6 shadow-2xl">
-                  <div className="w-full h-96 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
-                    <div className="text-center">
-                      <EasyIcon icon="FiImage" size={48} color="#94a3b8" className="mx-auto mb-2" />
-                      <span className="text-slate-400 font-medium">Platform Preview</span>
+                <div className="relative">
+                  <div className="relative bg-gradient-to-b from-slate-700 to-slate-800 rounded-t-2xl p-3 shadow-2xl">
+                    <div className="bg-slate-900 rounded-lg p-2">
+                      <div className="flex justify-center mb-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+                      </div>
+                      <div className="w-full h-80 rounded bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
+                        <div className="text-center">
+                          <EasyIcon icon="FiImage" size={48} color="#94a3b8" className="mx-auto mb-2" />
+                          <span className="text-slate-400 font-medium">Platform Preview</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex justify-center mt-4">
-                    <div className="w-32 h-3 bg-gradient-to-b from-slate-700 to-slate-800 rounded-full" />
-                  </div>
+                  <div className="relative h-3 bg-gradient-to-b from-slate-800 to-slate-900 rounded-b-2xl shadow-xl" />
                   <div className="flex justify-center">
-                    <div className="w-48 h-2 bg-gradient-to-b from-slate-800 to-slate-900 rounded-t-lg" />
+                    <div className="w-3/4 h-1.5 bg-gradient-to-b from-slate-900 to-slate-950 rounded-b-lg shadow-lg" />
                   </div>
                 </div>
               )}
