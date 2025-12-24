@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import type { Theme } from "../../../../types/features-page";
 
 interface PricingWidgetBlockProps {
@@ -12,23 +12,37 @@ export const PricingWidgetBlock: React.FC<PricingWidgetBlockProps> = ({
 }) => {
   if (!value || !value.widget_code) return null;
 
+  const containerRef = useRef<HTMLDivElement>(null);
+  const slug = "untitled-pricing-table-79";
+  const containerId = `widget-${slug}`;
+
   useEffect(() => {
-    // Execute any script tags in the widget code
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = value.widget_code;
-    const scripts = tempDiv.querySelectorAll('script');
-    
-    scripts.forEach((script) => {
-      const newScript = document.createElement('script');
-      if (script.src) {
-        newScript.src = script.src;
-        newScript.async = script.async;
-      } else {
-        newScript.textContent = script.textContent;
+    if (containerRef.current) {
+      containerRef.current.id = containerId;
+      containerRef.current.innerHTML = `
+        <div style="
+          padding: 60px 20px;
+          text-align: center;
+          color: #666;
+          font-family: system-ui, -apple-system, sans-serif;
+          font-size: 18px;
+        ">
+          Loading pricing widget...
+        </div>
+      `;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://pricing-bundler-green.vercel.app/widget-loader.js?slug=${slug}`;
+    script.async = true;
+    containerRef.current?.appendChild(script);
+
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
       }
-      document.head.appendChild(newScript);
-    });
-  }, [value.widget_code]);
+    };
+  }, [slug]);
 
   return (
     <section className="py-16" style={{ backgroundColor: theme.bgColor }}>
@@ -49,10 +63,9 @@ export const PricingWidgetBlock: React.FC<PricingWidgetBlockProps> = ({
             {value.description}
           </p>
         )}
-        <div 
-          className="pricing-widget-container"
-          dangerouslySetInnerHTML={{ __html: value.widget_code }} 
-        />
+        <div className="w-full mx-auto max-w-6xl">
+          <div ref={containerRef} />
+        </div>
         {value.show_cta && value.cta && (
           <div className="text-center mt-8">
             <a
