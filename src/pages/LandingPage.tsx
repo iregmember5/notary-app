@@ -199,7 +199,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         data?.dynamic_content && data.dynamic_content.length > 0 ? (
           <section
             key={`dynamic-content-${index}`}
-            className="py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background"
+            className="w-full py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background"
           >
             <div className="w-full max-w-7xl mx-auto">
               <div className="space-y-8 sm:space-y-12">
@@ -663,7 +663,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
           {/* Dynamic Content Section */}
           {data.dynamic_content && data.dynamic_content.length > 0 && (
-            <section className="py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background">
+            <section className="w-full py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background">
               <div className="w-full max-w-7xl mx-auto">
                 <div className="space-y-8 sm:space-y-12">
                   {data.dynamic_content.map((block) => (

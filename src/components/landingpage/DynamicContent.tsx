@@ -125,20 +125,14 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
 }) => {
   const richRef = useRef<HTMLDivElement>(null);
 
-  // Debug: Log when component renders
-  console.log('DynamicContentRenderer rendering:', block.type, block);
-
   switch (block.type) {
     case "rich_text":
       return (
-        <div className="w-full px-4 sm:px-6 max-w-5xl mx-auto mb-8 md:mb-12" style={{ display: 'block', visibility: 'visible' }}>
-          <div style={{ background: 'yellow', padding: '20px', marginBottom: '10px' }}>
-            DEBUG: Rich Text Block Rendering - Screen width: {typeof window !== 'undefined' ? window.innerWidth : 'unknown'}px
-          </div>
+        <div className="w-full px-4 sm:px-6 max-w-5xl mx-auto mb-8 md:mb-12">
           <div
             ref={richRef}
-            className="w-full px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-14 rounded-xl md:rounded-2xl bg-white shadow-lg border-2 border-red-500 text-slate-900 text-base leading-relaxed"
-            style={{ minHeight: '100px', display: 'block', visibility: 'visible', backgroundColor: '#fff' }}
+            className="w-full px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-14 rounded-xl md:rounded-2xl bg-white shadow-lg border border-slate-200 text-slate-900 text-base leading-relaxed"
+            style={{ minHeight: '50px' }}
             dangerouslySetInnerHTML={{ __html: block.value }}
           />
         </div>
