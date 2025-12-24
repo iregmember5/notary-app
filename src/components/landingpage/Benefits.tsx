@@ -75,20 +75,20 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header - Professional */}
-        <div className="text-center mb-16 sm:mb-20 max-w-3xl mx-auto px-4">
+        <div className="text-center mb-12 md:mb-16 lg:mb-20 max-w-3xl mx-auto px-4">
           {benefits_head && (
             <div className="mb-6">
               <div className="inline-block px-4 py-2 rounded-full text-xs font-bold mb-5 bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-700 border border-emerald-200/50 shadow-sm">
                 BENEFITS
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-5 text-slate-900">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight mb-5 text-slate-900">
                 {benefits_head}
               </h2>
             </div>
           )}
 
           {benefits_introduction && (
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-slate-600 font-medium">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed text-slate-600 font-medium">
               {benefits_introduction}
             </p>
           )}

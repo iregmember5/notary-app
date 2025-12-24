@@ -32,12 +32,6 @@ const styles = `
 `;
 
 export default function TaxAdvisorLandingPage() {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 18,
-    hours: 2,
-    minutes: 36,
-    seconds: 44,
-  });
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [pageData, setPageData] = useState<SalesPages | null>(null);
 
@@ -59,31 +53,6 @@ export default function TaxAdvisorLandingPage() {
       .catch(console.error);
   }, []);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        } else if (prev.days > 0) {
-          return {
-            ...prev,
-            days: prev.days - 1,
-            hours: 23,
-            minutes: 59,
-            seconds: 59,
-          };
-        }
-        return prev;
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-
   if (loading) {
     return (
       <div className="geometric-bg text-white fixed inset-0 w-screen h-screen flex items-center justify-center">
@@ -96,48 +65,6 @@ export default function TaxAdvisorLandingPage() {
     <>
       <style>{styles}</style>
       <div className="geometric-bg text-white fixed inset-0 w-screen h-screen overflow-y-auto">
-        {/* Header/Navbar */}
-        {pageData?.header_section?.config && (
-          <nav className="bg-black/50 backdrop-blur-sm py-4 px-4 sticky top-0 z-40">
-            <div className="container mx-auto flex justify-between items-center">
-              <div className="flex items-center gap-4">
-                {pageData.header_section.config.logo && (
-                  <img
-                    src={prependImageUrl(
-                      pageData.header_section.config.logo.url
-                    )}
-                    alt={pageData.header_section.config.logo.title || "Logo"}
-                    className="h-10"
-                  />
-                )}
-                {pageData.header_section.config.site_name && (
-                  <span className="text-xl font-bold">
-                    {pageData.header_section.config.site_name}
-                  </span>
-                )}
-              </div>
-              <div className="flex items-center gap-6">
-                {pageData.header_section.config.navigation_items?.map(
-                  (item: any) => (
-                    <a
-                      key={item.id}
-                      href={item.url}
-                      className="text-white hover:text-yellow-500"
-                    >
-                      {item.title}
-                    </a>
-                  )
-                )}
-                {pageData.header_section.config.navbar_cta?.text && (
-                  <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-2 px-6 rounded-full hover:scale-105 transition-transform">
-                    {pageData.header_section.config.navbar_cta.text}
-                  </button>
-                )}
-              </div>
-            </div>
-          </nav>
-        )}
-
         {/* Top Banner */}
         {pageData?.header_section?.title && (
           <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-3 px-4 text-center font-bold">
@@ -183,34 +110,6 @@ export default function TaxAdvisorLandingPage() {
                     {pageData.main_hero_section.subheading}
                   </p>
                 )}
-
-                {/* Countdown Timer */}
-                <div className="flex justify-center gap-4 mb-8">
-                  <div className="text-center">
-                    <div className="bg-white text-black rounded-lg px-4 py-2 text-3xl font-bold">
-                      {timeLeft.days}
-                    </div>
-                    <div className="text-xs mt-1">DAYS</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="bg-white text-black rounded-lg px-4 py-2 text-3xl font-bold">
-                      {timeLeft.hours}
-                    </div>
-                    <div className="text-xs mt-1">HRS</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="bg-white text-black rounded-lg px-4 py-2 text-3xl font-bold">
-                      {timeLeft.minutes}
-                    </div>
-                    <div className="text-xs mt-1">MIN</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="bg-white text-black rounded-lg px-4 py-2 text-3xl font-bold">
-                      {timeLeft.seconds}
-                    </div>
-                    <div className="text-xs mt-1">SEC</div>
-                  </div>
-                </div>
 
                 <div className="text-yellow-500 font-bold mb-4 text-center">
                   {pageData?.secondary_cta_section?.announcement || ""}
@@ -372,28 +271,30 @@ export default function TaxAdvisorLandingPage() {
         )}
 
         {/* Meet Your Speakers */}
-        <div className="container mx-auto px-4 py-16">
-          <div className="border-2 border-dashed border-yellow-500 rounded-full py-3 px-8 text-center inline-block mx-auto mb-12 block w-fit">
-            <h2 className="text-2xl font-bold">
-              {pageData?.images_gallery_section?.heading ||
-                "MEET YOUR SPEAKERS"}
-            </h2>
+        {pageData?.images_gallery_section?.images && pageData.images_gallery_section.images.filter((img: any) => img.image).length > 0 && (
+          <div className="container mx-auto px-4 py-16">
+            {pageData.images_gallery_section.heading && (
+              <div className="border-2 border-dashed border-yellow-500 rounded-full py-3 px-8 text-center inline-block mx-auto mb-12 block w-fit">
+                <h2 className="text-2xl font-bold">
+                  {pageData.images_gallery_section.heading}
+                </h2>
+              </div>
+            )}
+            <div className="grid grid-cols-2 lg:grid-cols-2 gap-8 max-w-3xl mx-auto">
+              {pageData.images_gallery_section.images
+                .filter((img: any) => img.image)
+                .map((img: any, i: number) => (
+                  <div key={i} className="text-center">
+                    <img
+                      src={prependImageUrl(img.image?.url)}
+                      alt={img.caption || "Speaker"}
+                      className="w-64 h-64 rounded-full mx-auto object-cover"
+                    />
+                  </div>
+                ))}
+            </div>
           </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            {pageData?.images_gallery_section?.images
-              ?.filter((img: any) => img.image)
-              .map((img: any, i: number) => (
-                <div key={i} className="text-center">
-                  <img
-                    src={prependImageUrl(img.image?.url) || "/placeholder.webp"}
-                    alt={img.caption || "Speaker"}
-                    className="w-64 h-64 rounded-full mx-auto object-cover"
-                  />
-                </div>
-              ))}
-          </div>
-        </div>
+        )}
 
         {/* Pricing Section */}
         {pageData?.primary_cta_section?.heading && (
@@ -427,7 +328,7 @@ export default function TaxAdvisorLandingPage() {
         )}
 
         {/* Reusable Sections */}
-        {pageData?.reusable_sections?.map((section: any, idx: number) => (
+        {pageData?.reusable_sections?.filter((s: any) => s.heading || s.subheading || s.description || s.subdescription || s.button?.text || s.image || (s.cards?.length > 0)).map((section: any, idx: number) => (
           <div key={idx} className="container mx-auto px-4 py-16">
             {section.heading && (
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
@@ -467,7 +368,7 @@ export default function TaxAdvisorLandingPage() {
             )}
             {section.cards && section.cards.length > 0 && (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {section.cards.map((card: any, i: number) => (
+                {section.cards.filter((c: any) => c.name || c.description).map((card: any, i: number) => (
                   <div
                     key={i}
                     className="bg-gray-800 p-6 rounded-lg border border-gray-700"
@@ -493,7 +394,7 @@ export default function TaxAdvisorLandingPage() {
         ))}
 
         {/* Simple CTA Sections */}
-        {pageData?.simple_cta_sections?.map((cta: any, idx: number) => (
+        {pageData?.simple_cta_sections?.filter((c: any) => c.heading || c.subtitle || c.description || c.button?.text).map((cta: any, idx: number) => (
           <div key={idx} className="container mx-auto px-4 py-16 text-center">
             {cta.heading && (
               <h2 className="text-3xl font-bold mb-4">{cta.heading}</h2>
@@ -584,185 +485,6 @@ export default function TaxAdvisorLandingPage() {
             </div>
           )}
 
-        {/* Final CTA with Countdown */}
-        <div className="container mx-auto px-4 py-16 text-center">
-          <div className="flex justify-center gap-4 mb-8">
-            <div className="text-center">
-              <div className="bg-white text-black rounded-lg px-4 py-2 text-3xl font-bold">
-                {timeLeft.days}
-              </div>
-              <div className="text-xs mt-1">DAYS</div>
-            </div>
-            <div className="text-center">
-              <div className="bg-white text-black rounded-lg px-4 py-2 text-3xl font-bold">
-                {timeLeft.hours}
-              </div>
-              <div className="text-xs mt-1">HRS</div>
-            </div>
-            <div className="text-center">
-              <div className="bg-white text-black rounded-lg px-4 py-2 text-3xl font-bold">
-                {timeLeft.minutes}
-              </div>
-              <div className="text-xs mt-1">MIN</div>
-            </div>
-            <div className="text-center">
-              <div className="bg-white text-black rounded-lg px-4 py-2 text-3xl font-bold">
-                {timeLeft.seconds}
-              </div>
-              <div className="text-xs mt-1">SEC</div>
-            </div>
-          </div>
-
-          <p className="text-xl mb-8">DECEMBER 16-17, 2025 9AM-3PM CST</p>
-          <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
-            🎯 REGISTER FOR FREE WORKSHOP
-          </button>
-        </div>
-
-        {/* Footer */}
-        <div className="border-t border-gray-800 py-12 px-4">
-          <div className="container mx-auto">
-            <div className="grid md:grid-cols-4 gap-8 mb-8">
-              {/* Company Info */}
-              <div>
-                {pageData?.footer_section?.config?.company_info?.logo && (
-                  <img
-                    src={prependImageUrl(
-                      pageData.footer_section.config.company_info.logo.url
-                    )}
-                    alt={
-                      pageData.footer_section.config.company_info.logo.title ||
-                      "Logo"
-                    }
-                    className="h-12 mb-4"
-                  />
-                )}
-                {pageData?.footer_section?.config?.company_info
-                  ?.description && (
-                  <p className="text-gray-400">
-                    {pageData.footer_section.config.company_info.description}
-                  </p>
-                )}
-              </div>
-
-              {/* Quick Links */}
-              {pageData?.footer_section?.config?.sections?.quick_links
-                ?.show && (
-                <div>
-                  <h3 className="font-bold mb-4">
-                    {
-                      pageData.footer_section.config.sections.quick_links
-                        .heading
-                    }
-                  </h3>
-                  <ul className="space-y-2">
-                    {pageData.footer_section.config.sections.quick_links.links?.map(
-                      (link: any, i: number) => (
-                        <li key={i}>
-                          <a
-                            href={link.url}
-                            className="text-gray-400 hover:text-white"
-                          >
-                            {link.text}
-                          </a>
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
-              )}
-
-              {/* Services */}
-              {pageData?.footer_section?.config?.sections?.services?.show && (
-                <div>
-                  <h3 className="font-bold mb-4">
-                    {pageData.footer_section.config.sections.services.heading}
-                  </h3>
-                  <ul className="space-y-2">
-                    {pageData.footer_section.config.sections.services.links?.map(
-                      (link: any, i: number) => (
-                        <li key={i}>
-                          <a
-                            href={link.url}
-                            className="text-gray-400 hover:text-white"
-                          >
-                            {link.text}
-                          </a>
-                        </li>
-                      )
-                    )}
-                  </ul>
-                </div>
-              )}
-
-              {/* Contact */}
-              {pageData?.footer_section?.config?.sections?.contact?.show && (
-                <div>
-                  <h3 className="font-bold mb-4">
-                    {pageData.footer_section.config.sections.contact.heading}
-                  </h3>
-                  <div className="space-y-2 text-gray-400">
-                    {pageData.footer_section.config.contact_info?.email && (
-                      <p>{pageData.footer_section.config.contact_info.email}</p>
-                    )}
-                    {pageData.footer_section.config.contact_info?.phone && (
-                      <p>{pageData.footer_section.config.contact_info.phone}</p>
-                    )}
-                    {pageData.footer_section.config.contact_info?.address && (
-                      <p>
-                        {pageData.footer_section.config.contact_info.address}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Social Links */}
-            {pageData?.footer_section?.config?.social_links &&
-              pageData.footer_section.config.social_links.length > 0 && (
-                <div className="flex justify-center gap-4 mb-8">
-                  {pageData.footer_section.config.social_links.map(
-                    (social: any, i: number) => (
-                      <a
-                        key={i}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-white"
-                      >
-                        <i className={social.icon_class}></i> {social.platform}
-                      </a>
-                    )
-                  )}
-                </div>
-              )}
-
-            {/* Copyright */}
-            <div className="text-center text-gray-400 border-t border-gray-800 pt-8">
-              {pageData?.footer_section?.config?.copyright_text && (
-                <p className="mb-2">
-                  {pageData.footer_section.config.copyright_text}
-                </p>
-              )}
-              {pageData?.footer_section?.config?.additional_footer_text && (
-                <p>{pageData.footer_section.config.additional_footer_text}</p>
-              )}
-              {pageData?.footer_section?.title && (
-                <p className="mt-2">{pageData.footer_section.title}</p>
-              )}
-              {pageData?.footer_section?.subtitle && (
-                <p>{pageData.footer_section.subtitle}</p>
-              )}
-              {pageData?.footer_section?.description && (
-                <p>{pageData.footer_section.description}</p>
-              )}
-              {pageData?.footer_section?.subdescription && (
-                <p>{pageData.footer_section.subdescription}</p>
-              )}
-            </div>
-          </div>
-        </div>
       </div>
     </>
   );

@@ -78,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
   return (
     <header
       ref={ref}
-      className="relative top-7 flex items-center justify-center overflow-hidden min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30"
+      className="relative pt-24 md:pt-32 flex items-center justify-center overflow-hidden pb-12 md:pb-20 min-h-[80vh] md:min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30"
     >
       {/* Professional Background Pattern */}
       <div className="absolute inset-0 overflow-hidden">
@@ -98,7 +98,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -106,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           className="grid lg:grid-cols-2 gap-16 items-center"
         >
           {/* Text Content - Left Side */}
-          <div className="space-y-8 text-center md:text-left">
+          <div className="space-y-6 md:space-y-8 text-center md:text-left">
             <motion.div variants={itemVariants} className="space-y-6">
               {/* Top Badge - Notary Professional */}
               {header_subtitle && (
@@ -125,7 +125,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                 {/* Main Title - Professional & Bold */}
                 {header_title && (
                   <motion.h1
-                    className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tight"
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tight"
                     variants={itemVariants}
                   >
                     {header_title}
@@ -135,7 +135,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                 {/* Description - Clear & Professional */}
                 {header_description && (
                   <motion.p
-                    className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto md:mx-0 font-medium"
+                    className="text-base sm:text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto md:mx-0 font-medium"
                     variants={itemVariants}
                   >
                     {header_description}

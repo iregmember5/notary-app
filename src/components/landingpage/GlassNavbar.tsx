@@ -183,27 +183,23 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
           }`}
         >
           {/* Logo Section */}
-          <div className="flex items-center gap-2 flex-shrink-0 group cursor-pointer -my-2">
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 group cursor-pointer -my-2">
             {logo ? (
-              <div className="flex items-center gap-2">
-                <img
-                  src={getFullImageUrl(logo.url)}
-                  alt={logo.title || siteName}
-                  className="h-12 sm:h-14 md:h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
+              <img
+                src={getFullImageUrl(logo.url)}
+                alt={logo.title || siteName}
+                className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain transition-transform duration-300 group-hover:scale-105 rounded-lg"
+              />
             ) : (
-              <div className="flex items-center gap-2 sm:gap-3">
-                <div className="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-xl text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 gradient-theme-primary shadow-lg border border-theme-primary/30">
-                  <span className="font-bold text-base sm:text-lg">
-                    {siteName.charAt(0)}
-                  </span>
-                </div>
-                <div className="font-bold text-lg sm:text-xl md:text-2xl transition-all duration-300 group-hover:scale-105 text-theme-text">
-                  {siteName}
-                </div>
+              <div className="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-xl text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 gradient-theme-primary shadow-lg border border-theme-primary/30">
+                <span className="font-bold text-base sm:text-lg">
+                  {siteName.charAt(0)}
+                </span>
               </div>
             )}
+            <div className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl transition-all duration-300 group-hover:scale-105 text-theme-text">
+              {siteName}
+            </div>
           </div>
           {/* Desktop Navigation */}
           {navbarStyle !== "centered" && (

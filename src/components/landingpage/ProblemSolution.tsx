@@ -89,7 +89,7 @@ const MarketingProblemSolution = ({ data }: ProblemSolutionProps) => {
   const canGoNext = currentIndex < personas.length - 1;
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: data?.color_theme?.background_color || "#F9FAFB" }}>
+    <div className="py-8 md:py-12" style={{ backgroundColor: data?.color_theme?.background_color || "#F9FAFB" }}>
       {/* Header Section */}
       <div
         className="py-12 sm:py-14 md:py-16 px-4"
