@@ -20,7 +20,6 @@ const getFullImageUrl = (url: string): string => {
 
 const ScrollAnimateCard: React.FC<any> = ({
   bgClass,
-  idx,
   cardData,
   title,
   description,
@@ -98,7 +97,9 @@ const ScrollAnimateCard: React.FC<any> = ({
             {cardData.price}
           </span>
           {cardData.price_period && (
-            <span className="text-slate-600 ml-2 font-medium">{cardData.price_period}</span>
+            <span className="text-slate-600 ml-2 font-medium">
+              {cardData.price_period}
+            </span>
           )}
         </div>
       )}
