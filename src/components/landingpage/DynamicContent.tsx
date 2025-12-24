@@ -430,6 +430,13 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
                     <div key={idx} className="group">
                       <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-theme-primary">
                         <div className="flex flex-col items-center text-center space-y-4">
+                          {item.image && item.image.url && (
+                            <img
+                              src={getFullImageUrl(item.image.url)}
+                              alt={item.image.title || item.title}
+                              className="w-full h-48 object-cover rounded-xl"
+                            />
+                          )}
                           <h3 className="text-xl font-semibold text-theme-text group-hover:text-theme-primary transition-colors">
                             {item.title}
                           </h3>
@@ -441,7 +448,7 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
                       </div>
                     </div>
                   );
-                })}
+                })}}
             </div>
           </div>
         </section>
