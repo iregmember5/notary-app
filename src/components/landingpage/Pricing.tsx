@@ -11,6 +11,18 @@ const Pricing: React.FC<PricingProps> = ({ data }) => {
 
   useEffect(() => {
     if (section?.widget_code && widgetRef.current) {
+      widgetRef.current.innerHTML = '';
+      
+      const widgetIdMatch = section.widget_code.match(/id="([^"]+)"/);
+      if (widgetIdMatch) {
+        const existingWidgets = document.querySelectorAll(`#${CSS.escape(widgetIdMatch[1])}`);
+        existingWidgets.forEach(widget => {
+          if (widget !== widgetRef.current) {
+            widget.remove();
+          }
+        });
+      }
+      
       const tempDiv = document.createElement("div");
       tempDiv.innerHTML = section.widget_code;
 
