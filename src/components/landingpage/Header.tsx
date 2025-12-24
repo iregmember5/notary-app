@@ -229,8 +229,8 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           </div>
 
           {/* Image Section - Right Side - Multi-Device Mockup */}
-          <motion.div variants={imageVariants} className="relative">
-            <div className="relative z-10">
+          <motion.div variants={imageVariants} className="relative px-4 sm:px-0">
+            <div className="relative z-10 max-w-lg mx-auto lg:max-w-none">
               {rightImageUrl ? (
                 <div className="relative">
                   {/* Desktop/Laptop Frame */}
@@ -240,12 +240,12 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     transition={{ type: 'spring', stiffness: 300 }}
                   >
                     {/* Laptop Body */}
-                    <div className="relative bg-gradient-to-b from-slate-700 to-slate-800 rounded-t-2xl p-3 shadow-2xl">
+                    <div className="relative bg-gradient-to-b from-slate-700 to-slate-800 rounded-t-xl sm:rounded-t-2xl p-2 sm:p-3 shadow-2xl">
                       {/* Screen Bezel */}
-                      <div className="bg-slate-900 rounded-lg p-2">
+                      <div className="bg-slate-900 rounded-md sm:rounded-lg p-1 sm:p-2">
                         {/* Webcam */}
-                        <div className="flex justify-center mb-1">
-                          <div className="w-1.5 h-1.5 rounded-full bg-slate-700" />
+                        <div className="flex justify-center mb-0.5 sm:mb-1">
+                          <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-slate-700" />
                         </div>
                         {/* Screen */}
                         <div className="relative bg-black rounded overflow-hidden">
@@ -258,44 +258,44 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                       </div>
                     </div>
                     {/* Laptop Base */}
-                    <div className="relative h-3 bg-gradient-to-b from-slate-800 to-slate-900 rounded-b-2xl shadow-xl">
-                      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-slate-600 to-transparent" />
+                    <div className="relative h-2 sm:h-3 bg-gradient-to-b from-slate-800 to-slate-900 rounded-b-xl sm:rounded-b-2xl shadow-xl">
+                      <div className="absolute inset-x-0 top-0 h-0.5 sm:h-1 bg-gradient-to-r from-transparent via-slate-600 to-transparent" />
                     </div>
                     {/* Laptop Bottom */}
                     <div className="flex justify-center">
-                      <div className="w-3/4 h-1.5 bg-gradient-to-b from-slate-900 to-slate-950 rounded-b-lg shadow-lg" />
+                      <div className="w-3/4 h-1 sm:h-1.5 bg-gradient-to-b from-slate-900 to-slate-950 rounded-b-md sm:rounded-b-lg shadow-lg" />
                     </div>
                   </motion.div>
 
                   {/* Universal TV Stand Base */}
-                  <div className="flex justify-center mt-6">
-                    <div className="relative w-64">
+                  <div className="flex justify-center mt-3 sm:mt-6">
+                    <div className="relative w-40 sm:w-64">
                       {/* Stand Legs (V-shape) */}
-                      <div className="flex justify-center items-end gap-20">
+                      <div className="flex justify-center items-end gap-12 sm:gap-20">
                         {/* Left Leg */}
-                        <div className="w-20 h-2 bg-gradient-to-r from-slate-900 to-slate-800 rounded-full shadow-lg transform -rotate-12 origin-right" />
+                        <div className="w-12 sm:w-20 h-1.5 sm:h-2 bg-gradient-to-r from-slate-900 to-slate-800 rounded-full shadow-lg transform -rotate-12 origin-right" />
                         {/* Right Leg */}
-                        <div className="w-20 h-2 bg-gradient-to-r from-slate-800 to-slate-900 rounded-full shadow-lg transform rotate-12 origin-left" />
+                        <div className="w-12 sm:w-20 h-1.5 sm:h-2 bg-gradient-to-r from-slate-800 to-slate-900 rounded-full shadow-lg transform rotate-12 origin-left" />
                       </div>
                       {/* Center Support */}
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-3 bg-gradient-to-b from-slate-700 to-slate-800 rounded-lg shadow-xl">
-                        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-slate-500 to-transparent" />
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-10 sm:w-16 h-2 sm:h-3 bg-gradient-to-b from-slate-700 to-slate-800 rounded-md sm:rounded-lg shadow-xl">
+                        <div className="absolute inset-x-0 top-0 h-0.5 sm:h-1 bg-gradient-to-r from-transparent via-slate-500 to-transparent" />
                       </div>
                     </div>
                   </div>
 
                   {/* Mobile Frame - Positioned at bottom right */}
                   <motion.div
-                    className="absolute -bottom-20 -right-8 w-32 sm:w-40"
+                    className="absolute -bottom-12 sm:-bottom-20 -right-4 sm:-right-8 w-24 sm:w-32 md:w-40"
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                   >
                     {/* Phone Body */}
-                    <div className="relative bg-slate-900 rounded-[2rem] p-2 shadow-2xl border-4 border-slate-800">
+                    <div className="relative bg-slate-900 rounded-[1.5rem] sm:rounded-[2rem] p-1.5 sm:p-2 shadow-2xl border-2 sm:border-4 border-slate-800">
                       {/* Notch */}
-                      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-slate-900 rounded-b-2xl z-10" />
+                      <div className="absolute top-1.5 sm:top-2 left-1/2 -translate-x-1/2 w-12 sm:w-16 h-3 sm:h-4 bg-slate-900 rounded-b-xl sm:rounded-b-2xl z-10" />
                       {/* Screen */}
-                      <div className="relative bg-white rounded-[1.5rem] overflow-hidden aspect-[9/19]">
+                      <div className="relative bg-white rounded-[1.2rem] sm:rounded-[1.5rem] overflow-hidden aspect-[9/19]">
                         <img
                           src={rightImageUrl}
                           alt="Mobile View"
@@ -303,37 +303,37 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                         />
                       </div>
                       {/* Home Indicator */}
-                      <div className="absolute bottom-1 left-1/2 -translate-x-1/2 w-16 h-1 bg-slate-700 rounded-full" />
+                      <div className="absolute bottom-0.5 sm:bottom-1 left-1/2 -translate-x-1/2 w-12 sm:w-16 h-0.5 sm:h-1 bg-slate-700 rounded-full" />
                     </div>
                   </motion.div>
                   
                   {/* Professional Stats Cards */}
                   <motion.div
-                    className="absolute -top-4 -left-4 bg-white/95 backdrop-blur-sm border border-slate-200 p-3 sm:p-4 rounded-xl shadow-xl z-20"
+                    className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 bg-white/95 backdrop-blur-sm border border-slate-200 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl shadow-xl z-20"
                     animate={{ y: [0, -8, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                   >
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
-                        <EasyIcon icon="FiCheckCircle" size={14} color="#10b981" />
+                    <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                      <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-emerald-100 flex items-center justify-center">
+                        <EasyIcon icon="FiCheckCircle" size={12} color="#10b981" />
                       </div>
-                      <div className="text-xl sm:text-2xl font-bold text-slate-900">98%</div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">98%</div>
                     </div>
-                    <div className="text-xs font-medium text-slate-600">Success Rate</div>
+                    <div className="text-[10px] sm:text-xs font-medium text-slate-600">Success Rate</div>
                   </motion.div>
                   
                   <motion.div
-                    className="absolute top-1/3 -left-6 bg-white/95 backdrop-blur-sm border border-slate-200 p-3 sm:p-4 rounded-xl shadow-xl z-20"
+                    className="absolute top-1/3 -left-3 sm:-left-6 bg-white/95 backdrop-blur-sm border border-slate-200 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl shadow-xl z-20"
                     animate={{ x: [-5, 5, -5] }}
                     transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                   >
-                    <div className="flex items-center gap-2 mb-1">
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-blue-100 flex items-center justify-center">
-                        <EasyIcon icon="FiClock" size={14} color="#3b82f6" />
+                    <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                      <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-blue-100 flex items-center justify-center">
+                        <EasyIcon icon="FiClock" size={12} color="#3b82f6" />
                       </div>
-                      <div className="text-xl sm:text-2xl font-bold text-slate-900">5min</div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">5min</div>
                     </div>
-                    <div className="text-xs font-medium text-slate-600">Avg Time</div>
+                    <div className="text-[10px] sm:text-xs font-medium text-slate-600">Avg Time</div>
                   </motion.div>
                 </div>
               ) : (

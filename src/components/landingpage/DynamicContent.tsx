@@ -158,14 +158,14 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
         return () => observer.disconnect();
       }, []);
       return (
-        <div className="relative px-4 max-w-5xl mx-auto mb-20">
-          <div className="absolute -inset-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl opacity-20 blur-2xl animate-pulse" />
-          <div className="absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full blur-3xl opacity-30 animate-pulse" />
-          <div className="absolute -bottom-8 -right-8 w-40 h-40 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="relative px-2 sm:px-4 max-w-5xl mx-auto mb-20">
+          <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl opacity-20 blur-2xl animate-pulse" />
+          <div className="hidden sm:block absolute -top-8 -left-8 w-32 h-32 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full blur-3xl opacity-30 animate-pulse" />
+          <div className="hidden sm:block absolute -bottom-8 -right-8 w-40 h-40 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full blur-3xl opacity-30 animate-pulse" style={{ animationDelay: '1s' }} />
           
           <div
             ref={richRef}
-            className="opacity-0 relative prose prose-xl max-w-none px-10 py-14 rounded-3xl bg-gradient-to-br from-white via-blue-50/80 to-purple-50/80 shadow-[0_20px_70px_rgba(59,130,246,0.25)] hover:shadow-[0_25px_80px_rgba(139,92,246,0.35)] transition-all duration-500 backdrop-blur-sm border-2 border-transparent hover:border-blue-200 [&>h1]:text-5xl [&>h1]:font-black [&>h1]:mb-10 [&>h1]:bg-gradient-to-r [&>h1]:from-blue-600 [&>h1]:via-purple-600 [&>h1]:to-pink-600 [&>h1]:bg-clip-text [&>h1]:text-transparent [&>h1]:leading-tight [&>h2]:text-4xl [&>h2]:font-extrabold [&>h2]:mb-8 [&>h2]:text-slate-900 [&>h2]:relative [&>h2]:pl-8 [&>h2]:before:absolute [&>h2]:before:left-0 [&>h2]:before:top-0 [&>h2]:before:bottom-0 [&>h2]:before:w-2 [&>h2]:before:bg-gradient-to-b [&>h2]:before:from-blue-500 [&>h2]:before:to-purple-500 [&>h2]:before:rounded-full [&>h3]:text-3xl [&>h3]:font-bold [&>h3]:mb-6 [&>h3]:text-slate-800 [&>p]:text-xl [&>p]:leading-relaxed [&>p]:mb-6 [&>p]:text-slate-700 [&>ul]:space-y-4 [&>ul]:mb-8 [&>ul>li]:text-slate-700 [&>ul>li]:text-lg [&>ul>li]:relative [&>ul>li]:pl-8 [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-2 [&>ul>li]:before:w-3 [&>ul>li]:before:h-3 [&>ul>li]:before:bg-gradient-to-r [&>ul>li]:before:from-blue-500 [&>ul>li]:before:to-purple-500 [&>ul>li]:before:rounded-full [&>ul>li]:before:shadow-lg [&>ol]:space-y-4 [&>ol]:mb-8 [&>ol>li]:text-slate-700 [&>ol>li]:text-lg [&>ol>li]:font-medium [&>a]:text-blue-600 [&>a]:font-bold [&>a]:underline [&>a]:decoration-2 [&>a]:underline-offset-4 [&>a:hover]:text-purple-600 [&>a:hover]:decoration-purple-600 [&>a]:transition-all [&>strong]:font-extrabold [&>strong]:text-transparent [&>strong]:bg-gradient-to-r [&>strong]:from-blue-600 [&>strong]:to-purple-600 [&>strong]:bg-clip-text [&>blockquote]:border-l-[6px] [&>blockquote]:border-gradient-to-b [&>blockquote]:from-blue-500 [&>blockquote]:to-purple-500 [&>blockquote]:pl-10 [&>blockquote]:py-8 [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-blue-100/80 [&>blockquote]:to-purple-100/80 [&>blockquote]:rounded-r-2xl [&>blockquote]:my-10 [&>blockquote]:text-slate-800 [&>blockquote]:text-xl [&>blockquote]:font-semibold [&>blockquote]:italic [&>blockquote]:shadow-xl"
+            className="opacity-0 relative prose prose-xl max-w-none px-4 sm:px-6 md:px-10 py-6 sm:py-10 md:py-14 rounded-3xl bg-gradient-to-br from-white via-blue-50/80 to-purple-50/80 shadow-[0_20px_70px_rgba(59,130,246,0.25)] hover:shadow-[0_25px_80px_rgba(139,92,246,0.35)] transition-all duration-500 backdrop-blur-sm border-2 border-transparent hover:border-blue-200 [&>h1]:text-3xl sm:[&>h1]:text-4xl md:[&>h1]:text-5xl [&>h1]:font-black [&>h1]:mb-6 md:[&>h1]:mb-10 [&>h1]:bg-gradient-to-r [&>h1]:from-blue-600 [&>h1]:via-purple-600 [&>h1]:to-pink-600 [&>h1]:bg-clip-text [&>h1]:text-transparent [&>h1]:leading-tight [&>h2]:text-2xl sm:[&>h2]:text-3xl md:[&>h2]:text-4xl [&>h2]:font-extrabold [&>h2]:mb-6 md:[&>h2]:mb-8 [&>h2]:text-slate-900 [&>h2]:relative [&>h2]:pl-6 md:[&>h2]:pl-8 [&>h2]:before:absolute [&>h2]:before:left-0 [&>h2]:before:top-0 [&>h2]:before:bottom-0 [&>h2]:before:w-2 [&>h2]:before:bg-gradient-to-b [&>h2]:before:from-blue-500 [&>h2]:before:to-purple-500 [&>h2]:before:rounded-full [&>h3]:text-xl sm:[&>h3]:text-2xl md:[&>h3]:text-3xl [&>h3]:font-bold [&>h3]:mb-4 md:[&>h3]:mb-6 [&>h3]:text-slate-800 [&>p]:text-base sm:[&>p]:text-lg md:[&>p]:text-xl [&>p]:leading-relaxed [&>p]:mb-4 md:[&>p]:mb-6 [&>p]:text-slate-700 [&>ul]:space-y-3 md:[&>ul]:space-y-4 [&>ul]:mb-6 md:[&>ul]:mb-8 [&>ul>li]:text-slate-700 [&>ul>li]:text-base md:[&>ul>li]:text-lg [&>ul>li]:relative [&>ul>li]:pl-6 md:[&>ul>li]:pl-8 [&>ul>li]:before:absolute [&>ul>li]:before:left-0 [&>ul>li]:before:top-2 [&>ul>li]:before:w-3 [&>ul>li]:before:h-3 [&>ul>li]:before:bg-gradient-to-r [&>ul>li]:before:from-blue-500 [&>ul>li]:before:to-purple-500 [&>ul>li]:before:rounded-full [&>ul>li]:before:shadow-lg [&>ol]:space-y-3 md:[&>ol]:space-y-4 [&>ol]:mb-6 md:[&>ol]:mb-8 [&>ol>li]:text-slate-700 [&>ol>li]:text-base md:[&>ol>li]:text-lg [&>ol>li]:font-medium [&>a]:text-blue-600 [&>a]:font-bold [&>a]:underline [&>a]:decoration-2 [&>a]:underline-offset-4 [&>a:hover]:text-purple-600 [&>a:hover]:decoration-purple-600 [&>a]:transition-all [&>strong]:font-extrabold [&>strong]:text-transparent [&>strong]:bg-gradient-to-r [&>strong]:from-blue-600 [&>strong]:to-purple-600 [&>strong]:bg-clip-text [&>blockquote]:border-l-[6px] [&>blockquote]:border-gradient-to-b [&>blockquote]:from-blue-500 [&>blockquote]:to-purple-500 [&>blockquote]:pl-6 md:[&>blockquote]:pl-10 [&>blockquote]:py-6 md:[&>blockquote]:py-8 [&>blockquote]:bg-gradient-to-r [&>blockquote]:from-blue-100/80 [&>blockquote]:to-purple-100/80 [&>blockquote]:rounded-r-2xl [&>blockquote]:my-6 md:[&>blockquote]:my-10 [&>blockquote]:text-slate-800 [&>blockquote]:text-lg md:[&>blockquote]:text-xl [&>blockquote]:font-semibold [&>blockquote]:italic [&>blockquote]:shadow-xl"
             dangerouslySetInnerHTML={{ __html: block.value }}
           />
         </div>
@@ -194,7 +194,7 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
     case "cta":
       return (
         <div
-          className="relative p-16 rounded-2xl mb-16 text-white overflow-hidden shadow-2xl"
+          className="relative p-6 sm:p-10 md:p-16 rounded-2xl mb-16 text-white overflow-hidden shadow-2xl"
           style={{
             backgroundImage: block.value.background_image
               ? `url(${getFullImageUrl(block.value.background_image.url)})`
@@ -210,11 +210,11 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
           )}
           <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <h3 className="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 md:mb-6 drop-shadow-lg">
               {block.value.title}
             </h3>
             {block.value.description && (
-              <p className="text-xl mb-10 opacity-95 leading-relaxed font-medium">
+              <p className="text-base sm:text-lg md:text-xl mb-6 md:mb-10 opacity-95 leading-relaxed font-medium">
                 {block.value.description}
               </p>
             )}
