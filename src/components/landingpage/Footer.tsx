@@ -173,7 +173,7 @@ function Footer({ data }: FooterProps) {
           {/* Resources Section */}
           {footerConfig.sections?.resources?.show &&
             resourceLinks.length > 0 && (
-              <div className="text-center">
+              <div className="text-left">
                 <h3 className="text-theme-text font-bold text-base sm:text-lg mb-4 sm:mb-6 relative inline-block">
                   {footerConfig.sections.resources.heading || "Resources"}
                   <div className="absolute -bottom-2 left-0 w-12 h-1 rounded-full bg-theme-primary" />
