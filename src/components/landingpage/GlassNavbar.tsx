@@ -192,7 +192,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
               />
             ) : (
               <div className="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-xl text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 gradient-theme-primary shadow-lg border border-theme-primary/30">
-                <span className="font-bold text-base sm:text-lg">
+                <span className="font-bold text-base sm:text-bold">
                   {siteName.charAt(0)}
                 </span>
               </div>
@@ -263,26 +263,30 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                 {featuresPages.map((page) => {
                                   // Extract icon name from page_icon HTML tag if it exists, otherwise use layout-based mapping
                                   let icon = "FiGrid"; // default fallback icon
-                                  
+
                                   if ((page as any).page_icon) {
                                     // Extract icon name from HTML tag like "<FaFileSignature />"
-                                    const match = (page as any).page_icon.match(/<(\w+)/);
+                                    const match = (page as any).page_icon.match(
+                                      /<(\w+)/
+                                    );
                                     if (match && match[1]) {
                                       icon = match[1];
                                     }
                                   } else if (page.page_layout) {
                                     // Fallback to layout-based mapping if no page_icon
-                                    const layoutIcons: Record<string, string> = {
-                                      esignature: "FaFileSignature",
-                                      w9_chaser: "FiClipboard",
-                                      bulk_sms: "FiMessageSquare",
-                                      bulk_whatsapp: "FaWhatsapp",
-                                      bulk_email: "FiMail",
-                                      document_merge: "FiFilePlus",
-                                    };
-                                    icon = layoutIcons[page.page_layout] || "FiGrid";
+                                    const layoutIcons: Record<string, string> =
+                                      {
+                                        esignature: "FaFileSignature",
+                                        w9_chaser: "FiClipboard",
+                                        bulk_sms: "FiMessageSquare",
+                                        bulk_whatsapp: "FaWhatsapp",
+                                        bulk_email: "FiMail",
+                                        document_merge: "FiFilePlus",
+                                      };
+                                    icon =
+                                      layoutIcons[page.page_layout] || "FiGrid";
                                   }
-                                  
+
                                   return (
                                     <a
                                       key={page.id}
@@ -352,7 +356,11 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     ) : (
                       // Regular link
                       <a
-                        href={link.title.toLowerCase() === "powered by" ? "#salespage" : getNavigationItemUrl(link)}
+                        href={
+                          link.title.toLowerCase() === "powered by"
+                            ? "#salespage"
+                            : getNavigationItemUrl(link)
+                        }
                         className="text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2 inline-block text-theme-text"
                       >
                         {link.title}
@@ -492,7 +500,11 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     </div>
                   ) : (
                     <a
-                      href={link.title.toLowerCase() === "powered by" ? "#salespage" : getNavigationItemUrl(link)}
+                      href={
+                        link.title.toLowerCase() === "powered by"
+                          ? "#salespage"
+                          : getNavigationItemUrl(link)
+                      }
                       className="block text-base font-medium py-2 px-2 rounded transition hover:text-blue-600 text-theme-text"
                       onClick={() => setOpen(false)}
                     >
