@@ -60,17 +60,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY;
-      const parallaxElements = document.querySelectorAll('.parallax-slow, .parallax-fast');
-      
+      const parallaxElements = document.querySelectorAll(
+        ".parallax-slow, .parallax-fast"
+      );
+
       parallaxElements.forEach((el) => {
-        const speed = el.classList.contains('parallax-slow') ? 0.5 : 0.3;
+        const speed = el.classList.contains("parallax-slow") ? 0.5 : 0.3;
         const yPos = -(scrolled * speed);
         (el as HTMLElement).style.transform = `translateY(${yPos}px)`;
       });
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const { setTheme } = useTheme();
@@ -80,18 +82,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
       try {
         setLoading(true);
         const pageData = await fetchLandingPageData();
-        
+
         console.log("📦 LandingPage received data:", pageData);
         console.log("🎨 Features data:", pageData.features);
         console.log("🎯 Benefits data:", pageData.benefits);
         console.log("💬 Testimonials data:", pageData.testimonials);
-        
+
         // Set theme colors first for loading screen
         if (pageData.color_theme) {
           setThemeColors(pageData.color_theme);
           setTheme(pageData.color_theme);
         }
-        
+
         setData(pageData);
 
         // Set dynamic meta tags
@@ -156,7 +158,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
       ),
       problem_solution: (
         <div key={`problem-solution-${index}`} className="scroll-scale-up">
-          <ProblemSolution data={{ ...data?.problem_solution_section, color_theme: data?.color_theme } as any} />
+          <ProblemSolution
+            data={
+              {
+                ...data?.problem_solution_section,
+                color_theme: data?.color_theme,
+              } as any
+            }
+          />
         </div>
       ),
       how_it_works: (
@@ -241,19 +250,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
     const loadingPrimary = themeColors?.primary_color || "#3B82F6";
     const loadingBg = themeColors?.background_color || "#FFFFFF";
     const loadingText = themeColors?.text_color || "#1F2937";
-    
+
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: loadingBg }}>
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: loadingBg }}
+      >
         <div className="text-center">
           <div className="relative inline-block mb-6">
-            <div 
+            <div
               className="animate-spin rounded-full h-20 w-20 border-4 border-solid"
-              style={{ 
+              style={{
                 borderColor: `${loadingPrimary}30`,
-                borderTopColor: loadingPrimary 
+                borderTopColor: loadingPrimary,
               }}
             ></div>
-            <div 
+            <div
               className="absolute inset-0 animate-ping rounded-full opacity-20"
               style={{ backgroundColor: loadingPrimary }}
             ></div>
@@ -316,11 +328,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
       {showCurtain && (
         <div className="fixed inset-0 z-[9999] pointer-events-none">
           {/* Left Curtain */}
-          <div 
+          <div
             className="absolute top-0 left-0 bottom-0 w-1/2 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 shadow-2xl"
             style={{
-              animation: 'curtainLeft 2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-              animationDelay: '0.5s'
+              animation:
+                "curtainLeft 2s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+              animationDelay: "0.5s",
             }}
           >
             <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black/50 to-transparent" />
@@ -333,13 +346,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
               />
             ))}
           </div>
-          
+
           {/* Right Curtain */}
-          <div 
+          <div
             className="absolute top-0 right-0 bottom-0 w-1/2 bg-gradient-to-l from-slate-900 via-slate-800 to-slate-900 shadow-2xl"
             style={{
-              animation: 'curtainRight 2s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-              animationDelay: '0.5s'
+              animation:
+                "curtainRight 2s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+              animationDelay: "0.5s",
             }}
           >
             <div className="absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black/50 to-transparent" />
@@ -360,7 +374,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         </div>
       )}
 
-      {/* Animated Background Particles */}}
+      {/* Animated Background Particles */}
       <div className="fixed inset-0 pointer-events-none z-0">
         {Array.from({ length: 30 }).map((_, i) => (
           <div
@@ -369,7 +383,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animation: `float ${Math.random() * 10 + 15}s ease-in-out infinite`,
+              animation: `float ${
+                Math.random() * 10 + 15
+              }s ease-in-out infinite`,
               animationDelay: `${Math.random() * 5}s`,
             }}
           />
@@ -378,9 +394,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
       {/* Floating Gradient Orbs */}
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse parallax-slow" style={{ animationDuration: '8s' }} />
-        <div className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-orange-400/20 rounded-full blur-3xl animate-pulse parallax-slow" style={{ animationDuration: '10s', animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 w-72 h-72 bg-gradient-to-br from-indigo-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse parallax-fast" style={{ animationDuration: '12s', animationDelay: '4s' }} />
+        <div
+          className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-3xl animate-pulse parallax-slow"
+          style={{ animationDuration: "8s" }}
+        />
+        <div
+          className="absolute bottom-20 right-10 w-80 h-80 bg-gradient-to-br from-pink-400/20 to-orange-400/20 rounded-full blur-3xl animate-pulse parallax-slow"
+          style={{ animationDuration: "10s", animationDelay: "2s" }}
+        />
+        <div
+          className="absolute top-1/2 left-1/2 w-72 h-72 bg-gradient-to-br from-indigo-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse parallax-fast"
+          style={{ animationDuration: "12s", animationDelay: "4s" }}
+        />
       </div>
 
       {/* Global Animation Styles */}
@@ -603,7 +628,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
           {/* Problem Solution Section */}
           <div className="scroll-scale-up">
-            <ProblemSolution data={{ ...data?.problem_solution_section, color_theme: data?.color_theme } as any} />
+            <ProblemSolution
+              data={
+                {
+                  ...data?.problem_solution_section,
+                  color_theme: data?.color_theme,
+                } as any
+              }
+            />
           </div>
 
           {/* How It Works Section */}
