@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
 interface ScrollAnimationProps {
@@ -15,8 +15,15 @@ export const ScrollAnimation = ({
   className = ''
 }: ScrollAnimationProps) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
+  useEffect(() => {
+    if (isMobile) return;
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -39,7 +46,7 @@ export const ScrollAnimation = ({
         observer.unobserve(ref.current);
       }
     };
-  }, [delay]);
+  }, [delay, isMobile]);
 
   const animationClass = {
     fadeUp: 'scroll-fade-up',
@@ -51,7 +58,7 @@ export const ScrollAnimation = ({
   }[animation];
 
   return (
-    <div ref={ref} className={`${animationClass} ${className}`}>
+    <div ref={ref} className={`${isMobile ? 'animate-in' : animationClass} ${className}`}>
       {children}
     </div>
   );

@@ -57,6 +57,12 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
   } = data;
 
   const ref = useRef(null);
+  const [isMobile, setIsMobile] = React.useState(false);
+  
+  React.useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+  
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
 
@@ -101,8 +107,8 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20">
         <motion.div
           variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          initial={isMobile ? 'visible' : 'hidden'}
+          animate={isMobile ? 'visible' : (isInView ? 'visible' : 'hidden')}
           className="grid lg:grid-cols-2 gap-16 items-center"
         >
           {/* Text Content - Left Side */}

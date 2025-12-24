@@ -185,55 +185,38 @@ export default function TaxAdvisorLandingPage() {
         {pageData?.card_sections?.cards &&
           pageData.card_sections.cards.length > 0 && (
             <div className="container mx-auto px-4 py-16">
+              {pageData.card_sections.main_header && (
+                <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">
+                  {pageData.card_sections.main_header}
+                </h2>
+              )}
+              {pageData.card_sections.footer_title && (
+                <p className="text-xl mb-6 text-center text-gray-300">
+                  {pageData.card_sections.footer_title}
+                </p>
+              )}
               <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-black p-8 md:p-12 rounded-2xl max-w-4xl mx-auto border border-gray-700 shadow-2xl">
                 {(() => {
-                  const groupedCards: {
-                    [key: string]: { title: string; cards: any[] };
-                  } = {};
-                  pageData?.card_sections?.cards?.forEach((card: any) => {
-                    const dayKey = card.title.toUpperCase().trim();
-                    if (!groupedCards[dayKey]) {
-                      groupedCards[dayKey] = { title: card.title, cards: [] };
-                    }
-                  });
-                  return Object.values(groupedCards).map((group, idx) => (
+                  return pageData.card_sections.cards.map((card: any, idx: number) => (
                     <div
                       key={idx}
-                      className={`${
-                        idx < Object.values(groupedCards).length - 1
-                          ? "mb-8"
-                          : ""
-                      } bg-gradient-to-br from-gray-700 to-gray-800 p-6 md:p-8 rounded-xl shadow-lg border border-gray-600`}
+                      className="bg-gradient-to-br from-gray-700 to-gray-800 p-6 md:p-8 rounded-xl shadow-lg border border-gray-600 mb-6"
                     >
-                      <div className="flex items-center gap-4 mb-6">
-                        <div className="bg-gradient-to-br from-gray-600 to-gray-700 text-white font-bold px-6 py-3 rounded-lg text-xl border border-gray-500">
-                          {group.title}
-                        </div>
-                      </div>
-                      <div className="space-y-6">
-                        {group.cards.map((card: any, i: number) => (
-                          <div key={i}>
-                            <h3 className="text-yellow-500 font-bold text-lg mb-3">
-                              {card.subtitle}
-                            </h3>
-                            <ul className="space-y-2 text-sm text-gray-300">
-                              {card.description
-                                ?.split("\n")
-                                .map((line: string, j: number) => (
-                                  <li
-                                    key={j}
-                                    className="flex items-start gap-2"
-                                  >
-                                    <span className="text-yellow-500 mt-1">
-                                      •
-                                    </span>
-                                    <span>{line.replace(/^•\s*/, "")}</span>
-                                  </li>
-                                ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
+                      {card.title && (
+                        <h3 className="text-yellow-500 font-bold text-xl mb-3">
+                          {card.title}
+                        </h3>
+                      )}
+                      {card.subtitle && (
+                        <h4 className="text-white font-semibold text-lg mb-3">
+                          {card.subtitle}
+                        </h4>
+                      )}
+                      {card.description && (
+                        <p className="text-gray-300 text-sm">
+                          {card.description}
+                        </p>
+                      )}
                     </div>
                   ));
                 })()}
