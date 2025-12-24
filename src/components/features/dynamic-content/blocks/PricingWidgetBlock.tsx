@@ -17,28 +17,28 @@ export const PricingWidgetBlock: React.FC<PricingWidgetBlockProps> = ({
   useEffect(() => {
     if (!containerRef.current || !value.widget_code) return;
 
-    // Clear any existing content
-    containerRef.current.innerHTML = '';
+    // Extract widget ID from the HTML
+    const idMatch = value.widget_code.match(/id="([^"]+)"/); 
+    const widgetId = idMatch ? idMatch[1] : 'widget-default';
 
-    // Create the widget container div
+    // Extract script src from the HTML
+    const srcMatch = value.widget_code.match(/script\.src\s*=\s*['"]([^'"]+)['"]/); 
+    const scriptSrc = srcMatch ? srcMatch[1] : null;
+
+    if (!scriptSrc) return;
+
+    // Clear and create widget container
+    containerRef.current.innerHTML = '';
     const widgetDiv = document.createElement('div');
-    widgetDiv.id = 'widget-Untitled Pricing Table';
+    widgetDiv.id = widgetId;
     containerRef.current.appendChild(widgetDiv);
 
-    // Create and execute the script
+    // Load the script
     const script = document.createElement('script');
-    script.textContent = `
-      (function() {
-        var script = document.createElement('script');
-        script.src = 'https://pricing-bundler-green.vercel.app/widget-loader.js?slug=untitled-pricing-table-79';
-        script.async = true;
-        document.head.appendChild(script);
-      })();
-    `;
-    
-    containerRef.current.appendChild(script);
+    script.src = scriptSrc;
+    script.async = true;
+    document.head.appendChild(script);
 
-    // Cleanup function
     return () => {
       if (containerRef.current) {
         containerRef.current.innerHTML = '';
@@ -66,12 +66,7 @@ export const PricingWidgetBlock: React.FC<PricingWidgetBlockProps> = ({
           </p>
         )}
         <div className="w-full mx-auto max-w-6xl" ref={containerRef}>
-          <div style={{
-            padding: '40px 20px',
-            textAlign: 'center',
-            color: '#666',
-            fontSize: '16px'
-          }}>
+          <div style={{ padding: '40px 20px', textAlign: 'center', color: '#666' }}>
             Loading pricing widget...
           </div>
         </div>
