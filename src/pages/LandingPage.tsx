@@ -27,7 +27,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   const [error, setError] = useState<string | null>(null);
   const [themeColors, setThemeColors] = useState<any>(null);
 
-  // Scroll animation observer - triggers on both scroll down and up
+  // Scroll animation observer - DISABLED
+  /*
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
@@ -58,8 +59,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
       animatedElements.forEach((el) => observer.unobserve(el));
     };
   }, [data]);
+  */
 
-  // Parallax scroll effect
+  // Parallax scroll effect - DISABLED
+  /*
   useEffect(() => {
     const handleScroll = () => {
       const scrolled = window.scrollY;
@@ -77,6 +80,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  */
 
   const { setTheme } = useTheme();
 
@@ -148,17 +152,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
     // Map section keys to their components with appropriate animations
     const sectionComponents: Record<string, React.ReactElement | null> = {
       header: (
-        <div key={`header-${index}`} className="scroll-fade-up animate-in">
+        <div key={`header-${index}`}>
           <Header data={data!} onShowLogin={onShowLogin} />
         </div>
       ),
       features: (
-        <div key={`features-${index}`} className="scroll-fade-up">
+        <div key={`features-${index}`}>
           <Features data={data!} />
         </div>
       ),
       problem_solution: (
-        <div key={`problem-solution-${index}`} className="scroll-scale-up">
+        <div key={`problem-solution-${index}`}>
           <ProblemSolution
             data={
               {
@@ -170,28 +174,28 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         </div>
       ),
       how_it_works: (
-        <div key={`how-it-works-${index}`} className="scroll-slide-right">
+        <div key={`how-it-works-${index}`}>
           <HowItWorks data={data!} />
         </div>
       ),
       video: data?.video_section?.featured_video ? (
-        <div key={`video-${index}`} className="scroll-fade-in">
+        <div key={`video-${index}`}>
           <VideoSection data={data} />
         </div>
       ) : null,
       benefits: (
-        <div key={`benefits-${index}`} className="scroll-slide-left">
+        <div key={`benefits-${index}`}>
           <Benefits data={data!} />
         </div>
       ),
       pricing: (
-        <div key={`pricing-${index}`} className="scroll-fade-up">
+        <div key={`pricing-${index}`}>
           <Pricing data={data!} />
         </div>
       ),
       card_sections:
         data?.card_sections?.cards && data.card_sections.cards.length > 0 ? (
-          <div key={`card-sections-${index}`} className="scroll-scale-up">
+          <div key={`card-sections-${index}`}>
             <CardSections data={data} />
           </div>
         ) : null,
@@ -213,18 +217,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
           </section>
         ) : null,
       testimonials: (
-        <div key={`testimonials-${index}`} className="scroll-slide-right">
+        <div key={`testimonials-${index}`}>
           <Testimonials data={data!} />
         </div>
       ),
       faq: (
-        <div key={`faq-${index}`} className="scroll-fade-up">
+        <div key={`faq-${index}`}>
           <FAQ data={data!} />
         </div>
       ),
       cta:
         data?.cta_head || data?.cta_introduction || data?.cta_primary_text ? (
-          <div key={`cta-${index}`} className="scroll-scale-up">
+          <div key={`cta-${index}`}>
             <CTA data={data} />
           </div>
         ) : null,
@@ -233,12 +237,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         data?.secondary_cta_heading ||
         data?.secondary_cta_description ||
         data?.secondary_cta_button_text ? (
-          <div key={`secondary-cta-${index}`} className="scroll-scale-up">
+          <div key={`secondary-cta-${index}`}>
             <CTA data={data} />
           </div>
         ) : null,
       footer: (
-        <div key={`footer-${index}`} className="scroll-fade-in">
+        <div key={`footer-${index}`}>
           <Footer data={data!} />
         </div>
       ),
@@ -611,17 +615,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         // Fallback: If no section_order, render in default order
         <>
           {/* Header Section */}
-          <div className="scroll-fade-up animate-in">
+          <div>
             <Header data={data} onShowLogin={onShowLogin} />
           </div>
 
           {/* Features Section */}
-          <div className="scroll-fade-up">
+          <div>
             <Features data={data} />
           </div>
 
           {/* Problem Solution Section */}
-          <div className="scroll-scale-up">
+          <div>
             <ProblemSolution
               data={
                 {
@@ -633,30 +637,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
           </div>
 
           {/* How It Works Section */}
-          <div className="scroll-slide-right">
+          <div>
             <HowItWorks data={data} />
           </div>
 
           {/* Video Section */}
           {data.video_section?.featured_video && (
-            <div className="scroll-fade-in">
+            <div>
               <VideoSection data={data} />
             </div>
           )}
 
           {/* Benefits Section */}
-          <div className="scroll-slide-left">
+          <div>
             <Benefits data={data} />
           </div>
 
           {/* Pricing Section */}
-          <div className="scroll-fade-up">
+          <div>
             <Pricing data={data} />
           </div>
 
           {/* Card Sections */}
           {data.card_sections?.cards && data.card_sections.cards.length > 0 && (
-            <div className="scroll-scale-up">
+            <div>
               <CardSections data={data} />
             </div>
           )}
@@ -677,12 +681,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
           )}
 
           {/* Testimonials Section */}
-          <div className="scroll-slide-right">
+          <div>
             <Testimonials data={data} />
           </div>
 
           {/* FAQ Section */}
-          <div className="scroll-fade-up">
+          <div>
             <FAQ data={data} />
           </div>
 
@@ -690,13 +694,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
           {(data.cta_head ||
             data.cta_introduction ||
             data.cta_primary_text) && (
-            <div className="scroll-scale-up">
+            <div>
               <CTA data={data} />
             </div>
           )}
 
           {/* Footer */}
-          <div className="scroll-fade-in">
+          <div>
             <Footer data={data} />
           </div>
         </>
