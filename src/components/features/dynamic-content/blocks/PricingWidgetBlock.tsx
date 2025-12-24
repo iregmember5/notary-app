@@ -10,78 +10,66 @@ export const PricingWidgetBlock: React.FC<PricingWidgetBlockProps> = ({
   value,
   theme,
 }) => {
-  if (!value) return null;
-
-  const containerRef = useRef<HTMLDivElement>(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current || !value.widget_code) return;
+    if (value?.widget_code && widgetRef.current) {
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = value.widget_code;
+      
+      const scripts = tempDiv.querySelectorAll('script');
+      scripts.forEach((script) => {
+        const newScript = document.createElement('script');
+        if (script.src) {
+          newScript.src = script.src;
+          newScript.async = true;
+        } else {
+          newScript.textContent = script.textContent;
+        }
+        document.head.appendChild(newScript);
+      });
+      
+      const nonScriptContent = tempDiv.querySelectorAll(':not(script)');
+      nonScriptContent.forEach((el) => {
+        widgetRef.current?.appendChild(el.cloneNode(true));
+      });
+    }
+  }, [value?.widget_code]);
 
-    // Extract widget ID from the HTML
-    const idMatch = value.widget_code.match(/id="([^"]+)"/); 
-    const widgetId = idMatch ? idMatch[1] : 'widget-default';
-
-    // Extract script src from the HTML
-    const srcMatch = value.widget_code.match(/script\.src\s*=\s*['"]([^'"]+)['"]/); 
-    const scriptSrc = srcMatch ? srcMatch[1] : null;
-
-    if (!scriptSrc) return;
-
-    // Clear and create widget container
-    containerRef.current.innerHTML = '';
-    const widgetDiv = document.createElement('div');
-    widgetDiv.id = widgetId;
-    containerRef.current.appendChild(widgetDiv);
-
-    // Load the script
-    const script = document.createElement('script');
-    script.src = scriptSrc;
-    script.async = true;
-    document.head.appendChild(script);
-
-    return () => {
-      if (containerRef.current) {
-        containerRef.current.innerHTML = '';
-      }
-    };
-  }, [value.widget_code]);
+  if (!value) return null;
 
   return (
-    <section className="py-16" style={{ backgroundColor: theme.bgColor }}>
-      <div className="container mx-auto px-4">
-        {value.heading && (
-          <h2
-            className="text-4xl font-bold text-center mb-4"
-            style={{ color: theme.primaryColor }}
-          >
-            {value.heading}
-          </h2>
-        )}
-        {value.description && (
-          <p
-            className="text-xl text-center mb-8"
-            style={{ color: theme.neutralColor }}
-          >
-            {value.description}
-          </p>
-        )}
-        <div className="w-full mx-auto max-w-6xl" ref={containerRef}>
-          <div style={{ padding: '40px 20px', textAlign: 'center', color: '#666' }}>
-            Loading pricing widget...
-          </div>
+    <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8" style={{ backgroundColor: theme.bgColor }}>
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12 sm:mb-16">
+          {value.heading && (
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4" style={{ color: theme.primaryColor }}>
+              {value.heading}
+            </h2>
+          )}
+          {value.description && (
+            <p className="text-base sm:text-lg md:text-xl max-w-3xl mx-auto" style={{ color: theme.neutralColor }}>
+              {value.description}
+            </p>
+          )}
         </div>
-        {value.show_cta && value.cta && value.cta.text && (
-          <div className="text-center mt-8">
-            <a
-              href={value.cta.url || '#'}
-              className="inline-block px-8 py-3 rounded-lg font-semibold transition-colors"
-              style={{
-                backgroundColor: theme.primaryColor,
-                color: theme.bgColor,
-              }}
-            >
-              {value.cta.text}
-            </a>
+
+        {value.widget_code ? (
+          <div ref={widgetRef} className="max-w-6xl mx-auto" />
+        ) : (
+          <div className="text-center">
+            <p className="text-sm sm:text-base mb-6 sm:mb-8" style={{ color: theme.neutralColor }}>
+              Pricing information coming soon...
+            </p>
+            {value.show_cta && value.cta?.text && (
+              <a
+                href={value.cta.url || "#"}
+                className="inline-block px-6 sm:px-8 py-3 sm:py-4 rounded-lg transition-colors font-semibold text-sm sm:text-base"
+                style={{ backgroundColor: theme.primaryColor, color: theme.bgColor }}
+              >
+                {value.cta.text}
+              </a>
+            )}
           </div>
         )}
       </div>

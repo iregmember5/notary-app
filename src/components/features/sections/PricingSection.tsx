@@ -19,75 +19,67 @@ export const PricingSection: React.FC<PricingSectionProps> = ({
   ctaText,
   ctaUrl,
 }) => {
-  if (!heading && !widgetCode && !showCta) return null;
-
   const widgetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!widgetRef.current || !widgetCode) return;
-
-    // Extract widget ID from the HTML
-    const idMatch = widgetCode.match(/id="([^"]+)"/); 
-    const widgetId = idMatch ? idMatch[1] : 'widget-default';
-
-    // Extract script src from the HTML
-    const srcMatch = widgetCode.match(/script\.src\s*=\s*['"]([^'"]+)['"]/); 
-    const scriptSrc = srcMatch ? srcMatch[1] : null;
-
-    if (!scriptSrc) return;
-
-    // Clear and create widget container
-    widgetRef.current.innerHTML = '';
-    const widgetDiv = document.createElement('div');
-    widgetDiv.id = widgetId;
-    widgetRef.current.appendChild(widgetDiv);
-
-    // Load the script
-    const script = document.createElement('script');
-    script.src = scriptSrc;
-    script.async = true;
-    document.head.appendChild(script);
-
-    return () => {
-      if (widgetRef.current) {
-        widgetRef.current.innerHTML = '';
-      }
-    };
+    if (widgetCode && widgetRef.current) {
+      widgetRef.current.innerHTML = '';
+      
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = widgetCode;
+      
+      const scripts = tempDiv.querySelectorAll('script');
+      scripts.forEach((script) => {
+        const newScript = document.createElement('script');
+        if (script.src) {
+          newScript.src = script.src;
+          newScript.async = true;
+        } else {
+          newScript.textContent = script.textContent;
+        }
+        document.head.appendChild(newScript);
+      });
+      
+      const nonScriptContent = tempDiv.querySelectorAll(':not(script)');
+      nonScriptContent.forEach((el) => {
+        widgetRef.current?.appendChild(el.cloneNode(true));
+      });
+    }
   }, [widgetCode]);
 
+  if (!heading && !widgetCode && !showCta) return null;
+
   return (
-    <section className="py-16 sm:py-24 bg-theme-background">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+    <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-theme-neutral/5">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-12 sm:mb-16">
           {heading && (
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 text-theme-text">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-theme-text mb-3 sm:mb-4">
               {heading}
             </h2>
           )}
           {description && (
-            <p className="text-xl max-w-3xl mx-auto text-theme-neutral">
+            <p className="text-base sm:text-lg md:text-xl text-theme-neutral max-w-3xl mx-auto">
               {description}
             </p>
           )}
         </div>
 
-        {widgetCode && (
-          <div ref={widgetRef} className="mb-12 w-full mx-auto max-w-6xl">
-            <div style={{ padding: '40px 20px', textAlign: 'center', color: '#666' }}>
-              Loading pricing widget...
-            </div>
-          </div>
-        )}
-
-        {showCta && ctaText && (
+        {widgetCode ? (
+          <div ref={widgetRef} className="max-w-6xl mx-auto" />
+        ) : (
           <div className="text-center">
-            <a
-              href={ctaUrl || "#"}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold shadow-lg hover:shadow-xl transform transition-all duration-300 hover:scale-105"
-              style={{ background: 'linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%)' }}
-            >
-              {ctaText}
-            </a>
+            <p className="text-sm sm:text-base text-theme-neutral mb-6 sm:mb-8">
+              Pricing information coming soon...
+            </p>
+            {showCta && ctaText && (
+              <a
+                href={ctaUrl || "#"}
+                className="inline-block px-6 sm:px-8 py-3 sm:py-4 bg-theme-primary text-white rounded-lg hover:bg-theme-secondary transition-colors font-semibold text-sm sm:text-base"
+              >
+                {ctaText}
+              </a>
+            )}
           </div>
         )}
       </div>
