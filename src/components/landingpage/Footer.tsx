@@ -50,21 +50,10 @@ function Footer({ data }: FooterProps) {
   const resourceLinks = footerConfig.sections?.resources?.links || [];
   const legalLinks = footerConfig.sections?.legal?.links || [];
 
-  const companyInfo = {
-    description: footerConfig.company_info?.description || "",
-    logo: footerConfig.company_info?.logo,
-  };
-
   const contactInfo = {
     address: footerConfig.contact_info?.address || "",
     phone: footerConfig.contact_info?.phone || "",
     email: footerConfig.contact_info?.email || "",
-  };
-
-  const getFullImageUrl = (url: string) => {
-    if (!url) return "";
-    if (url.startsWith("http")) return url;
-    return `https://esign-admin.signmary.com${url}`;
   };
 
   return (
@@ -210,6 +199,20 @@ function Footer({ data }: FooterProps) {
                     </a>
                   );
                 })}
+              </div>
+            )}
+            {/* Legal Links */}
+            {legalLinks.length > 0 && (
+              <div className="flex gap-4 text-xs sm:text-sm">
+                {legalLinks.map((link: any, idx: number) => (
+                  <a
+                    key={idx}
+                    href={link.url}
+                    className="text-theme-neutral hover:text-theme-primary transition-colors"
+                  >
+                    {link.name}
+                  </a>
+                ))}
               </div>
             )}
             <p className="text-xs sm:text-sm text-theme-neutral text-center">
