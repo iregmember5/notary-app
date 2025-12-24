@@ -140,7 +140,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
       } finally {
         setLoading(false);
         // Open curtains after content loads with delay
-        setTimeout(() => setCurtainOpen(false), 1000);
+        setTimeout(() => setCurtainOpen(true), 1000);
       }
     };
 
