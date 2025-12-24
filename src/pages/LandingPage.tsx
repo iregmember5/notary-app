@@ -199,12 +199,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         data?.dynamic_content && data.dynamic_content.length > 0 ? (
           <section
             key={`dynamic-content-${index}`}
-            className="py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background scroll-fade-up"
+            className="py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background"
           >
             <div className="w-full max-w-7xl mx-auto">
               <div className="space-y-8 sm:space-y-12">
                 {data.dynamic_content.map((block) => (
-                  <div key={block.id} className="w-full scroll-scale-up">
+                  <div key={block.id} className="w-full">
                     <DynamicContentRenderer block={block} />
                   </div>
                 ))}
@@ -663,17 +663,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
           {/* Dynamic Content Section */}
           {data.dynamic_content && data.dynamic_content.length > 0 && (
-            <section className="py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background min-h-screen">
+            <section className="py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-theme-background">
               <div className="w-full max-w-7xl mx-auto">
                 <div className="space-y-8 sm:space-y-12">
                   {data.dynamic_content.map((block) => (
-                    <div
-                      key={block.id}
-                      className="w-full bg-red-500 p-4 border-2 border-blue-500"
-                    >
-                      <h3 className="text-2xl font-bold mb-4">
-                        Block Type: {block.type}
-                      </h3>
+                    <div key={block.id} className="w-full">
                       <DynamicContentRenderer block={block} />
                     </div>
                   ))}
