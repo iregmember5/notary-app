@@ -18,8 +18,6 @@ const getFullImageUrl = (url: string): string => {
   return `${API_BASE_URL}${url}`;
 };
 
-
-
 const ScrollAnimateCard: React.FC<any> = ({
   bgClass,
   cardData,
@@ -34,7 +32,9 @@ const ScrollAnimateCard: React.FC<any> = ({
   return (
     <div
       ref={cardRef}
-      className={`group ${cardData.card_background ? "" : `bg-gradient-to-br ${bgClass}`} 
+      className={`group ${
+        cardData.card_background ? "" : `bg-gradient-to-br ${bgClass}`
+      } 
         rounded-2xl p-6 md:p-8 hover:shadow-2xl hover:-translate-y-1 
         border-2 border-slate-200 hover:border-blue-300
       `}
@@ -128,11 +128,23 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
   switch (block.type) {
     case "rich_text":
       return (
-        <div style={{ width: '100%', padding: '20px', background: 'red', minHeight: '200px', display: 'block' }}>
-          <h1 style={{ color: 'white', fontSize: '24px' }}>RICH TEXT BLOCK</h1>
+        <div
+          style={{
+            width: "100%",
+            padding: "20px",
+            background: "red",
+            minHeight: "200px",
+            display: "block",
+          }}
+        >
           <div
             ref={richRef}
-            style={{ background: 'white', padding: '20px', minHeight: '100px', color: 'black' }}
+            style={{
+              background: "white",
+              padding: "20px",
+              minHeight: "100px",
+              color: "black",
+            }}
             dangerouslySetInnerHTML={{ __html: block.value }}
           />
         </div>
