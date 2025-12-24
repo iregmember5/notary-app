@@ -20,10 +20,8 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
     testimonials_head,
     testimonials_introduction,
     testimonials,
-    color_theme,
   } = data;
 
-  // Only hide if there's absolutely no content
   if (
     !testimonials_head &&
     !testimonials_introduction &&
@@ -32,30 +30,23 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
     return null;
   }
 
-  const primaryColor = color_theme?.primary_color || "#3B82F6";
-  const accentColor = color_theme?.accent_color || "#10B981";
-  const textColor = color_theme?.text_color || "#1F2937";
-  const neutralColor = color_theme?.neutral_color || "#6B7280";
-  const bgColor = color_theme?.background_color || "#FFFFFF";
-
-  // Sample testimonials for when the array is empty
   const sampleTestimonials: Testimonial[] = [
     {
       id: 1,
       quote:
-        "This platform has completely transformed how we handle tax forms. The efficiency and accuracy are unmatched!",
+        "This platform has completely transformed how we handle notary services. The efficiency and accuracy are unmatched!",
       name: "Sarah Johnson",
-      title: "Tax Manager",
-      company: "Financial Solutions Inc.",
+      title: "Senior Notary",
+      company: "Legal Solutions Inc.",
       photo: null,
       order: 1,
     },
     {
       id: 2,
       quote:
-        "As a tax professional, I appreciate the attention to detail and IRS compliance features. It saves us hours of work each week.",
+        "As a notary professional, I appreciate the attention to detail and compliance features. It saves us hours of work each week.",
       name: "Michael Chen",
-      title: "CPA",
+      title: "Certified Notary",
       company: "Chen & Associates",
       photo: null,
       order: 2,
@@ -63,10 +54,10 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
     {
       id: 3,
       quote:
-        "The user-friendly interface combined with powerful features makes this the best tax form solution we've ever used.",
+        "The user-friendly interface combined with powerful features makes this the best notary solution we've ever used.",
       name: "Emily Rodriguez",
-      title: "Tax Consultant",
-      company: "QuickTax Pro",
+      title: "Notary Consultant",
+      company: "QuickNotary Pro",
       photo: null,
       order: 3,
     },
@@ -74,8 +65,6 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
 
   const displayTestimonials =
     testimonials && testimonials.length > 0 ? testimonials : sampleTestimonials;
-
-  const gradientBg = `linear-gradient(135deg, ${primaryColor} 0%, ${accentColor} 100%)`;
 
   const getInitials = (name: string): string => {
     return name
@@ -88,146 +77,86 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
 
   return (
     <section
-      className="py-12 sm:py-16 md:py-20 relative overflow-hidden"
-      style={{ backgroundColor: bgColor }}
+      className="py-20 sm:py-28 relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50"
       aria-labelledby="testimonials-heading"
     >
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-5">
-        <div
-          className="absolute top-0 right-0 w-96 h-96 rounded-full"
-          style={{ background: gradientBg }}
-        />
-        <div
-          className="absolute bottom-0 left-0 w-96 h-96 rounded-full"
-          style={{ background: gradientBg }}
-        />
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.02]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+        }} />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-10 md:mb-12 max-w-3xl mx-auto">
+        <div className="text-center mb-16 sm:mb-20 max-w-3xl mx-auto px-4">
           {testimonials_head && (
-            <div className="relative inline-block mb-4">
+            <div className="mb-6">
+              <div className="inline-block px-4 py-2 rounded-full text-xs font-bold mb-5 bg-gradient-to-r from-purple-50 to-pink-50 text-purple-700 border border-purple-200/50 shadow-sm">
+                TESTIMONIALS
+              </div>
               <h2
                 id="testimonials-heading"
-                className="text-2xl sm:text-3xl md:text-4xl font-bold relative z-10"
-                style={{ color: textColor }}
+                className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-5 text-slate-900"
               >
                 {testimonials_head}
               </h2>
-              <div
-                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 h-0.5 sm:h-1 rounded-full w-16 sm:w-20"
-                style={{ background: gradientBg }}
-              />
             </div>
           )}
 
           {testimonials_introduction && (
-            <p
-              className="text-sm sm:text-base md:text-lg leading-relaxed text-balance"
-              style={{ color: neutralColor }}
-            >
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-slate-600 font-medium">
               {testimonials_introduction}
             </p>
           )}
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6 lg:gap-8 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto px-4">
           {displayTestimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="group relative p-4 sm:p-5 md:p-6 rounded-2xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 bg-white/80 backdrop-blur-sm overflow-hidden border"
-              style={{
-                borderColor: `${primaryColor}15`,
-              }}
+              className="group relative p-6 sm:p-8 rounded-2xl transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 bg-white border-2 border-slate-200 hover:border-blue-300 overflow-hidden"
             >
-              {/* Gradient overlay on hover */}
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-500"
-                style={{ background: gradientBg }}
-              />
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-purple-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-              {/* Quote Icon */}
-              <div
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 text-3xl sm:text-4xl opacity-10 font-serif select-none"
-                style={{ color: primaryColor }}
-                aria-hidden="true"
-              >
+              <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-serif opacity-20 group-hover:opacity-30 transition-opacity" aria-hidden="true">
                 "
               </div>
 
-              {/* Content */}
               <div className="relative z-10">
-                {/* Quote */}
-                <blockquote className="text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 italic text-pretty">
-                  <span style={{ color: textColor }}>
-                    "{testimonial.quote}"
-                  </span>
+                <blockquote className="text-base sm:text-lg leading-relaxed mb-6 text-slate-700 font-medium">
+                  "{testimonial.quote}"
                 </blockquote>
 
-                {/* Author Info */}
-                <div
-                  className="flex items-center gap-3 sm:gap-4 pt-3 sm:pt-4 border-t"
-                  style={{ borderColor: `${primaryColor}20` }}
-                >
-                  {/* Avatar */}
+                <div className="flex items-center gap-4 pt-6 border-t-2 border-slate-100">
                   <div
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm flex-shrink-0 shadow-md"
-                    style={{ background: gradientBg }}
+                    className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 shadow-lg bg-gradient-to-br from-blue-500 to-indigo-600"
                     aria-hidden="true"
                   >
                     {getInitials(testimonial.name)}
                   </div>
 
-                  {/* Details */}
                   <div className="min-w-0 flex-1">
-                    <p
-                      className="font-bold text-xs sm:text-sm truncate"
-                      style={{ color: textColor }}
-                    >
+                    <p className="font-bold text-sm sm:text-base text-slate-900 truncate">
                       {testimonial.name}
                     </p>
-                    <p
-                      className="text-[10px] sm:text-xs truncate"
-                      style={{ color: neutralColor }}
-                    >
+                    <p className="text-xs sm:text-sm text-slate-600 truncate">
                       {testimonial.title}
                     </p>
-                    <p
-                      className="text-[10px] sm:text-xs font-semibold truncate"
-                      style={{ color: accentColor }}
-                    >
+                    <p className="text-xs sm:text-sm font-semibold text-blue-600 truncate">
                       {testimonial.company}
                     </p>
                   </div>
                 </div>
               </div>
-
-              {/* Animated corner accent */}
-              <div
-                className="absolute bottom-0 right-0 w-0 h-0.5 group-hover:w-16 transition-all duration-500"
-                style={{ background: gradientBg }}
-                aria-hidden="true"
-              />
             </div>
           ))}
         </div>
 
-        {/* Call to add testimonials */}
         {(!testimonials || testimonials.length === 0) && (
-          <div className="text-center mt-8 sm:mt-10 md:mt-12">
-            <p className="text-sm sm:text-base md:text-lg mb-4 sm:mb-6" style={{ color: neutralColor }}>
+          <div className="text-center mt-16 sm:mt-20 px-4">
+            <p className="text-base sm:text-lg mb-6 text-slate-600 font-medium">
               Have experience with our platform? We'd love to hear from you!
             </p>
-            <button
-              className="px-6 sm:px-8 py-2.5 sm:py-3 rounded-lg font-semibold text-sm sm:text-base transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl active:scale-95"
-              style={{
-                backgroundColor: primaryColor,
-                color: "#FFFFFF",
-              }}
-            >
+            <button className="px-8 py-4 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl active:scale-95 gradient-theme-primary text-white">
               Share Your Experience
             </button>
           </div>

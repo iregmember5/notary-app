@@ -60,60 +60,49 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
     benefits && benefits.length > 0 ? benefits : sampleBenefits;
 
   return (
-    <section className="py-16 sm:py-24 relative overflow-hidden bg-theme-background">
-      {/* Subtle grid pattern overlay */}
+    <section className="py-20 sm:py-28 relative overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white">
+      {/* Professional Grid Pattern */}
       <div
-        className="absolute inset-0 opacity-[0.015]"
+        className="absolute inset-0 opacity-[0.02]"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, var(--color-text) 1px, transparent 0)`,
-          backgroundSize: "40px 40px",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* Gradient orbs */}
-      <div
-        className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full blur-[80px] opacity-15"
-        style={{
-          background: `radial-gradient(circle, var(--color-primary), transparent 70%)`,
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-[300px] h-[300px] rounded-full blur-[60px] opacity-10"
-        style={{
-          background: `radial-gradient(circle, var(--color-accent), transparent 70%)`,
-        }}
-      />
+      {/* Subtle Gradient Accents */}
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-indigo-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-blue-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16 max-w-2xl mx-auto px-4">
+        {/* Section Header - Professional */}
+        <div className="text-center mb-16 sm:mb-20 max-w-3xl mx-auto px-4">
           {benefits_head && (
-            <div className="mb-4">
-              <div className="inline-block px-3 py-1 rounded-full text-xs font-medium mb-3 sm:mb-4 bg-theme-primary/10 text-theme-primary border border-theme-primary/20">
-                Benefits
+            <div className="mb-6">
+              <div className="inline-block px-4 py-2 rounded-full text-xs font-bold mb-5 bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-700 border border-emerald-200/50 shadow-sm">
+                BENEFITS
               </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-3 sm:mb-4 text-theme-text">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-5 text-slate-900">
                 {benefits_head}
               </h2>
             </div>
           )}
 
           {benefits_introduction && (
-            <p className="text-sm sm:text-base md:text-lg leading-relaxed text-balance text-theme-neutral">
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-slate-600 font-medium">
               {benefits_introduction}
             </p>
           )}
 
           {(!benefits || benefits.length === 0) && (
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs mt-4 border bg-theme-primary/5 text-theme-primary border-theme-primary/20">
-              <EasyIcon icon="FiInfo" size={14} color="var(--color-primary)" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs mt-4 bg-blue-50 text-blue-700 border border-blue-200/50">
+              <EasyIcon icon="FiInfo" size={14} color="#3b82f6" />
               <span>Discover the benefits of our platform</span>
             </div>
           )}
         </div>
 
-        {/* Benefits Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto px-4">
+        {/* Benefits Grid - Modern Professional Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-4">
           {displayBenefits.map((benefit: Benefit) => {
             const imageUrl = benefit.image?.url
               ? `https://esign-admin.signmary.com${benefit.image.url}`
@@ -121,71 +110,51 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
 
             return (
               <div key={benefit.id} className="group relative">
-                {/* Card */}
-                <div className="relative h-full rounded-2xl transition-all duration-500 hover:shadow-lg border backdrop-blur-sm bg-theme-background border-theme-primary/10 overflow-hidden">
-                  {/* Image at top */}
+                {/* Modern Professional Card */}
+                <div className="relative h-full rounded-2xl transition-all duration-500 hover:shadow-2xl bg-white border-2 border-slate-200 hover:border-blue-300 overflow-hidden">
+                  {/* Image at top with overlay */}
                   {imageUrl && (
-                    <div className="w-full h-32 overflow-hidden">
+                    <div className="w-full h-40 overflow-hidden relative">
                       <img
                         src={imageUrl}
                         alt={benefit.title}
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                     </div>
                   )}
 
-                  <div className="p-4">
+                  <div className="p-6">
                     {/* Hover gradient overlay */}
-                    <div
-                      className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
-                      style={{
-                        background: `linear-gradient(135deg, var(--color-primary)03 0%, var(--color-accent)03 100%)`,
-                      }}
-                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 to-indigo-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
 
-                    {/* Icon container */}
-                    <div className="flex items-start justify-between mb-4 relative z-10">
+                    {/* Icon and Stats Row */}
+                    <div className="flex items-start justify-between mb-5 relative z-10">
                       {benefit.icon && (
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 relative overflow-hidden bg-theme-primary/10">
+                        <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
                           <EasyIcon
                             icon={benefit.icon}
-                            size={18}
-                            color="var(--color-primary)"
+                            size={20}
+                            color="#FFFFFF"
                             className="relative z-10 transition-transform duration-500 group-hover:rotate-6"
-                          />
-
-                          {/* Shine effect */}
-                          <div
-                            className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700"
-                            style={{
-                              background: `linear-gradient(90deg, transparent, var(--color-primary)20, transparent)`,
-                            }}
                           />
                         </div>
                       )}
 
                       {benefit.stats && (
-                        <div
-                          className="text-right font-bold text-sm sm:text-base transition-all duration-300 group-hover:scale-105"
-                          style={{
-                            background: `linear-gradient(135deg, var(--color-primary), var(--color-accent))`,
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            backgroundClip: "text",
-                          }}
-                        >
+                        <div className="text-right font-extrabold text-base transition-all duration-300 group-hover:scale-105 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                           {benefit.stats}
                         </div>
                       )}
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-sm sm:text-base font-bold mb-2 transition-colors duration-300 line-clamp-2 text-theme-text relative z-10">
+                    {/* Title - Bold */}
+                    <h3 className="text-base sm:text-lg font-bold mb-3 transition-colors duration-300 line-clamp-2 text-slate-900 relative z-10">
                       {benefit.title}
                     </h3>
 
-                    {/* Description */}
-                    <p className="text-xs leading-relaxed text-pretty line-clamp-3 text-theme-neutral relative z-10">
+                    {/* Description - Clear */}
+                    <p className="text-sm leading-relaxed line-clamp-3 text-slate-600 relative z-10">
                       {benefit.description}
                     </p>
                   </div>
@@ -195,19 +164,19 @@ const Benefits: React.FC<BenefitsProps> = ({ data }) => {
           })}
         </div>
 
-        {/* CTA */}
+        {/* CTA - Professional */}
         {(!benefits || benefits.length === 0) && (
-          <div className="text-center mt-12 sm:mt-16 px-4">
-            <p className="text-sm sm:text-base mb-4 sm:mb-6 text-balance text-theme-neutral">
+          <div className="text-center mt-16 sm:mt-20 px-4">
+            <p className="text-base sm:text-lg mb-6 text-slate-600 font-medium">
               Ready to experience these benefits for your business?
             </p>
-            <button className="group/btn inline-flex items-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-semibold text-xs sm:text-sm transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl gradient-theme-primary text-white">
+            <button className="group/btn inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl gradient-theme-primary text-white">
               Start Saving Today
               <EasyIcon
                 icon="FiArrowRight"
-                size={14}
+                size={16}
                 color="#FFFFFF"
-                className="transition-transform duration-300 group-hover/btn:translate-x-1 sm:w-4 sm:h-4"
+                className="transition-transform duration-300 group-hover/btn:translate-x-1"
               />
             </button>
           </div>

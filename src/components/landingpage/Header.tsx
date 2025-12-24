@@ -78,38 +78,23 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
   return (
     <header
       ref={ref}
-      className="relative top-7 flex items-center justify-center overflow-hidden min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-blue-50/50"
+      className="relative top-7 flex items-center justify-center overflow-hidden min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30"
     >
-      {/* Floating Background Elements */}
+      {/* Professional Background Pattern */}
       <div className="absolute inset-0 overflow-hidden">
-        {Array.from({ length: 15 }).map((_, i) => {
-          const size = Math.random() * 40 + 20;
-          const style = {
-            width: `${size}px`,
-            height: `${size}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          };
-          return (
-            <motion.div
-              key={i}
-              className="absolute opacity-10 pointer-events-none bg-blue-500 rounded-full"
-              style={style}
-              animate={{
-                y: [-20, 20, -20],
-                x: [-10, 10, -10],
-                rotate: [0, 360],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{
-                duration: Math.random() * 10 + 15,
-                repeat: Infinity,
-                ease: 'easeInOut',
-                delay: Math.random() * 5,
-              }}
-            />
-          );
-        })}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+        }} />
+        <motion.div
+          className="absolute top-20 right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"
+          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-20 left-20 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl"
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.5, 0.3, 0.5] }}
+          transition={{ duration: 10, repeat: Infinity }}
+        />
       </div>
 
       {/* Content Container */}
@@ -123,38 +108,34 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           {/* Text Content - Left Side */}
           <div className="space-y-8 text-center md:text-left">
             <motion.div variants={itemVariants} className="space-y-6">
-              {/* Top Badge */}
-              <motion.div
-                className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500/10 border border-blue-500/20 rounded-full text-sm font-medium text-blue-500"
-                whileHover={{ scale: 1.05 }}
-              >
-                <EasyIcon
-                  icon="FiSmartphone"
-                  size={14}
-                  color="var(--color-primary)"
-                  className="sm:w-4 sm:h-4"
-                />
-                <span className="text-xs sm:text-sm font-medium text-theme-primary">
-                  {header_subtitle ||
-                    "Add iOS 16 Passkeys to your website with OwnID"}
-                </span>
-              </motion.div>
+              {/* Top Badge - Notary Professional */}
+              {header_subtitle && (
+                <motion.div
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/50 rounded-full text-sm font-semibold text-blue-700 shadow-sm"
+                  whileHover={{ scale: 1.05, boxShadow: "0 4px 12px rgba(59, 130, 246, 0.15)" }}
+                >
+                  <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                  <span className="text-xs sm:text-sm">
+                    {header_subtitle}
+                  </span>
+                </motion.div>
+              )}
 
-              <div className="space-y-4">
-                {/* Main Title */}
+              <div className="space-y-5">
+                {/* Main Title - Professional & Bold */}
                 {header_title && (
-                  <motion.h3
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight"
+                  <motion.h1
+                    className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-slate-900 leading-[1.1] tracking-tight"
                     variants={itemVariants}
                   >
                     {header_title}
-                  </motion.h3>
+                  </motion.h1>
                 )}
 
-                {/* Description */}
+                {/* Description - Clear & Professional */}
                 {header_description && (
                   <motion.p
-                    className="text-base md:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto md:mx-0"
+                    className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-2xl mx-auto md:mx-0 font-medium"
                     variants={itemVariants}
                   >
                     {header_description}
@@ -163,39 +144,41 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
               </div>
             </motion.div>
 
-            {/* CTAs */}
+            {/* CTAs - Professional Notary Style */}
             <motion.div
               variants={itemVariants}
-              className="flex gap-4 justify-center md:justify-start"
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             >
               {header_cta_primary && (
-                <motion.div whileHover={{ scale: 1.10 }} whileTap={{ scale: 0.95 }}>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                   {header_cta_primary_url ? (
                     <a
                       href={header_cta_primary_url}
-                      className="group flex items-center px-8 py-6 text-lg font-semibold text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 gradient-theme-primary"
+                      className="group flex items-center justify-center px-8 py-4 text-base font-bold text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 gradient-theme-primary relative overflow-hidden"
                     >
-                      <span>{header_cta_primary}</span>
-                      <EasyIcon icon="FiArrowRight" size={20} color="#FFFFFF" className="ml-2 group-hover:translate-x-1 transition-transform" />
+                      <span className="relative z-10">{header_cta_primary}</span>
+                      <EasyIcon icon="FiArrowRight" size={20} color="#FFFFFF" className="ml-2 relative z-10 group-hover:translate-x-1 transition-transform" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </a>
                   ) : (
                     <button
                       onClick={handleGetStartedClick}
-                      className="group flex items-center px-8 py-6 text-lg font-semibold text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 gradient-theme-primary"
+                      className="group flex items-center justify-center px-8 py-4 text-base font-bold text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 gradient-theme-primary relative overflow-hidden"
                     >
-                      <span>{header_cta_primary}</span>
-                      <EasyIcon icon="FiArrowRight" size={20} color="#FFFFFF" className="ml-2 group-hover:translate-x-1 transition-transform" />
+                      <span className="relative z-10">{header_cta_primary}</span>
+                      <EasyIcon icon="FiArrowRight" size={20} color="#FFFFFF" className="ml-2 relative z-10 group-hover:translate-x-1 transition-transform" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </button>
                   )}
                 </motion.div>
               )}
 
               {header_cta_secondary && (
-                <motion.div whileHover={{ scale: 1.10 }} whileTap={{ scale: 0.95 }}>
+                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
                   {header_cta_secondary_url && header_cta_secondary_url !== "#login" ? (
                     <a
                       href={header_cta_secondary_url}
-                      className="group flex items-center px-8 py-6 text-lg font-semibold text-gray-700 border-2 border-gray-300 hover:border-primary hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-300"
+                      className="group flex items-center justify-center px-8 py-4 text-base font-bold text-slate-700 bg-white border-2 border-slate-300 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
                     >
                       <EasyIcon icon="FiPlay" size={20} color="currentColor" className="mr-2 group-hover:scale-110 transition-transform" />
                       <span>{header_cta_secondary}</span>
@@ -203,7 +186,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   ) : (
                     <button
                       onClick={onShowLogin}
-                      className="group flex items-center px-8 py-6 text-lg font-semibold text-gray-700 border-2 border-gray-300 hover:border-primary hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-300"
+                      className="group flex items-center justify-center px-8 py-4 text-base font-bold text-slate-700 bg-white border-2 border-slate-300 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
                     >
                       <EasyIcon icon="FiPlay" size={20} color="currentColor" className="mr-2 group-hover:scale-110 transition-transform" />
                       <span>{header_cta_secondary}</span>
@@ -213,77 +196,90 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
               )}
             </motion.div>
 
-            {/* Trust Indicators */}
+            {/* Trust Indicators - Notary Professional */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4"
+              className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-6 pt-4"
             >
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <motion.div
-                  className="w-2 h-2 bg-green-500 rounded-full"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-                <span>Free 14-day trial</span>
+              <div className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
+                <div className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center">
+                  <EasyIcon icon="FiCheck" size={12} color="#10b981" />
+                </div>
+                <span>Secure & Compliant</span>
               </div>
-              <div className="flex items-center gap-2 text-sm text-gray-600">
-                <motion.div
-                  className="w-2 h-2 bg-green-500 rounded-full"
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                />
-                <span>No credit card required</span>
+              <div className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
+                <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center">
+                  <EasyIcon icon="FiShield" size={12} color="#3b82f6" />
+                </div>
+                <span>Trusted by Notaries</span>
+              </div>
+              <div className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
+                <div className="w-5 h-5 rounded-full bg-purple-100 flex items-center justify-center">
+                  <EasyIcon icon="FiZap" size={12} color="#8b5cf6" />
+                </div>
+                <span>Easy Setup</span>
               </div>
             </motion.div>
           </div>
 
-          {/* Image Section - Right Side */}
+          {/* Image Section - Right Side - Professional Notary */}
           <motion.div variants={imageVariants} className="relative">
             <div className="relative z-10">
               {rightImageUrl ? (
-                <>
-                  <motion.img
-                    src={rightImageUrl}
-                    alt="Business Automation Platform Dashboard"
-                    className="w-full h-auto max-w-lg mx-auto rounded-2xl shadow-2xl"
-                    whileHover={{ scale: 1.02, rotateY: 5, rotateX: 5 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
-                  />
-                  {/* Floating decoration cards */}
+                <div className="relative">
                   <motion.div
-                    className="absolute -top-6 -left-6 bg-white border border-gray-200 p-4 rounded-xl shadow-lg"
-                    animate={{ y: [0, -10, 0], rotate: [-2, 2, -2] }}
+                    className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                  >
+                    <img
+                      src={rightImageUrl}
+                      alt="Notary Platform Dashboard"
+                      className="w-full h-auto max-w-lg mx-auto"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none" />
+                  </motion.div>
+                  
+                  {/* Professional Stats Cards */}
+                  <motion.div
+                    className="absolute -top-4 -left-4 bg-white/95 backdrop-blur-sm border border-slate-200 p-4 rounded-xl shadow-xl"
+                    animate={{ y: [0, -8, 0] }}
                     transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                   >
-                    <div className="text-sm font-medium text-gray-900">📧 Email Campaigns</div>
-                    <div className="text-xs text-gray-600">+247% engagement</div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center">
+                        <EasyIcon icon="FiCheckCircle" size={16} color="#10b981" />
+                      </div>
+                      <div className="text-2xl font-bold text-slate-900">98%</div>
+                    </div>
+                    <div className="text-xs font-medium text-slate-600">Success Rate</div>
                   </motion.div>
+                  
                   <motion.div
-                    className="absolute -bottom-4 -right-4 bg-white border border-gray-200 p-4 rounded-xl shadow-lg"
-                    animate={{ y: [0, 10, 0], rotate: [2, -2, 2] }}
+                    className="absolute -bottom-4 -right-4 bg-white/95 backdrop-blur-sm border border-slate-200 p-4 rounded-xl shadow-xl"
+                    animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
                   >
-                    <div className="text-sm font-medium text-gray-900">🚀 AI Automation</div>
-                    <div className="text-xs text-gray-600">Save 8+ hours/day</div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
+                        <EasyIcon icon="FiClock" size={16} color="#3b82f6" />
+                      </div>
+                      <div className="text-2xl font-bold text-slate-900">5min</div>
+                    </div>
+                    <div className="text-xs font-medium text-slate-600">Average Time</div>
                   </motion.div>
-                </>
+                </div>
               ) : (
-                <div className="w-full h-96 rounded-2xl bg-gray-200 flex items-center justify-center">
-                  <span className="text-gray-400">Image placeholder</span>
+                <div className="w-full h-96 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 flex items-center justify-center border-4 border-white shadow-2xl">
+                  <div className="text-center">
+                    <EasyIcon icon="FiImage" size={48} color="#94a3b8" className="mx-auto mb-2" />
+                    <span className="text-slate-400 font-medium">Platform Preview</span>
+                  </div>
                 </div>
               )}
             </div>
-            {/* Background decoration */}
-            <motion.div
-              className="absolute top-8 -right-8 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <motion.div
-              className="absolute -bottom-8 -left-8 w-48 h-48 bg-blue-500/20 rounded-full blur-3xl"
-              animate={{ scale: [1.2, 1, 1.2], opacity: [0.5, 0.3, 0.5] }}
-              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-            />
+            {/* Subtle Background Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-br from-blue-500/10 to-indigo-500/10 rounded-full blur-3xl -z-10" />
           </motion.div>
         </motion.div>
       </div>

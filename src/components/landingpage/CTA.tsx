@@ -19,103 +19,78 @@ const CTA: React.FC<CTAProps> = ({ data }) => {
 
   if (!cta_head && !cta_introduction && !cta_primary_text) return null;
 
-
-
   return (
-    <section
-      className="py-12 sm:py-16 md:py-20 lg:py-32 relative overflow-hidden gradient-theme-primary"
-    >
-      {/* Subtle background pattern */}
+    <section className="py-20 sm:py-28 lg:py-32 relative overflow-hidden gradient-theme-primary">
       <div className="absolute inset-0 opacity-[0.08]">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: "48px 48px",
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
         />
       </div>
 
-      {/* Gradient orbs */}
-      <div
-        className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] opacity-20 pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, white, transparent 65%)",
-        }}
-      />
-      <div
-        className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-15 pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, white, transparent 65%)",
-        }}
-      />
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] opacity-20 pointer-events-none bg-white" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-[100px] opacity-15 pointer-events-none bg-white" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          {/* Heading */}
           {cta_head && (
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight leading-tight">
               {cta_head}
             </h2>
           )}
 
-          {/* Introduction */}
           {cta_introduction && (
-            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl text-white/95 mb-8 leading-relaxed max-w-3xl mx-auto font-medium">
               {cta_introduction}
             </p>
           )}
 
-          {/* Offer Badge */}
           {cta_offer && (
-            <div
-              className="inline-flex items-center gap-2 px-4 sm:px-6 py-2 sm:py-3 rounded-full mb-6 sm:mb-8 md:mb-10 border backdrop-blur-sm bg-white/15 border-white/25"
-            >
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full mb-10 border backdrop-blur-sm bg-white/15 border-white/25 shadow-lg">
               <EasyIcon icon="FiGift" size={18} color="#FFFFFF" className="sm:w-5 sm:h-5" />
-              <p className="text-white font-semibold text-xs sm:text-sm md:text-base">
+              <p className="text-white font-bold text-sm md:text-base">
                 {cta_offer}
               </p>
             </div>
           )}
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-10 md:mb-12 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10 w-full sm:w-auto">
             {cta_primary_text && (
               <a
                 href={cta_primary_url || "#"}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-xl text-white font-semibold text-sm sm:text-base shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl relative overflow-hidden group gradient-theme-primary"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-blue-600 font-bold text-base shadow-xl transform transition-all duration-300 hover:scale-105 hover:shadow-2xl relative overflow-hidden group"
               >
                 <span className="relative z-10">{cta_primary_text}</span>
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 gradient-theme-secondary" />
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+                <EasyIcon icon="FiArrowRight" size={20} color="currentColor" className="relative z-10 group-hover:translate-x-1 transition-transform" />
               </a>
             )}
 
             {cta_secondary_text && (
               <a
                 href={cta_secondary_url || "#"}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base border-2 text-white transition-all duration-300 hover:scale-105 backdrop-blur-sm border-white/40 hover:bg-white/10"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold text-base border-2 text-white transition-all duration-300 hover:scale-105 backdrop-blur-sm border-white/40 hover:bg-white/10 shadow-lg"
               >
                 <span>{cta_secondary_text}</span>
               </a>
             )}
           </div>
 
-          {/* Trust Indicators */}
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 text-white/85">
-            <div className="flex items-center gap-1.5 sm:gap-2 transition-all duration-300 hover:text-white">
-              <EasyIcon icon="FiCreditCard" size={16} color="currentColor" className="sm:w-[18px] sm:h-[18px]" />
-              <span className="text-xs sm:text-sm md:text-base">
+          <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8 text-white/90">
+            <div className="flex items-center gap-2 transition-all duration-300 hover:text-white">
+              <EasyIcon icon="FiCheckCircle" size={18} color="currentColor" />
+              <span className="text-sm md:text-base font-medium">
                 No credit card required
               </span>
             </div>
-            <div className="flex items-center gap-1.5 sm:gap-2 transition-all duration-300 hover:text-white">
-              <EasyIcon icon="FiXCircle" size={16} color="currentColor" className="sm:w-[18px] sm:h-[18px]" />
-              <span className="text-xs sm:text-sm md:text-base">Cancel anytime</span>
+            <div className="flex items-center gap-2 transition-all duration-300 hover:text-white">
+              <EasyIcon icon="FiShield" size={18} color="currentColor" />
+              <span className="text-sm md:text-base font-medium">Secure & Compliant</span>
             </div>
-            <div className="flex items-center gap-1.5 sm:gap-2 transition-all duration-300 hover:text-white">
-              <EasyIcon icon="FiHeadphones" size={16} color="currentColor" className="sm:w-[18px] sm:h-[18px]" />
-              <span className="text-xs sm:text-sm md:text-base">24/7 support</span>
+            <div className="flex items-center gap-2 transition-all duration-300 hover:text-white">
+              <EasyIcon icon="FiHeadphones" size={18} color="currentColor" />
+              <span className="text-sm md:text-base font-medium">24/7 support</span>
             </div>
           </div>
         </div>

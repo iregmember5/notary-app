@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import type { DynamicContentBlock } from "../../types/landing";
-import EasyIcon from "./IconRenderer"; // Add this import
+import EasyIcon from "./IconRenderer";
 
 const API_BASE_URL = "https://esign-admin.signmary.com";
 
@@ -33,22 +33,17 @@ const ScrollAnimateCard: React.FC<any> = ({
   useEffect(() => {
     const card = cardRef.current;
     if (!card) return;
-
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             card.classList.add("animate-fadeInUp");
             card.classList.remove("opacity-0");
-          } else {
-            card.classList.remove("animate-fadeInUp");
-            card.classList.add("opacity-0");
           }
         });
       },
       { threshold: 0.2 }
     );
-
     observer.observe(card);
     return () => observer.disconnect();
   }, []);
@@ -58,7 +53,7 @@ const ScrollAnimateCard: React.FC<any> = ({
       ref={cardRef}
       className={`opacity-0 group ${
         cardData.card_background ? "" : `bg-gradient-to-br ${bgClass}`
-      } rounded-2xl p-4 md:p-6 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border`}
+      } rounded-2xl p-6 md:p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 border-2 border-slate-200 hover:border-blue-300`}
       style={
         cardData.card_background
           ? {
@@ -72,67 +67,50 @@ const ScrollAnimateCard: React.FC<any> = ({
       }
     >
       {icon && (
-        <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 bg-blue-100">
-          <EasyIcon icon={icon} size={24} color="#3B82F6" />
+        <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-300 group-hover:scale-110 bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
+          <EasyIcon icon={icon} size={28} color="#FFFFFF" />
         </div>
       )}
 
       {cardData.card_image && (
-        <div className="w-full h-48 rounded-xl mb-6 overflow-hidden">
+        <div className="w-full h-52 rounded-xl mb-6 overflow-hidden border-2 border-white shadow-lg">
           <img
             src={getFullImageUrl(cardData.card_image.url)}
             alt={cardData.card_image.title || title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </div>
       )}
 
-      <h4
-        className="text-xl md:text-2xl font-bold mb-4 leading-tight"
-        style={{
-          background: `linear-gradient(135deg, ${
-            idx % 4 === 0
-              ? "#3B82F6, #8B5CF6"
-              : idx % 4 === 1
-              ? "#10B981, #059669"
-              : idx % 4 === 2
-              ? "#F59E0B, #EF4444"
-              : "#EC4899, #8B5CF6"
-          })`,
-          WebkitBackgroundClip: "text",
-          WebkitTextFillColor: "transparent",
-          backgroundClip: "text",
-          filter: "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))",
-        }}
-      >
+      <h4 className="text-2xl md:text-3xl font-extrabold mb-4 leading-tight text-slate-900">
         {title || "Card Title"}
       </h4>
 
       {description && (
-        <div className="text-gray-600 leading-relaxed text-base">
-          <ul className="space-y-1">{formatDescription(description)}</ul>
+        <div className="text-slate-600 leading-relaxed text-base font-medium">
+          <ul className="space-y-2">{formatDescription(description)}</ul>
         </div>
       )}
 
       {(cardData.price || cardData.price_period) && (
-        <div className="mb-6">
-          <span className="text-3xl font-bold text-gray-800">
+        <div className="mb-6 mt-4">
+          <span className="text-4xl font-extrabold text-slate-900">
             {cardData.price}
           </span>
           {cardData.price_period && (
-            <span className="text-gray-600 ml-2">{cardData.price_period}</span>
+            <span className="text-slate-600 ml-2 font-medium">{cardData.price_period}</span>
           )}
         </div>
       )}
 
       {features && features.length > 0 && (
-        <ul className="space-y-3">
+        <ul className="space-y-3 mt-6">
           {features.map((feature: string, featureIdx: number) => (
             <li key={featureIdx} className="flex items-start gap-3">
-              <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 bg-green-100">
-                <EasyIcon icon="FiCheck" size={12} color="#10B981" />
+              <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 bg-gradient-to-br from-emerald-500 to-green-600 shadow-sm">
+                <EasyIcon icon="FiCheck" size={14} color="#FFFFFF" />
               </div>
-              <span className="text-gray-700 text-base leading-relaxed">
+              <span className="text-slate-700 text-base leading-relaxed font-medium">
                 {feature}
               </span>
             </li>
@@ -141,13 +119,13 @@ const ScrollAnimateCard: React.FC<any> = ({
       )}
 
       {cardData.button_text && cardData.button_url && (
-        <div className="mt-8 pt-6 border-t border-gray-100">
+        <div className="mt-8 pt-6 border-t-2 border-slate-100">
           <a
             href={cardData.button_url}
-            className="inline-flex items-center gap-2 font-semibold text-blue-600 transition-all duration-300 hover:gap-3 group/btn"
+            className="inline-flex items-center gap-2 font-bold text-blue-600 transition-all duration-300 hover:gap-3 group/btn"
           >
             {cardData.button_text}
-            <EasyIcon icon="FiArrowRight" size={16} color="#3B82F6" />
+            <EasyIcon icon="FiArrowRight" size={18} color="#3B82F6" />
           </a>
         </div>
       )}
@@ -179,44 +157,10 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
         return () => observer.disconnect();
       }, []);
       return (
-        <div className="relative px-4 sm:pl-16 max-w-2xl mx-auto mb-8">
-          <style>{`
-            @keyframes colorBlink {
-              0%, 14% { color: #ef4444; }
-              14%, 28% { color: #f97316; }
-              28%, 42% { color: #eab308; }
-              42%, 56% { color: #22c55e; }
-              56%, 70% { color: #3b82f6; }
-              70%, 84% { color: #8b5cf6; }
-              84%, 100% { color: #ec4899; }
-            }
-            .arrow-blink { animation: colorBlink 2.1s infinite; }
-          `}</style>
-          <div className="hidden sm:flex absolute left-10 top-10 -translate-x-full pl-6 font-bold arrow-blink items-center">
-            <span className="text-2xl">&gt;</span>
-            <span className="text-3xl">&gt;</span>
-            <span className="text-4xl">&gt;</span>
-            <span className="text-5xl">&gt;</span>
-            <span className="text-6xl">&gt;</span>
-          </div>
-
-          <div className="hidden sm:flex absolute -right-5 top-10 translate-x-full pr-6 font-bold arrow-blink items-center">
-            <span className="text-6xl">&lt;</span>
-            <span className="text-5xl">&lt;</span>
-            <span className="text-4xl">&lt;</span>
-            <span className="text-3xl">&lt;</span>
-            <span className="text-2xl">&lt;</span>
-          </div>
-
-          <div className="hidden absolute -left-20 -top-1/3 -translate-y-1/4 text-[10rem] font-bold arrow-blink">
-            →
-          </div>
+        <div className="relative px-4 max-w-4xl mx-auto mb-12">
           <div
             ref={richRef}
-            style={{
-              fontFamily: '"Inter", "Segoe UI", system-ui, sans-serif',
-            }}
-            className="opacity-0 prose prose-sm sm:prose-base md:prose-lg px-3 sm:px-4 py-6 sm:py-8 rounded-xl sm:rounded-2xl border-2 border-theme-primary/30 shadow-lg hover:shadow-xl hover:border-theme-primary/50 transition-all duration-300 text-center gradient-theme-primary [&>h1]:text-2xl sm:[&>h1]:text-3xl md:[&>h1]:text-4xl [&>h1]:font-bold [&>h1]:mb-4 sm:[&>h1]:mb-6 [&>h1]:text-white [&>h2]:text-xl sm:[&>h2]:text-2xl md:[&>h2]:text-3xl [&>h2]:font-bold [&>h2]:mb-3 sm:[&>h2]:mb-5 [&>h2]:text-white [&>h3]:text-lg sm:[&>h3]:text-xl md:[&>h3]:text-2xl [&>h3]:font-semibold [&>h3]:mb-3 sm:[&>h3]:mb-4 [&>h3]:text-white [&>h4]:text-base sm:[&>h4]:text-lg md:[&>h4]:text-xl [&>h4]:font-semibold [&>h4]:mb-2 sm:[&>h4]:mb-3 [&>h4]:text-white [&>p]:text-sm sm:[&>p]:text-base [&>p]:leading-relaxed [&>p]:mb-3 sm:[&>p]:mb-4 [&>p]:text-white [&>ul]:space-y-1.5 sm:[&>ul]:space-y-2 [&>ul]:mb-3 sm:[&>ul]:mb-4 [&>ul>li]:text-white [&>ol]:space-y-1.5 sm:[&>ol]:space-y-2 [&>ol]:mb-3 sm:[&>ol]:mb-4 [&>ol>li]:text-white [&>a]:text-white [&>a]:underline [&>a:hover]:text-white/80 [&>strong]:font-bold [&>strong]:text-white [&>em]:italic [&>em]:text-white [&>blockquote]:border-l-4 [&>blockquote]:border-white [&>blockquote]:pl-4 sm:[&>blockquote]:pl-6 [&>blockquote]:py-3 sm:[&>blockquote]:py-4 [&>blockquote]:bg-white/10 [&>blockquote]:rounded-r-lg [&>blockquote]:my-4 sm:[&>blockquote]:my-6 [&>blockquote]:text-white"
+            className="opacity-0 prose prose-lg max-w-none px-6 py-10 rounded-2xl border-2 border-blue-200 shadow-xl hover:shadow-2xl hover:border-blue-300 transition-all duration-300 bg-gradient-to-br from-blue-50 to-indigo-50 [&>h1]:text-3xl [&>h1]:font-extrabold [&>h1]:mb-6 [&>h1]:text-slate-900 [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:mb-5 [&>h2]:text-slate-900 [&>h3]:text-xl [&>h3]:font-bold [&>h3]:mb-4 [&>h3]:text-slate-900 [&>p]:text-base [&>p]:leading-relaxed [&>p]:mb-4 [&>p]:text-slate-700 [&>ul]:space-y-2 [&>ul]:mb-4 [&>ul>li]:text-slate-700 [&>ol]:space-y-2 [&>ol]:mb-4 [&>ol>li]:text-slate-700 [&>a]:text-blue-600 [&>a]:font-semibold [&>a:hover]:text-blue-700 [&>strong]:font-bold [&>strong]:text-slate-900 [&>blockquote]:border-l-4 [&>blockquote]:border-blue-500 [&>blockquote]:pl-6 [&>blockquote]:py-4 [&>blockquote]:bg-white/50 [&>blockquote]:rounded-r-lg [&>blockquote]:my-6 [&>blockquote]:text-slate-700"
             dangerouslySetInnerHTML={{ __html: block.value }}
           />
         </div>
@@ -224,15 +168,15 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
 
     case "blockquote":
       return (
-        <blockquote className="border-l-4 border-blue-500 pl-6 py-4 italic mb-8 bg-gradient-to-r from-blue-50 to-transparent rounded-r-lg">
-          <p className="text-xl text-gray-700 font-medium leading-relaxed">
+        <blockquote className="border-l-4 border-blue-500 pl-8 py-6 mb-12 bg-gradient-to-r from-blue-50 to-transparent rounded-r-xl shadow-md">
+          <p className="text-xl text-slate-700 font-medium leading-relaxed italic">
             "{block.value.text}"
           </p>
           {block.value.author && (
-            <footer className="text-sm text-gray-600 mt-3 not-italic font-semibold">
+            <footer className="text-sm text-slate-600 mt-4 not-italic font-bold">
               — {block.value.author}
               {block.value.source && (
-                <span className="text-gray-500 font-normal">
+                <span className="text-slate-500 font-normal">
                   {" "}
                   ({block.value.source})
                 </span>
@@ -245,7 +189,7 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
     case "cta":
       return (
         <div
-          className="relative p-12 rounded-2xl mb-12 text-white overflow-hidden shadow-2xl"
+          className="relative p-16 rounded-2xl mb-16 text-white overflow-hidden shadow-2xl"
           style={{
             backgroundImage: block.value.background_image
               ? `url(${getFullImageUrl(block.value.background_image.url)})`
@@ -258,20 +202,20 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
           }}
         >
           {block.value.background_image && (
-            <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
           )}
           <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <h3 className="text-4xl font-bold mb-4 drop-shadow-lg">
+            <h3 className="text-4xl md:text-5xl font-extrabold mb-6 drop-shadow-lg">
               {block.value.title}
             </h3>
             {block.value.description && (
-              <p className="text-xl mb-8 opacity-95 leading-relaxed">
+              <p className="text-xl mb-10 opacity-95 leading-relaxed font-medium">
                 {block.value.description}
               </p>
             )}
             <a
               href={block.value.button_url}
-              className={`inline-block px-10 py-4 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl ${
+              className={`inline-block px-10 py-5 rounded-xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl ${
                 block.value.button_style === "primary"
                   ? "bg-white text-blue-600 hover:bg-gray-100"
                   : block.value.button_style === "secondary"
@@ -287,8 +231,8 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
 
     case "video":
       return (
-        <div className="mb-12">
-          <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-gray-100">
+        <div className="mb-16">
+          <div className="aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
             <iframe
               src={`https://www.youtube.com/embed/${extractYouTubeId(
                 block.value.video_url || ""
@@ -308,21 +252,21 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
 
     case "card_grid":
       return (
-        <div className="mb-16">
+        <div className="mb-20">
           {block.value.heading && (
-            <h3 className="text-3xl md:text-4xl font-bold mb-4 text-center text-theme-text">
+            <h3 className="text-4xl md:text-5xl font-extrabold mb-6 text-center text-slate-900">
               {block.value.heading}
             </h3>
           )}
           {block.value.subheading && (
-            <p className="text-gray-600 mb-12 text-center text-lg md:text-xl max-w-4xl mx-auto leading-relaxed">
+            <p className="text-slate-600 mb-16 text-center text-lg md:text-xl max-w-4xl mx-auto leading-relaxed font-medium">
               {block.value.subheading}
             </p>
           )}
           <div
-            className={`grid gap-6 md:gap-8 ${
+            className={`grid gap-8 ${
               block.value.cards?.length === 2
-                ? "grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto"
+                ? "grid-cols-1 md:grid-cols-2 max-w-5xl mx-auto"
                 : block.value.columns === "1"
                 ? "grid-cols-1"
                 : block.value.columns === "2"
@@ -357,13 +301,13 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
                   if (isBullet) {
                     return (
                       <li key={i} className="flex items-start gap-2 mb-2">
-                        <span className="text-blue-600 mt-1">•</span>
+                        <span className="text-blue-600 mt-1 font-bold">•</span>
                         <span className="flex-1">{trimmed}</span>
                       </li>
                     );
                   }
                   return (
-                    <p key={i} className="mb-3 font-medium text-gray-700">
+                    <p key={i} className="mb-3 font-medium text-slate-700">
                       {trimmed}
                     </p>
                   );
@@ -371,12 +315,12 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
               };
 
               const bgColors = [
-                "from-blue-50 to-indigo-50 border-blue-200 hover:border-blue-400",
-                "from-green-50 to-emerald-50 border-green-200 hover:border-green-400",
-                "from-orange-50 to-red-50 border-orange-200 hover:border-orange-400",
-                "from-pink-50 to-purple-50 border-pink-200 hover:border-pink-400",
-                "from-cyan-50 to-teal-50 border-cyan-200 hover:border-cyan-400",
-                "from-yellow-50 to-amber-50 border-yellow-200 hover:border-yellow-400",
+                "from-blue-50 to-indigo-50",
+                "from-emerald-50 to-green-50",
+                "from-orange-50 to-red-50",
+                "from-purple-50 to-pink-50",
+                "from-cyan-50 to-teal-50",
+                "from-amber-50 to-yellow-50",
               ];
               const bgClass = background ? "" : bgColors[idx % bgColors.length];
 
@@ -404,44 +348,41 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
 
     case "dynamic_list":
       const dynamicListData = block.value || {};
-
       return (
-        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-gray-200">
-          <div className="max-w-6xl mx-auto text-center">
-            <div className="space-y-6 mb-16">
+        <section className="py-28 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-slate-50 via-white to-slate-50">
+          <div className="max-w-7xl mx-auto text-center">
+            <div className="space-y-6 mb-20">
               {dynamicListData.heading && (
-                <h2 className="text-4xl md:text-5xl font-bold text-theme-text">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900">
                   {dynamicListData.heading}
                 </h2>
               )}
               {dynamicListData.description && (
-                <p className="text-lg md:text-xl text-theme-neutral leading-relaxed max-w-3xl mx-auto">
+                <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-3xl mx-auto font-medium">
                   {dynamicListData.description}
                 </p>
               )}
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {Array.isArray(dynamicListData.items) &&
                 dynamicListData.items.map((item: any, idx: number) => {
                   if (!item || typeof item !== "object") return null;
-
                   return (
                     <div key={idx} className="group">
-                      <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border border-gray-200 hover:border-theme-primary">
+                      <div className="bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 border-2 border-slate-200 hover:border-blue-300">
                         <div className="flex flex-col items-center text-center space-y-4">
                           {item.image && item.image.url && (
                             <img
                               src={getFullImageUrl(item.image.url)}
                               alt={item.image.title || item.title}
-                              className="w-full h-48 object-cover rounded-xl"
+                              className="w-full h-52 object-cover rounded-xl border-2 border-white shadow-lg"
                             />
                           )}
-                          <h3 className="text-xl font-semibold text-theme-text group-hover:text-theme-primary transition-colors">
+                          <h3 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
                             {item.title}
                           </h3>
                           <div
-                            className="text-theme-neutral leading-relaxed"
+                            className="text-slate-600 leading-relaxed"
                             dangerouslySetInnerHTML={{ __html: item.content }}
                           />
                         </div>
@@ -456,35 +397,28 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
 
     case "dynamic_list_old":
       const dynamicListOldData = block.value || {};
-
       return (
-        <div className="mb-16">
+        <div className="mb-20">
           {dynamicListOldData.heading && (
-            <h3 className="text-4xl font-bold mb-4 text-center text-theme-text">
+            <h3 className="text-4xl md:text-5xl font-extrabold mb-6 text-center text-slate-900">
               {dynamicListOldData.heading}
             </h3>
           )}
           {dynamicListOldData.description && (
-            <p className="text-gray-600 mb-10 text-xl leading-relaxed text-center max-w-3xl mx-auto">
+            <p className="text-slate-600 mb-12 text-xl leading-relaxed text-center max-w-3xl mx-auto font-medium">
               {dynamicListOldData.description}
             </p>
           )}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {Array.isArray(dynamicListOldData.items) &&
               dynamicListOldData.items.map((item: any, idx: number) => {
                 if (!item || typeof item !== "object") return null;
-
                 return (
                   <div
                     key={idx}
-                    className="relative h-80 rounded-3xl overflow-hidden group cursor-pointer"
+                    className="relative h-80 rounded-2xl overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-500"
                   >
-                    {/* Blue hover effect from bottom right */}
-                    <div
-                      className="absolute inset-0 bg-blue-600 translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500 ease-out origin-bottom-right"
-                      style={{ clipPath: "polygon(100% 0, 100% 100%, 0 100%)" }}
-                    ></div>
-                    {/* Background Image */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-indigo-600 translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500 ease-out origin-bottom-right" />
                     {item.image && item.image.url && (
                       <div className="absolute inset-0">
                         <img
@@ -492,17 +426,14 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
                           alt={item.image.title || item.title || "Card image"}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
-                        {/* Gradient Overlay */}
                         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/70"></div>
                       </div>
                     )}
-
-                    {/* Text Content */}
                     <div className="relative h-full flex flex-col justify-end p-6 text-white">
-                      <h4 className="text-2xl font-bold mb-2 drop-shadow-lg text-white">
+                      <h4 className="text-2xl font-extrabold mb-2 drop-shadow-lg text-white">
                         {item.title || "Untitled"}
                       </h4>
-                      <p className="text-lg opacity-90 drop-shadow">
+                      <p className="text-lg opacity-90 drop-shadow font-medium">
                         {item.subtitle || "2025"}
                       </p>
                     </div>
@@ -515,16 +446,15 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
 
     case "old_dynamic_list":
       const oldDynamicListData = block.value || {};
-
       return (
-        <div className="mb-16">
+        <div className="mb-20">
           {oldDynamicListData.heading && (
-            <h3 className="text-4xl font-bold mb-4 text-theme-text">
+            <h3 className="text-4xl md:text-5xl font-extrabold mb-6 text-slate-900">
               {oldDynamicListData.heading}
             </h3>
           )}
           {oldDynamicListData.description && (
-            <p className="text-gray-600 mb-10 text-xl leading-relaxed">
+            <p className="text-slate-600 mb-12 text-xl leading-relaxed font-medium">
               {oldDynamicListData.description}
             </p>
           )}
@@ -532,36 +462,30 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
             {Array.isArray(oldDynamicListData.items) &&
               oldDynamicListData.items.map((item: any, idx: number) => {
                 if (!item || typeof item !== "object") return null;
-
                 const itemType = item.type || "";
                 const itemValue = item.value || {};
-
                 return (
                   <div
                     key={idx}
-                    className="bg-white rounded-2xl p-8 hover:shadow-xl transition-all duration-300 border border-gray-100"
+                    className="bg-white rounded-2xl p-10 hover:shadow-2xl transition-all duration-500 border-2 border-slate-200 hover:border-blue-300"
                   >
                     {itemType === "custom_item" && (
                       <>
-                        {/* Icon for custom items with EasyIcon - UPDATED */}
                         {itemValue.icon && (
-                          <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 bg-blue-50">
+                          <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
                             <EasyIcon
                               icon={itemValue.icon}
-                              size={24}
-                              color="#3B82F6"
+                              size={28}
+                              color="#FFFFFF"
                             />
                           </div>
                         )}
-
-                        <h4 className="text-3xl font-bold mb-4 text-theme-text">
+                        <h4 className="text-3xl font-extrabold mb-5 text-slate-900">
                           {itemValue.title || "Untitled"}
                         </h4>
-
-                        {/* Safely handle content - could be string or RichText */}
                         {itemValue.content && (
                           <div
-                            className="prose prose-lg max-w-none mb-6 text-gray-700"
+                            className="prose prose-lg max-w-none mb-6 text-slate-700"
                             dangerouslySetInnerHTML={{
                               __html:
                                 typeof itemValue.content === "string"
@@ -570,69 +494,58 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
                             }}
                           />
                         )}
-
                         {itemValue.image && itemValue.image.url && (
                           <img
                             src={getFullImageUrl(itemValue.image.url)}
                             alt={itemValue.image.title || "Content image"}
-                            className="mt-6 rounded-xl w-full object-cover max-h-96 shadow-lg"
+                            className="mt-6 rounded-xl w-full object-cover max-h-96 shadow-xl border-4 border-white"
                           />
                         )}
                       </>
                     )}
-
-                    {/* Add support for other item types */}
                     {itemType === "feature" && (
                       <>
-                        {/* Icon with EasyIcon - UPDATED */}
                         {itemValue.icon && (
-                          <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 bg-blue-50">
+                          <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg">
                             <EasyIcon
                               icon={itemValue.icon}
-                              size={24}
-                              color="#3B82F6"
+                              size={28}
+                              color="#FFFFFF"
                             />
                           </div>
                         )}
-
-                        <h4 className="text-3xl font-bold mb-4 text-theme-text">
+                        <h4 className="text-3xl font-extrabold mb-5 text-slate-900">
                           {itemValue.title || "Feature"}
                         </h4>
-
                         {itemValue.description && (
-                          <p className="text-gray-600 text-lg leading-relaxed">
+                          <p className="text-slate-600 text-lg leading-relaxed font-medium">
                             {itemValue.description}
                           </p>
                         )}
                       </>
                     )}
-
                     {itemType === "benefit" && (
                       <>
-                        {/* Icon with EasyIcon - UPDATED */}
                         {itemValue.icon && (
-                          <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-6 bg-green-50">
+                          <div className="w-16 h-16 rounded-xl flex items-center justify-center mb-6 bg-gradient-to-br from-emerald-500 to-green-600 shadow-lg">
                             <EasyIcon
                               icon={itemValue.icon}
-                              size={24}
-                              color="#10B981"
+                              size={28}
+                              color="#FFFFFF"
                             />
                           </div>
                         )}
-
-                        <h4 className="text-3xl font-bold mb-4 text-theme-text">
+                        <h4 className="text-3xl font-extrabold mb-5 text-slate-900">
                           {itemValue.title || "Benefit"}
                         </h4>
-
                         {itemValue.description && (
-                          <p className="text-gray-600 text-lg leading-relaxed">
+                          <p className="text-slate-600 text-lg leading-relaxed font-medium">
                             {itemValue.description}
                           </p>
                         )}
-
                         {itemValue.stat && (
-                          <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                            <p className="text-2xl font-bold text-gray-800">
+                          <div className="mt-6 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-blue-200">
+                            <p className="text-3xl font-extrabold text-slate-900">
                               {itemValue.stat}
                             </p>
                           </div>
