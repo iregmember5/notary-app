@@ -132,7 +132,7 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
           <div className="absolute -inset-2 sm:-inset-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-3xl opacity-20 blur-2xl" />
           <div
             ref={richRef}
-            className="relative prose prose-sm sm:prose-base md:prose-lg lg:prose-xl max-w-none px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-14 rounded-2xl md:rounded-3xl bg-gradient-to-br from-white via-blue-50/80 to-purple-50/80 shadow-lg md:shadow-[0_20px_70px_rgba(59,130,246,0.25)] hover:shadow-xl md:hover:shadow-[0_25px_80px_rgba(139,92,246,0.35)] backdrop-blur-sm border border-slate-200 md:border-2 md:border-transparent md:hover:border-blue-200 overflow-auto"
+            className="relative prose prose-sm sm:prose-base md:prose-lg lg:prose-xl max-w-none px-4 sm:px-6 md:px-10 py-6 sm:py-8 md:py-14 rounded-2xl md:rounded-3xl bg-gradient-to-br from-white via-blue-50/80 to-purple-50/80 shadow-lg md:shadow-[0_20px_70px_rgba(59,130,246,0.25)] hover:shadow-xl md:hover:shadow-[0_25px_80px_rgba(139,92,246,0.35)] backdrop-blur-sm border border-slate-200 md:border-2 md:border-transparent md:hover:border-blue-200 overflow-visible"
             dangerouslySetInnerHTML={{ __html: block.value }}
           />
         </div>
