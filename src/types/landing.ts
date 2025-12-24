@@ -230,6 +230,7 @@ export interface PricingSection {
     text: string;
     url: string;
   };
+  ending_note?: string;
 }
 
 export interface LandingPageData {

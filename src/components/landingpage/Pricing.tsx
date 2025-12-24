@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import type { LandingPageData } from "../../types/landing";
 
 interface PricingProps {
@@ -7,6 +7,31 @@ interface PricingProps {
 
 const Pricing: React.FC<PricingProps> = ({ data }) => {
   const section = data.pricing_section;
+  const widgetRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (section?.widget_code && widgetRef.current) {
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = section.widget_code;
+
+      const scripts = tempDiv.querySelectorAll("script");
+      scripts.forEach((script) => {
+        const newScript = document.createElement("script");
+        if (script.src) {
+          newScript.src = script.src;
+          newScript.async = true;
+        } else {
+          newScript.textContent = script.textContent;
+        }
+        document.head.appendChild(newScript);
+      });
+
+      const nonScriptContent = tempDiv.querySelectorAll(":not(script)");
+      nonScriptContent.forEach((el) => {
+        widgetRef.current?.appendChild(el.cloneNode(true));
+      });
+    }
+  }, [section?.widget_code]);
 
   if (!section || !section.heading) {
     return null;
@@ -27,13 +52,12 @@ const Pricing: React.FC<PricingProps> = ({ data }) => {
         </div>
 
         {section.widget_code ? (
-          <div 
-            className="max-w-4xl mx-auto overflow-x-auto"
-            dangerouslySetInnerHTML={{ __html: section.widget_code }}
-          />
+          <div ref={widgetRef} className="max-w-6xl mx-auto" />
         ) : (
           <div className="text-center">
-            <p className="text-sm sm:text-base text-theme-neutral mb-6 sm:mb-8">Pricing information coming soon...</p>
+            <p className="text-sm sm:text-base text-theme-neutral mb-6 sm:mb-8">
+              Pricing information coming soon...
+            </p>
             {section.show_cta && section.cta && (
               <a
                 href={section.cta.url || "#"}
@@ -42,6 +66,14 @@ const Pricing: React.FC<PricingProps> = ({ data }) => {
                 {section.cta.text}
               </a>
             )}
+          </div>
+        )}
+
+        {section.ending_note && (
+          <div className="text-center mt-8 sm:mt-12">
+            <p className="text-sm sm:text-base text-theme-neutral max-w-2xl mx-auto">
+              {section.ending_note}
+            </p>
           </div>
         )}
       </div>
