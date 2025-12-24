@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import Workbook from "./Workbook";
+
 import IconRenderer from "./IconRenderer";
 import {
   fetchLandingPageData,
@@ -39,10 +39,8 @@ export default function TaxAdvisorLandingPage() {
     seconds: 44,
   });
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [showModal, setShowModal] = useState(false);
-  const [showWorkbook, setShowWorkbook] = useState(false);
   const [pageData, setPageData] = useState<SalesPages | null>(null);
-  const [workbookData, setWorkbookData] = useState<SalesPages | null>(null);
+
   const [_, setFeaturesData] = useState<FeaturesPageData[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -52,10 +50,10 @@ export default function TaxAdvisorLandingPage() {
       fetchAllFeaturesPages(),
       fetchWorkbookPageData(),
     ])
-      .then(([landingData, featuresData, workbookData]) => {
+      .then(([landingData, featuresData]) => {
         setPageData(landingData);
         setFeaturesData(featuresData);
-        setWorkbookData(workbookData);
+
         setLoading(false);
       })
       .catch(console.error);
@@ -86,10 +84,6 @@ export default function TaxAdvisorLandingPage() {
     return () => clearInterval(timer);
   }, []);
 
-  if (showWorkbook) {
-    return <Workbook data={workbookData} />;
-  }
-
   if (loading) {
     return (
       <div className="geometric-bg text-white fixed inset-0 w-screen h-screen flex items-center justify-center">
@@ -102,6 +96,48 @@ export default function TaxAdvisorLandingPage() {
     <>
       <style>{styles}</style>
       <div className="geometric-bg text-white fixed inset-0 w-screen h-screen overflow-y-auto">
+        {/* Header/Navbar */}
+        {pageData?.header_section?.config && (
+          <nav className="bg-black/50 backdrop-blur-sm py-4 px-4 sticky top-0 z-40">
+            <div className="container mx-auto flex justify-between items-center">
+              <div className="flex items-center gap-4">
+                {pageData.header_section.config.logo && (
+                  <img
+                    src={prependImageUrl(
+                      pageData.header_section.config.logo.url
+                    )}
+                    alt={pageData.header_section.config.logo.title || "Logo"}
+                    className="h-10"
+                  />
+                )}
+                {pageData.header_section.config.site_name && (
+                  <span className="text-xl font-bold">
+                    {pageData.header_section.config.site_name}
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-6">
+                {pageData.header_section.config.navigation_items?.map(
+                  (item: any) => (
+                    <a
+                      key={item.id}
+                      href={item.url}
+                      className="text-white hover:text-yellow-500"
+                    >
+                      {item.title}
+                    </a>
+                  )
+                )}
+                {pageData.header_section.config.navbar_cta?.text && (
+                  <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-2 px-6 rounded-full hover:scale-105 transition-transform">
+                    {pageData.header_section.config.navbar_cta.text}
+                  </button>
+                )}
+              </div>
+            </div>
+          </nav>
+        )}
+
         {/* Top Banner */}
         {pageData?.header_section?.title && (
           <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-3 px-4 text-center font-bold">
@@ -110,10 +146,7 @@ export default function TaxAdvisorLandingPage() {
                 {pageData.header_section.title}
               </p>
               {pageData.header_section.button?.text && (
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-full text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap"
-                >
+                <button className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-full text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap">
                   <svg
                     className="w-4 h-4"
                     fill="currentColor"
@@ -192,10 +225,7 @@ export default function TaxAdvisorLandingPage() {
                 </div>
 
                 {pageData?.main_hero_section?.button?.text && (
-                  <button
-                    onClick={() => setShowModal(true)}
-                    className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform"
-                  >
+                  <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
                     🎯 {pageData.main_hero_section.button.text}
                   </button>
                 )}
@@ -333,10 +363,7 @@ export default function TaxAdvisorLandingPage() {
                 </p>
               )}
               {pageData.secondary_cta_section.button?.text && (
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform"
-                >
+                <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
                   🎯 {pageData.secondary_cta_section.button.text}
                 </button>
               )}
@@ -391,10 +418,7 @@ export default function TaxAdvisorLandingPage() {
                 </p>
               )}
               {pageData.primary_cta_section.button?.text && (
-                <button
-                  onClick={() => setShowModal(true)}
-                  className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold py-3 px-6 rounded-full w-full hover:scale-105 transition-transform"
-                >
+                <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold py-3 px-6 rounded-full w-full hover:scale-105 transition-transform">
                   🎯 {pageData.primary_cta_section.button.text}
                 </button>
               )}
@@ -402,81 +426,124 @@ export default function TaxAdvisorLandingPage() {
           </div>
         )}
 
-        {/* Don't Wait Section */}
-        {pageData?.reusable_sections?.[0] && (
-          <div className="container mx-auto px-4 py-16 text-center">
-            <p className="text-sm mb-2">
-              {pageData.reusable_sections[0].heading}
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">
-              {pageData.reusable_sections[0].subheading}
-            </h2>
-            <p className="text-yellow-500 text-2xl md:text-3xl font-bold mb-8">
-              {pageData.reusable_sections[0].description}
-            </p>
-            <p className="text-xl mb-8">
-              {pageData.reusable_sections[0].subdescription}
-            </p>
-            <button
-              onClick={() => setShowModal(true)}
-              className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform mb-12"
-            >
-              🎯{" "}
-              {pageData.reusable_sections[0].button?.text ||
-                "REGISTER FOR FREE WORKSHOP"}
-            </button>
-
-            {pageData.reusable_sections[0].image && (
-              <div className="max-w-4xl mx-auto mb-12">
+        {/* Reusable Sections */}
+        {pageData?.reusable_sections?.map((section: any, idx: number) => (
+          <div key={idx} className="container mx-auto px-4 py-16">
+            {section.heading && (
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+                {section.heading}
+              </h2>
+            )}
+            {section.subheading && (
+              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-center text-yellow-500">
+                {section.subheading}
+              </h3>
+            )}
+            {section.description && (
+              <p className="text-lg mb-6 text-center max-w-4xl mx-auto">
+                {section.description}
+              </p>
+            )}
+            {section.subdescription && (
+              <p className="text-base mb-6 text-center text-gray-400">
+                {section.subdescription}
+              </p>
+            )}
+            {section.button?.text && (
+              <div className="text-center mb-8">
+                <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
+                  🎯 {section.button.text}
+                </button>
+              </div>
+            )}
+            {section.image && (
+              <div className="max-w-4xl mx-auto mb-8">
                 <img
-                  src={prependImageUrl(pageData.reusable_sections[0].image.url)}
-                  alt="Workshop Preview"
-                  className="rounded-lg mx-auto"
+                  src={prependImageUrl(section.image.url)}
+                  alt={section.heading || "Section image"}
+                  className="rounded-lg mx-auto w-full"
                 />
               </div>
             )}
-
-            {/* What, When, Why */}
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-12">
-              {pageData.reusable_sections[0].cards?.map(
-                (card: any, i: number) => (
-                  <div key={i}>
-                    <h3 className="text-yellow-500 text-xl font-bold mb-2">
-                      {card.name}
-                    </h3>
-                    <p
-                      className="text-lg font-bold"
-                      style={{ whiteSpace: "pre-line" }}
-                    >
-                      {card.description}
-                    </p>
+            {section.cards && section.cards.length > 0 && (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                {section.cards.map((card: any, i: number) => (
+                  <div
+                    key={i}
+                    className="bg-gray-800 p-6 rounded-lg border border-gray-700"
+                  >
+                    {card.name && (
+                      <h4 className="text-yellow-500 text-lg font-bold mb-3">
+                        {card.name}
+                      </h4>
+                    )}
+                    {card.description && (
+                      <p
+                        className="text-gray-300 text-sm"
+                        style={{ whiteSpace: "pre-line" }}
+                      >
+                        {card.description}
+                      </p>
+                    )}
                   </div>
-                )
-              )}
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {/* Simple CTA Sections */}
+        {pageData?.simple_cta_sections?.map((cta: any, idx: number) => (
+          <div key={idx} className="container mx-auto px-4 py-16 text-center">
+            {cta.heading && (
+              <h2 className="text-3xl font-bold mb-4">{cta.heading}</h2>
+            )}
+            {cta.subtitle && <p className="text-xl mb-8">{cta.subtitle}</p>}
+            {cta.description && <p className="mb-4">{cta.description}</p>}
+            {cta.button?.text && (
+              <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
+                🎯 {cta.button.text}
+              </button>
+            )}
+          </div>
+        ))}
+
+        {/* Web Form Section */}
+        {pageData?.web_form_section?.form && (
+          <div className="container mx-auto px-4 py-16">
+            {pageData.web_form_section.heading && (
+              <h2 className="text-3xl font-bold mb-4 text-center">
+                {pageData.web_form_section.heading}
+              </h2>
+            )}
+            {pageData.web_form_section.description && (
+              <p className="text-center mb-8">
+                {pageData.web_form_section.description}
+              </p>
+            )}
+            <div className="max-w-2xl mx-auto">
+              {/* Form rendering would go here */}
+              <p className="text-center text-gray-400">
+                Form ID: {pageData.web_form_section.form}
+              </p>
             </div>
           </div>
         )}
 
-        {/* Simple CTA */}
-        {pageData?.simple_cta_sections?.[0] && (
-          <div className="container mx-auto px-4 py-16 text-center">
-            <h2 className="text-3xl font-bold mb-4">
-              {pageData.simple_cta_sections[0].heading}
-            </h2>
-            <p className="text-xl mb-8">
-              {pageData.simple_cta_sections[0].subtitle}
-            </p>
-            <p className="mb-4">
-              {pageData.simple_cta_sections[0].description}
-            </p>
-            <button
-              onClick={() => setShowModal(true)}
-              className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform"
-            >
-              🎯{" "}
-              {pageData.simple_cta_sections[0].button?.text ||
-                "REGISTER FOR FREE WORKSHOP"}
-            </button>
+        {/* Calendar Section */}
+        {pageData?.calendar_section?.embed_code && (
+          <div className="container mx-auto px-4 py-16">
+            {pageData.calendar_section.heading && (
+              <h2 className="text-3xl font-bold mb-8 text-center">
+                {pageData.calendar_section.heading}
+              </h2>
+            )}
+            <div
+              className="max-w-4xl mx-auto"
+              dangerouslySetInnerHTML={{
+                __html: pageData.calendar_section.embed_code,
+              }}
+            />
           </div>
         )}
 
@@ -547,103 +614,155 @@ export default function TaxAdvisorLandingPage() {
           </div>
 
           <p className="text-xl mb-8">DECEMBER 16-17, 2025 9AM-3PM CST</p>
-          <button
-            onClick={() => setShowModal(true)}
-            className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform"
-          >
+          <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
             🎯 REGISTER FOR FREE WORKSHOP
           </button>
         </div>
 
-        {/* Registration Modal */}
-        {showModal && (
-          <div
-            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4"
-            onClick={() => setShowModal(false)}
-          >
-            <div
-              className="bg-gradient-to-br from-gray-900 to-black border-2 border-yellow-500 rounded-lg max-w-md w-full p-8 relative"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <button
-                onClick={() => setShowModal(false)}
-                className="absolute top-4 right-4 text-yellow-500 hover:text-yellow-400 text-3xl font-bold"
-              >
-                &times;
-              </button>
-              <h2 className="text-2xl font-bold text-white mb-2">
-                The $100k/Month Tax Advisor Workshop
-              </h2>
-              <p className="text-yellow-500 mb-6 font-semibold">
-                DECEMBER 16-17, 2025 9AM-5PM CST
-              </p>
-              <form
-                className="space-y-4"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setShowModal(false);
-                  setShowWorkbook(true);
-                }}
-              >
-                <div>
-                  <label className="block text-white font-medium mb-1">
-                    First Name*
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    className="w-full border-2 border-gray-700 bg-gray-800 rounded px-3 py-2 text-white focus:border-yellow-500 focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-white font-medium mb-1">
-                    Email*
-                  </label>
-                  <input
-                    type="email"
-                    required
-                    className="w-full border-2 border-gray-700 bg-gray-800 rounded px-3 py-2 text-white focus:border-yellow-500 focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label className="block text-white font-medium mb-1">
-                    Phone*
-                  </label>
-                  <input
-                    type="tel"
-                    required
-                    className="w-full border-2 border-gray-700 bg-gray-800 rounded px-3 py-2 text-white focus:border-yellow-500 focus:outline-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-3 rounded-full hover:scale-105 transition-transform"
-                >
-                  🎯 REGISTER NOW
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
-
         {/* Footer */}
-        {(pageData?.footer_section?.title ||
-          pageData?.footer_section?.subtitle ||
-          pageData?.footer_section?.description) && (
-          <div className="border-t border-gray-800 py-8 px-4">
-            <div className="container mx-auto text-center text-xl text-gray-200">
-              {pageData.footer_section.title && (
-                <p className="mb-4">{pageData.footer_section.title}</p>
+        <div className="border-t border-gray-800 py-12 px-4">
+          <div className="container mx-auto">
+            <div className="grid md:grid-cols-4 gap-8 mb-8">
+              {/* Company Info */}
+              <div>
+                {pageData?.footer_section?.config?.company_info?.logo && (
+                  <img
+                    src={prependImageUrl(
+                      pageData.footer_section.config.company_info.logo.url
+                    )}
+                    alt={
+                      pageData.footer_section.config.company_info.logo.title ||
+                      "Logo"
+                    }
+                    className="h-12 mb-4"
+                  />
+                )}
+                {pageData?.footer_section?.config?.company_info
+                  ?.description && (
+                  <p className="text-gray-400">
+                    {pageData.footer_section.config.company_info.description}
+                  </p>
+                )}
+              </div>
+
+              {/* Quick Links */}
+              {pageData?.footer_section?.config?.sections?.quick_links
+                ?.show && (
+                <div>
+                  <h3 className="font-bold mb-4">
+                    {
+                      pageData.footer_section.config.sections.quick_links
+                        .heading
+                    }
+                  </h3>
+                  <ul className="space-y-2">
+                    {pageData.footer_section.config.sections.quick_links.links?.map(
+                      (link: any, i: number) => (
+                        <li key={i}>
+                          <a
+                            href={link.url}
+                            className="text-gray-400 hover:text-white"
+                          >
+                            {link.text}
+                          </a>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
               )}
-              {pageData.footer_section.subtitle && (
-                <p className="mb-4">{pageData.footer_section.subtitle}</p>
+
+              {/* Services */}
+              {pageData?.footer_section?.config?.sections?.services?.show && (
+                <div>
+                  <h3 className="font-bold mb-4">
+                    {pageData.footer_section.config.sections.services.heading}
+                  </h3>
+                  <ul className="space-y-2">
+                    {pageData.footer_section.config.sections.services.links?.map(
+                      (link: any, i: number) => (
+                        <li key={i}>
+                          <a
+                            href={link.url}
+                            className="text-gray-400 hover:text-white"
+                          >
+                            {link.text}
+                          </a>
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
               )}
-              {pageData.footer_section.description && (
+
+              {/* Contact */}
+              {pageData?.footer_section?.config?.sections?.contact?.show && (
+                <div>
+                  <h3 className="font-bold mb-4">
+                    {pageData.footer_section.config.sections.contact.heading}
+                  </h3>
+                  <div className="space-y-2 text-gray-400">
+                    {pageData.footer_section.config.contact_info?.email && (
+                      <p>{pageData.footer_section.config.contact_info.email}</p>
+                    )}
+                    {pageData.footer_section.config.contact_info?.phone && (
+                      <p>{pageData.footer_section.config.contact_info.phone}</p>
+                    )}
+                    {pageData.footer_section.config.contact_info?.address && (
+                      <p>
+                        {pageData.footer_section.config.contact_info.address}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Social Links */}
+            {pageData?.footer_section?.config?.social_links &&
+              pageData.footer_section.config.social_links.length > 0 && (
+                <div className="flex justify-center gap-4 mb-8">
+                  {pageData.footer_section.config.social_links.map(
+                    (social: any, i: number) => (
+                      <a
+                        key={i}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-white"
+                      >
+                        <i className={social.icon_class}></i> {social.platform}
+                      </a>
+                    )
+                  )}
+                </div>
+              )}
+
+            {/* Copyright */}
+            <div className="text-center text-gray-400 border-t border-gray-800 pt-8">
+              {pageData?.footer_section?.config?.copyright_text && (
+                <p className="mb-2">
+                  {pageData.footer_section.config.copyright_text}
+                </p>
+              )}
+              {pageData?.footer_section?.config?.additional_footer_text && (
+                <p>{pageData.footer_section.config.additional_footer_text}</p>
+              )}
+              {pageData?.footer_section?.title && (
+                <p className="mt-2">{pageData.footer_section.title}</p>
+              )}
+              {pageData?.footer_section?.subtitle && (
+                <p>{pageData.footer_section.subtitle}</p>
+              )}
+              {pageData?.footer_section?.description && (
                 <p>{pageData.footer_section.description}</p>
               )}
+              {pageData?.footer_section?.subdescription && (
+                <p>{pageData.footer_section.subdescription}</p>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
     </>
   );
