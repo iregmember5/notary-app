@@ -55,6 +55,7 @@ export const SiteSettingsProvider: React.FC<SiteSettingsProviderProps> = ({
         setSettings({
           siteTitle: "notary-app",
           favicon: "/vite.svg",
+          widgets: [],
         });
       } finally {
         setLoading(false);

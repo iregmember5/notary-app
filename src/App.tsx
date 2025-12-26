@@ -96,7 +96,7 @@ function AppContent() {
         <ThemeProvider>
           <BlogPage slug={currentView.slug} />
         </ThemeProvider>
-        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+        <WidgetButton widgets={settings.widgets || []} />
       </>
     );
   }
@@ -107,7 +107,7 @@ function AppContent() {
         <ThemeProvider>
           <FeaturesPage slug={currentView.slug} />
         </ThemeProvider>
-        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+        <WidgetButton widgets={settings.widgets || []} />
       </>
     );
   }
@@ -118,7 +118,7 @@ function AppContent() {
         <ThemeProvider>
           <DebugFeaturesAPI />
         </ThemeProvider>
-        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+        <WidgetButton widgets={settings.widgets || []} />
       </>
     );
   }
@@ -129,7 +129,7 @@ function AppContent() {
         <ThemeProvider>
           <DebugLandingAPI />
         </ThemeProvider>
-        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+        <WidgetButton widgets={settings.widgets || []} />
       </>
     );
   }
@@ -140,7 +140,7 @@ function AppContent() {
         <ThemeProvider>
           <Maverick />
         </ThemeProvider>
-        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+        <WidgetButton widgets={settings.widgets || []} />
       </>
     );
   }
@@ -150,7 +150,7 @@ function AppContent() {
       <ThemeProvider>
         <LandingPage />
       </ThemeProvider>
-      {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+      <WidgetButton widgets={settings.widgets || []} />
     </>
   );
 }
