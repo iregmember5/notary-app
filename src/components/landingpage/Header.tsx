@@ -82,7 +82,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
   return (
     <header
       ref={ref}
-      className="relative pt-20 md:pt-32 flex items-center justify-center overflow-hidden pb-12 md:pb-20 min-h-[80vh] md:min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30"
+      className="relative pt-20 md:pt-24 lg:pt-20 flex items-center justify-center overflow-hidden pb-12 md:pb-20 min-h-[80vh] md:min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30"
     >
       {/* Professional Background Pattern */}
       <div className="absolute inset-0 overflow-hidden">

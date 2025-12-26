@@ -361,6 +361,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                             ? "#salespage"
                             : link.title.toLowerCase() === "about"
                             ? "#about"
+                            : link.title.toLowerCase() === "demo sales page"
+                            ? "#salespage"
                             : getNavigationItemUrl(link)
                         }
                         className="text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2 inline-block text-theme-text"
@@ -507,6 +509,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                           ? "#salespage"
                           : link.title.toLowerCase() === "about"
                           ? "#about"
+                          : link.title.toLowerCase() === "demo sales page"
+                          ? "#salespage"
                           : getNavigationItemUrl(link)
                       }
                       className="block text-base font-medium py-2 px-2 rounded transition hover:text-blue-600 text-theme-text"
