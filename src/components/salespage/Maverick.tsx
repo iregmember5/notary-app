@@ -109,7 +109,10 @@ export default function TaxAdvisorLandingPage() {
         <div className="relative overflow-hidden py-20">
           <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 via-orange-500/10 to-transparent"></div>
           <div className="absolute top-20 right-20 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 left-20 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}} />
+          <div
+            className="absolute bottom-20 left-20 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "1s" }}
+          />
 
           <div className="container mx-auto px-4 py-12 relative max-w-7xl">
             <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -125,17 +128,6 @@ export default function TaxAdvisorLandingPage() {
                   </p>
                 )}
 
-                <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500 rounded-2xl p-6 backdrop-blur-sm">
-                  <div className="text-yellow-400 font-bold text-xl mb-2">
-                    {pageData?.secondary_cta_section?.announcement || ""}
-                  </div>
-                  {pageData?.secondary_cta_section?.announcement && (
-                    <span className="text-white text-sm font-semibold">
-                      ON ZOOM (Link Sent to Email)
-                    </span>
-                  )}
-                </div>
-
                 {pageData?.main_hero_section?.button?.text && (
                   <button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 text-black font-black py-5 px-10 rounded-full text-xl hover:scale-110 transition-all shadow-2xl hover:shadow-yellow-500/50 animate-[glow_2s_ease-in-out_infinite]">
                     🎯 {pageData.main_hero_section.button.text}
@@ -147,7 +139,9 @@ export default function TaxAdvisorLandingPage() {
                   <div className="relative animate-[float_6s_ease-in-out_infinite]">
                     <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-3xl blur-2xl opacity-50" />
                     <img
-                      src={prependImageUrl(pageData.main_hero_section.image.url)}
+                      src={prependImageUrl(
+                        pageData.main_hero_section.image.url
+                      )}
                       alt="Workshop Hero"
                       className="relative rounded-3xl shadow-2xl w-full border-4 border-yellow-500/30"
                     />
@@ -213,29 +207,31 @@ export default function TaxAdvisorLandingPage() {
               )}
               <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 p-8 md:p-12 rounded-3xl max-w-4xl mx-auto border-2 border-yellow-500/30 shadow-2xl shadow-yellow-500/20">
                 {(() => {
-                  return pageData.card_sections.cards.map((card: any, idx: number) => (
-                    <div
-                      key={idx}
-                      className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-yellow-500/20 mb-6 hover:border-yellow-500/50 transition-all hover:scale-105"
-                    >
-                      {card.title && (
-                        <h3 className="text-yellow-400 font-black text-2xl mb-4 flex items-center gap-3">
-                          <span className="text-3xl">✨</span>
-                          {card.title}
-                        </h3>
-                      )}
-                      {card.subtitle && (
-                        <h4 className="text-white font-bold text-xl mb-4">
-                          {card.subtitle}
-                        </h4>
-                      )}
-                      {card.description && (
-                        <p className="text-gray-300 text-base leading-relaxed">
-                          {card.description}
-                        </p>
-                      )}
-                    </div>
-                  ));
+                  return pageData.card_sections.cards.map(
+                    (card: any, idx: number) => (
+                      <div
+                        key={idx}
+                        className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-yellow-500/20 mb-6 hover:border-yellow-500/50 transition-all hover:scale-105"
+                      >
+                        {card.title && (
+                          <h3 className="text-yellow-400 font-black text-2xl mb-4 flex items-center gap-3">
+                            <span className="text-3xl">✨</span>
+                            {card.title}
+                          </h3>
+                        )}
+                        {card.subtitle && (
+                          <h4 className="text-white font-bold text-xl mb-4">
+                            {card.subtitle}
+                          </h4>
+                        )}
+                        {card.description && (
+                          <p className="text-gray-300 text-base leading-relaxed">
+                            {card.description}
+                          </p>
+                        )}
+                      </div>
+                    )
+                  );
                 })()}
               </div>
             </div>
@@ -272,30 +268,32 @@ export default function TaxAdvisorLandingPage() {
         )}
 
         {/* Meet Your Speakers */}
-        {pageData?.images_gallery_section?.images && pageData.images_gallery_section.images.filter((img: any) => img.image).length > 0 && (
-          <div className="container mx-auto px-4 py-16">
-            {pageData.images_gallery_section.heading && (
-              <div className="border-2 border-dashed border-yellow-500 rounded-full py-3 px-8 text-center inline-block mx-auto mb-12 block w-fit">
-                <h2 className="text-2xl font-bold">
-                  {pageData.images_gallery_section.heading}
-                </h2>
+        {pageData?.images_gallery_section?.images &&
+          pageData.images_gallery_section.images.filter((img: any) => img.image)
+            .length > 0 && (
+            <div className="container mx-auto px-4 py-16">
+              {pageData.images_gallery_section.heading && (
+                <div className="border-2 border-dashed border-yellow-500 rounded-full py-3 px-8 text-center inline-block mx-auto mb-12 block w-fit">
+                  <h2 className="text-2xl font-bold">
+                    {pageData.images_gallery_section.heading}
+                  </h2>
+                </div>
+              )}
+              <div className="grid grid-cols-2 lg:grid-cols-2 gap-8 max-w-3xl mx-auto">
+                {pageData.images_gallery_section.images
+                  .filter((img: any) => img.image)
+                  .map((img: any, i: number) => (
+                    <div key={i} className="text-center">
+                      <img
+                        src={prependImageUrl(img.image?.url)}
+                        alt={img.caption || "Speaker"}
+                        className="w-64 h-64 rounded-full mx-auto object-cover"
+                      />
+                    </div>
+                  ))}
               </div>
-            )}
-            <div className="grid grid-cols-2 lg:grid-cols-2 gap-8 max-w-3xl mx-auto">
-              {pageData.images_gallery_section.images
-                .filter((img: any) => img.image)
-                .map((img: any, i: number) => (
-                  <div key={i} className="text-center">
-                    <img
-                      src={prependImageUrl(img.image?.url)}
-                      alt={img.caption || "Speaker"}
-                      className="w-64 h-64 rounded-full mx-auto object-cover"
-                    />
-                  </div>
-                ))}
             </div>
-          </div>
-        )}
+          )}
 
         {/* Pricing Section */}
         {pageData?.primary_cta_section?.heading && (
@@ -329,86 +327,104 @@ export default function TaxAdvisorLandingPage() {
         )}
 
         {/* Reusable Sections */}
-        {pageData?.reusable_sections?.filter((s: any) => s.heading || s.subheading || s.description || s.subdescription || s.button?.text || s.image || (s.cards?.length > 0)).map((section: any, idx: number) => (
-          <div key={idx} className="container mx-auto px-4 py-16">
-            {section.heading && (
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-                {section.heading}
-              </h2>
-            )}
-            {section.subheading && (
-              <h3 className="text-xl md:text-2xl font-semibold mb-4 text-center text-yellow-500">
-                {section.subheading}
-              </h3>
-            )}
-            {section.description && (
-              <p className="text-lg mb-6 text-center max-w-4xl mx-auto">
-                {section.description}
-              </p>
-            )}
-            {section.subdescription && (
-              <p className="text-base mb-6 text-center text-gray-400">
-                {section.subdescription}
-              </p>
-            )}
-            {section.button?.text && (
-              <div className="text-center mb-8">
-                <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
-                  🎯 {section.button.text}
-                </button>
-              </div>
-            )}
-            {section.image && (
-              <div className="max-w-4xl mx-auto mb-8">
-                <img
-                  src={prependImageUrl(section.image.url)}
-                  alt={section.heading || "Section image"}
-                  className="rounded-lg mx-auto w-full"
-                />
-              </div>
-            )}
-            {section.cards && section.cards.length > 0 && (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                {section.cards.filter((c: any) => c.name || c.description).map((card: any, i: number) => (
-                  <div
-                    key={i}
-                    className="bg-gray-800 p-6 rounded-lg border border-gray-700"
-                  >
-                    {card.name && (
-                      <h4 className="text-yellow-500 text-lg font-bold mb-3">
-                        {card.name}
-                      </h4>
-                    )}
-                    {card.description && (
-                      <p
-                        className="text-gray-300 text-sm"
-                        style={{ whiteSpace: "pre-line" }}
+        {pageData?.reusable_sections
+          ?.filter(
+            (s: any) =>
+              s.heading ||
+              s.subheading ||
+              s.description ||
+              s.subdescription ||
+              s.button?.text ||
+              s.image ||
+              s.cards?.length > 0
+          )
+          .map((section: any, idx: number) => (
+            <div key={idx} className="container mx-auto px-4 py-16">
+              {section.heading && (
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+                  {section.heading}
+                </h2>
+              )}
+              {section.subheading && (
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-center text-yellow-500">
+                  {section.subheading}
+                </h3>
+              )}
+              {section.description && (
+                <p className="text-lg mb-6 text-center max-w-4xl mx-auto">
+                  {section.description}
+                </p>
+              )}
+              {section.subdescription && (
+                <p className="text-base mb-6 text-center text-gray-400">
+                  {section.subdescription}
+                </p>
+              )}
+              {section.button?.text && (
+                <div className="text-center mb-8">
+                  <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
+                    🎯 {section.button.text}
+                  </button>
+                </div>
+              )}
+              {section.image && (
+                <div className="max-w-4xl mx-auto mb-8">
+                  <img
+                    src={prependImageUrl(section.image.url)}
+                    alt={section.heading || "Section image"}
+                    className="rounded-lg mx-auto w-full"
+                  />
+                </div>
+              )}
+              {section.cards && section.cards.length > 0 && (
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                  {section.cards
+                    .filter((c: any) => c.name || c.description)
+                    .map((card: any, i: number) => (
+                      <div
+                        key={i}
+                        className="bg-gray-800 p-6 rounded-lg border border-gray-700"
                       >
-                        {card.description}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+                        {card.name && (
+                          <h4 className="text-yellow-500 text-lg font-bold mb-3">
+                            {card.name}
+                          </h4>
+                        )}
+                        {card.description && (
+                          <p
+                            className="text-gray-300 text-sm"
+                            style={{ whiteSpace: "pre-line" }}
+                          >
+                            {card.description}
+                          </p>
+                        )}
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
+          ))}
 
         {/* Simple CTA Sections */}
-        {pageData?.simple_cta_sections?.filter((c: any) => c.heading || c.subtitle || c.description || c.button?.text).map((cta: any, idx: number) => (
-          <div key={idx} className="container mx-auto px-4 py-16 text-center">
-            {cta.heading && (
-              <h2 className="text-3xl font-bold mb-4">{cta.heading}</h2>
-            )}
-            {cta.subtitle && <p className="text-xl mb-8">{cta.subtitle}</p>}
-            {cta.description && <p className="mb-4">{cta.description}</p>}
-            {cta.button?.text && (
-              <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
-                🎯 {cta.button.text}
-              </button>
-            )}
-          </div>
-        ))}
+        {pageData?.simple_cta_sections
+          ?.filter(
+            (c: any) =>
+              c.heading || c.subtitle || c.description || c.button?.text
+          )
+          .map((cta: any, idx: number) => (
+            <div key={idx} className="container mx-auto px-4 py-16 text-center">
+              {cta.heading && (
+                <h2 className="text-3xl font-bold mb-4">{cta.heading}</h2>
+              )}
+              {cta.subtitle && <p className="text-xl mb-8">{cta.subtitle}</p>}
+              {cta.description && <p className="mb-4">{cta.description}</p>}
+              {cta.button?.text && (
+                <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
+                  🎯 {cta.button.text}
+                </button>
+              )}
+            </div>
+          ))}
 
         {/* Web Form Section */}
         {pageData?.web_form_section?.form && (
@@ -485,7 +501,6 @@ export default function TaxAdvisorLandingPage() {
               </div>
             </div>
           )}
-
       </div>
     </>
   );
