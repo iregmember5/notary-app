@@ -17,17 +17,28 @@ const styles = `
     100% { transform: translateX(-50%); }
   }
   
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.5); }
+    50% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.8); }
+  }
+  
   .geometric-bg {
-    background-color: #000000;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+    position: relative;
+  }
+  
+  .geometric-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     background-image: 
-      linear-gradient(30deg, #050505 12%, transparent 12.5%, transparent 87%, #050505 87.5%, #050505),
-      linear-gradient(150deg, #050505 12%, transparent 12.5%, transparent 87%, #050505 87.5%, #050505),
-      linear-gradient(30deg, #050505 12%, transparent 12.5%, transparent 87%, #050505 87.5%, #050505),
-      linear-gradient(150deg, #050505 12%, transparent 12.5%, transparent 87%, #050505 87.5%, #050505),
-      linear-gradient(60deg, #0a0a0a 25%, transparent 25.5%, transparent 75%, #0a0a0a 75%, #0a0a0a),
-      linear-gradient(60deg, #0a0a0a 25%, transparent 25.5%, transparent 75%, #0a0a0a 75%, #0a0a0a);
-    background-size: 80px 140px;
-    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+      radial-gradient(circle at 20% 50%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
   }
 `;
 
@@ -67,13 +78,14 @@ export default function TaxAdvisorLandingPage() {
       <div className="geometric-bg text-white fixed inset-0 w-screen h-screen overflow-y-auto">
         {/* Top Banner */}
         {pageData?.header_section?.title && (
-          <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-3 px-4 text-center font-bold">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-              <p className="text-xs sm:text-sm">
+          <div className="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 text-white py-4 px-4 text-center font-bold shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse" />
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 relative z-10">
+              <p className="text-sm sm:text-base font-extrabold drop-shadow-lg">
                 {pageData.header_section.title}
               </p>
               {pageData.header_section.button?.text && (
-                <button className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-full text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap">
+                <button className="bg-black hover:bg-gray-900 text-yellow-400 px-6 py-2.5 rounded-full text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap font-bold shadow-xl hover:scale-105 transition-all">
                   <svg
                     className="w-4 h-4"
                     fill="currentColor"
@@ -94,48 +106,52 @@ export default function TaxAdvisorLandingPage() {
         )}
 
         {/* Hero Section */}
-        <div className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/10 to-orange-500/10"></div>
+        <div className="relative overflow-hidden py-20">
+          <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/20 via-orange-500/10 to-transparent"></div>
+          <div className="absolute top-20 right-20 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}} />
 
           <div className="container mx-auto px-4 py-12 relative max-w-7xl">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="text-center">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="text-center md:text-left space-y-8">
                 {pageData?.main_hero_section?.heading && (
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+                  <h1 className="text-5xl sm:text-6xl md:text-7xl font-black mb-6 leading-tight bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent drop-shadow-2xl">
                     {pageData.main_hero_section.heading}
                   </h1>
                 )}
                 {pageData?.main_hero_section?.subheading && (
-                  <p className="text-gray-300 text-sm sm:text-base max-w-2xl mx-auto mb-8">
+                  <p className="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto md:mx-0 mb-8 leading-relaxed">
                     {pageData.main_hero_section.subheading}
                   </p>
                 )}
 
-                <div className="text-yellow-500 font-bold mb-4 text-center">
-                  {pageData?.secondary_cta_section?.announcement || ""}
+                <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500 rounded-2xl p-6 backdrop-blur-sm">
+                  <div className="text-yellow-400 font-bold text-xl mb-2">
+                    {pageData?.secondary_cta_section?.announcement || ""}
+                  </div>
                   {pageData?.secondary_cta_section?.announcement && (
-                    <>
-                      <br />
-                      <span className="text-white text-sm">
-                        ON ZOOM (Link Sent to Email)
-                      </span>
-                    </>
+                    <span className="text-white text-sm font-semibold">
+                      ON ZOOM (Link Sent to Email)
+                    </span>
                   )}
                 </div>
 
                 {pageData?.main_hero_section?.button?.text && (
-                  <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
+                  <button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 text-black font-black py-5 px-10 rounded-full text-xl hover:scale-110 transition-all shadow-2xl hover:shadow-yellow-500/50 animate-[glow_2s_ease-in-out_infinite]">
                     🎯 {pageData.main_hero_section.button.text}
                   </button>
                 )}
               </div>
-              <div>
+              <div className="relative">
                 {pageData?.main_hero_section?.image?.url && (
-                  <img
-                    src={prependImageUrl(pageData.main_hero_section.image.url)}
-                    alt="Workshop Hero"
-                    className="rounded-lg shadow-2xl w-full"
-                  />
+                  <div className="relative animate-[float_6s_ease-in-out_infinite]">
+                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-3xl blur-2xl opacity-50" />
+                    <img
+                      src={prependImageUrl(pageData.main_hero_section.image.url)}
+                      alt="Workshop Hero"
+                      className="relative rounded-3xl shadow-2xl w-full border-4 border-yellow-500/30"
+                    />
+                  </div>
                 )}
               </div>
             </div>
@@ -195,25 +211,26 @@ export default function TaxAdvisorLandingPage() {
                   {pageData.card_sections.footer_title}
                 </p>
               )}
-              <div className="bg-gradient-to-br from-gray-800 via-gray-900 to-black p-8 md:p-12 rounded-2xl max-w-4xl mx-auto border border-gray-700 shadow-2xl">
+              <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 p-8 md:p-12 rounded-3xl max-w-4xl mx-auto border-2 border-yellow-500/30 shadow-2xl shadow-yellow-500/20">
                 {(() => {
                   return pageData.card_sections.cards.map((card: any, idx: number) => (
                     <div
                       key={idx}
-                      className="bg-gradient-to-br from-gray-700 to-gray-800 p-6 md:p-8 rounded-xl shadow-lg border border-gray-600 mb-6"
+                      className="bg-gradient-to-br from-yellow-500/10 to-orange-500/10 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-yellow-500/20 mb-6 hover:border-yellow-500/50 transition-all hover:scale-105"
                     >
                       {card.title && (
-                        <h3 className="text-yellow-500 font-bold text-xl mb-3">
+                        <h3 className="text-yellow-400 font-black text-2xl mb-4 flex items-center gap-3">
+                          <span className="text-3xl">✨</span>
                           {card.title}
                         </h3>
                       )}
                       {card.subtitle && (
-                        <h4 className="text-white font-semibold text-lg mb-3">
+                        <h4 className="text-white font-bold text-xl mb-4">
                           {card.subtitle}
                         </h4>
                       )}
                       {card.description && (
-                        <p className="text-gray-300 text-sm">
+                        <p className="text-gray-300 text-base leading-relaxed">
                           {card.description}
                         </p>
                       )}
@@ -227,25 +244,26 @@ export default function TaxAdvisorLandingPage() {
         {/* Free Registration Banner */}
         {pageData?.secondary_cta_section?.heading && (
           <div className="container mx-auto px-4 py-8">
-            <div className="border-4 border-yellow-500 rounded-lg p-8 text-center bg-black">
-              <h2 className="text-2xl font-bold mb-4">
+            <div className="border-4 border-yellow-500 rounded-2xl p-10 text-center bg-gradient-to-br from-black via-gray-900 to-black shadow-2xl shadow-yellow-500/30 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/5 via-orange-500/5 to-yellow-500/5 animate-pulse" />
+              <h2 className="text-3xl font-black mb-6 relative z-10">
                 {pageData.secondary_cta_section.heading}
                 {pageData.secondary_cta_section.description && (
                   <>
                     <br />
-                    <span className="text-yellow-500">
+                    <span className="text-yellow-400 text-4xl mt-2 inline-block">
                       {pageData.secondary_cta_section.description}
                     </span>
                   </>
                 )}
               </h2>
               {pageData.secondary_cta_section.announcement && (
-                <p className="text-xl mb-4">
+                <p className="text-2xl mb-6 text-gray-300 relative z-10">
                   {pageData.secondary_cta_section.announcement}
                 </p>
               )}
               {pageData.secondary_cta_section.button?.text && (
-                <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
+                <button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 text-black font-black py-5 px-10 rounded-full text-xl hover:scale-110 transition-all shadow-2xl hover:shadow-yellow-500/50 relative z-10">
                   🎯 {pageData.secondary_cta_section.button.text}
                 </button>
               )}

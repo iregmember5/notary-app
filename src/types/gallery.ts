@@ -1,0 +1,43 @@
+export interface GalleryImage {
+  id: number;
+  image: {
+    id: number;
+    url: string;
+    title: string;
+  } | null;
+  description: string;
+  order: number;
+}
+
+export interface ImageGalleryPage {
+  id: number;
+  title: string;
+  slug: string;
+  heading: string;
+  text: string;
+  paragraph: string;
+  gallery_images: GalleryImage[];
+  ending_note: string;
+}
+
+const API_BASE_URL = "https://esign-admin.signmary.com/api/v2";
+
+export async function fetchGalleryPages(): Promise<ImageGalleryPage[]> {
+  const response = await fetch(`${API_BASE_URL}/gallery-pages/`);
+  if (!response.ok) throw new Error("Failed to fetch gallery pages");
+  const data = await response.json();
+  return data.items || [];
+}
+
+export async function fetchGalleryPage(slug: string): Promise<ImageGalleryPage> {
+  const response = await fetch(`${API_BASE_URL}/gallery-pages/?slug=${slug}`);
+  if (!response.ok) throw new Error("Failed to fetch gallery page");
+  const data = await response.json();
+  return data.items?.[0] || null;
+}
+
+export function getFullImageUrl(url: string): string {
+  if (!url) return "";
+  if (url.startsWith("http")) return url;
+  return `https://esign-admin.signmary.com${url}`;
+}

@@ -1,4 +1,3 @@
-// App.tsx
 import { useState, useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import { FeaturesPage } from "./components/features/features-page/FeaturesPage";
@@ -7,13 +6,14 @@ import AboutPage from "./pages/AboutPage";
 import DebugFeaturesAPI from "./pages/DebugFeaturesApi";
 import DebugLandingAPI from "./pages/DebugLandingApi";
 import Maverick from "./components/salespage/Maverick";
+import ImageGallery from "./components/gallery/ImageGallery";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { SiteSettingsProvider } from "./contexts/SiteSettingsContext";
 import { DynamicHead } from "./components/DynamicHead";
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<{
-    type: "landing" | "features" | "blog" | "about" | "debug-features" | "debug-landing" | "salespage";
+    type: "landing" | "features" | "blog" | "about" | "debug-features" | "debug-landing" | "salespage" | "gallery";
     slug?: string;
   }>({ type: "landing" });
 
@@ -64,6 +64,11 @@ function AppContent() {
 
       if (path.includes("/salespage") || hash.includes("#salespage")) {
         setCurrentView({ type: "salespage" });
+        return;
+      }
+
+      if (path.includes("/gallery") || hash.includes("#gallery")) {
+        setCurrentView({ type: "gallery" });
         return;
       }
 
@@ -149,6 +154,16 @@ function AppContent() {
       <>
         <ThemeProvider>
           <Maverick />
+        </ThemeProvider>
+      </>
+    );
+  }
+
+  if (currentView.type === "gallery") {
+    return (
+      <>
+        <ThemeProvider>
+          <ImageGallery />
         </ThemeProvider>
       </>
     );
