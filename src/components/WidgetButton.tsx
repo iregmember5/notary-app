@@ -32,8 +32,8 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       {isOpen && (
         <>
           {widgets.map((widget, index) => {
-            const angle = (index * 60) - 30; // Spread buttons in arc
-            const radius = 100;
+            const angle = 180 - (index * 40); // Left side arc: 180° to 100°
+            const radius = 80;
             const x = Math.cos((angle * Math.PI) / 180) * radius;
             const y = Math.sin((angle * Math.PI) / 180) * radius;
             
