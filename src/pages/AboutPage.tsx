@@ -25,31 +25,35 @@ export default function AboutPage() {
   if (!data) return <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 text-xl text-gray-600">About page not found</div>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       {data.header_config && <div className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">{/* Render header */}</div>}
 
       {/* Hero Section with Image */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-900 via-amber-800 to-amber-950"></div>
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
+          <div className="absolute top-0 -left-4 w-72 h-72 bg-amber-300 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
           <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
+          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row items-center gap-16">
             {/* Left: Text */}
             <div className="flex-1 text-white space-y-6">
               <h1 className="text-6xl font-extrabold leading-tight drop-shadow-lg">{data.title}</h1>
-              {data.intro && <p className="text-2xl leading-relaxed text-blue-100 font-light">{data.intro}</p>}
+              {data.intro && <p className="text-2xl leading-relaxed text-amber-100 font-light">{data.intro}</p>}
             </div>
             {/* Right: Image */}
             {data.featured_image && (
               <div className="flex-1">
                 <div className="relative group">
-                  <div className="absolute -inset-1 bg-gradient-to-r from-pink-600 to-purple-600 rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-                  <img src={data.featured_image.url} alt={data.featured_image.title} className="relative w-full h-auto rounded-3xl shadow-2xl transform group-hover:scale-105 transition duration-500" />
+                  <div className="absolute -inset-1 bg-gradient-to-r from-amber-600 to-amber-800 rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                  <img 
+                    src={data.featured_image.url.startsWith('http') ? data.featured_image.url : `https://esign-admin.signmary.com${data.featured_image.url}`} 
+                    alt={data.featured_image.title} 
+                    className="relative w-full h-auto rounded-3xl shadow-2xl transform group-hover:scale-105 transition duration-500" 
+                  />
                 </div>
               </div>
             )}
@@ -60,29 +64,128 @@ export default function AboutPage() {
       {/* Body Content */}
       {data.body && (
         <section className="py-20 bg-white">
-          <div className="container mx-auto px-4 max-w-5xl">
-            <div className="prose prose-xl max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600" dangerouslySetInnerHTML={{ __html: data.body }} />
+          <div className="container mx-auto px-4 max-w-6xl">
+            <div className="space-y-16">
+              {/* Opening Statement */}
+              <div className="text-center">
+                <h2 className="text-4xl font-bold text-slate-900 mb-6">Our work begins where most tax professionals stop.</h2>
+                <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+                  When a tax preparer or accountant says they have taken all possible tax deductions and there is nothing else they can do, the traditional formula looks like this:
+                </p>
+              </div>
+
+              {/* Traditional Formula */}
+              <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl p-12 border-2 border-slate-200 shadow-lg">
+                <div className="text-center">
+                  <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Traditional Approach</p>
+                  <div className="text-3xl font-bold text-slate-700 space-x-4">
+                    <span>Income</span>
+                    <span className="text-slate-400">−</span>
+                    <span>Expenses</span>
+                    <span className="text-slate-400">=</span>
+                    <span className="text-red-600">Profit</span>
+                  </div>
+                  <p className="text-slate-600 mt-6 text-lg">That profit is then <span className="font-semibold text-red-600">fully taxed</span>.</p>
+                </div>
+              </div>
+
+              {/* Arrow Down */}
+              <div className="flex justify-center">
+                <div className="w-1 h-16 bg-gradient-to-b from-amber-600 to-amber-800 rounded-full relative">
+                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-amber-800"></div>
+                </div>
+              </div>
+
+              {/* Our Approach */}
+              <div className="bg-gradient-to-br from-amber-50 via-amber-100 to-amber-50 rounded-3xl p-12 border-2 border-amber-300 shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/30 rounded-full filter blur-3xl"></div>
+                <div className="relative z-10">
+                  <div className="text-center mb-8">
+                    <p className="text-sm font-semibold text-amber-800 uppercase tracking-wider mb-4">Our Strategic Approach</p>
+                    <div className="text-3xl font-bold text-slate-900 space-x-4">
+                      <span>Income</span>
+                      <span className="text-slate-400">−</span>
+                      <span>Expenses</span>
+                      <span className="text-amber-600">−</span>
+                      <span className="text-amber-700">Tax Strategies</span>
+                      <span className="text-slate-400">=</span>
+                      <span className="text-green-600">New Profit</span>
+                    </div>
+                  </div>
+                  <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 mt-8">
+                    <p className="text-lg text-slate-700 leading-relaxed text-center">
+                      As a result, taxes are paid on a <span className="font-bold text-green-600">new profit that is substantially lower</span>, achieved through strategic tax planning carried out with <span className="font-semibold text-amber-700">complete compliance</span> to tax laws and supporting court cases.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Key Points */}
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white shadow-xl">
+                  <div className="text-5xl mb-4">⏰</div>
+                  <h3 className="text-2xl font-bold mb-3">Proactive Planning</h3>
+                  <p className="text-slate-300 leading-relaxed">All tax planning is done <span className="font-semibold text-amber-300">in advance</span>, not after the year has ended.</p>
+                </div>
+                <div className="bg-gradient-to-br from-amber-700 to-amber-800 rounded-2xl p-8 text-white shadow-xl">
+                  <div className="text-5xl mb-4">📊</div>
+                  <h3 className="text-2xl font-bold mb-3">Measurable Results</h3>
+                  <p className="text-amber-100 leading-relaxed">We take measurements <span className="font-semibold">before and after</span> implementation, and the results speak for themselves.</p>
+                </div>
+              </div>
+
+              {/* Specialties */}
+              <div className="bg-white rounded-3xl p-12 border-2 border-slate-200 shadow-lg">
+                <h3 className="text-3xl font-bold text-center mb-8 text-slate-900">Our Specialties</h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-lg text-slate-700">Tax planning, accounting, project and labor costing</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-lg text-slate-700">Tax problem solving</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-lg text-slate-700">Application integration with existing accounting systems</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-lg text-slate-700">Resolving operational bottlenecks</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-lg text-slate-700">Cloud-based integration setup, migration, and training</p>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
+                    <p className="text-lg text-slate-700">Long-term financial strength planning</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       )}
 
       {/* Mission Statement */}
       {data.mission_statement && (
-        <section className="py-32 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+        <section className="py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 relative overflow-hidden">
           <div className="absolute inset-0">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full filter blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full filter blur-3xl animate-pulse animation-delay-2000"></div>
-            <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-indigo-500/20 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-900/30 rounded-full filter blur-3xl animate-pulse"></div>
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-800/30 rounded-full filter blur-3xl animate-pulse animation-delay-2000"></div>
+            <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-slate-700/30 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
           </div>
           <div className="container mx-auto px-4 relative z-10">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 drop-shadow-2xl">Our Mission</h2>
-                <div className="w-32 h-1.5 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 mx-auto rounded-full"></div>
+                <h2 className="text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-white drop-shadow-2xl">Our Mission</h2>
+                <div className="w-32 h-1.5 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-400 mx-auto rounded-full"></div>
               </div>
               <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-12 border border-white/20 shadow-2xl">
                 <div className="prose prose-lg prose-invert max-w-none">
-                  <p className="text-xl leading-relaxed text-blue-50 font-light whitespace-pre-line">{data.mission_statement}</p>
+                  <p className="text-xl leading-relaxed text-amber-50 font-light whitespace-pre-line">{data.mission_statement}</p>
                 </div>
               </div>
             </div>
@@ -94,15 +197,15 @@ export default function AboutPage() {
       {data.values && data.values.length > 0 && (
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Our Values</h2>
+            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Our Values</h2>
             <div className="grid md:grid-cols-3 gap-10">
               {data.values.map((item, idx) => (
                 <div key={idx} className="group relative">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-                  <div className="relative bg-white p-8 rounded-2xl border border-gray-100 hover:shadow-2xl transition duration-500 h-full">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-700 to-slate-700 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+                  <div className="relative bg-white p-8 rounded-2xl border border-amber-100 hover:shadow-2xl transition duration-500 h-full">
                     {item.value.icon && <div className="text-5xl mb-6">{item.value.icon}</div>}
-                    {item.value.title && <h3 className="text-2xl font-bold mb-4 text-gray-900">{item.value.title}</h3>}
-                    {item.value.description && <p className="text-gray-600 leading-relaxed">{item.value.description}</p>}
+                    {item.value.title && <h3 className="text-2xl font-bold mb-4 text-slate-900">{item.value.title}</h3>}
+                    {item.value.description && <p className="text-slate-600 leading-relaxed">{item.value.description}</p>}
                   </div>
                 </div>
               ))}
@@ -113,32 +216,32 @@ export default function AboutPage() {
 
       {/* Team Members */}
       {data.team_members && data.team_members.length > 0 && (
-        <section className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+        <section className="py-24 bg-amber-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Meet Our Team</h2>
+            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Meet Our Team</h2>
             <div className="grid md:grid-cols-3 gap-10">
               {data.team_members.map((member) => (
                 <div key={member.id} className="group relative">
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-600 to-purple-600 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-700 to-slate-700 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
                   <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden transform group-hover:-translate-y-2 transition duration-500">
                     {member.photo && (
                       <div className="relative overflow-hidden h-80">
                         <img src={member.photo.url} alt={member.name} className="w-full h-full object-cover transform group-hover:scale-110 transition duration-700" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
                       </div>
                     )}
                     <div className="p-8">
-                      <h3 className="text-2xl font-bold mb-2 text-gray-900">{member.name}</h3>
-                      <p className="text-blue-600 font-semibold mb-4">{member.position}</p>
-                      <p className="text-gray-600 mb-6 leading-relaxed">{member.bio}</p>
+                      <h3 className="text-2xl font-bold mb-2 text-slate-900">{member.name}</h3>
+                      <p className="text-amber-700 font-semibold mb-4">{member.position}</p>
+                      <p className="text-slate-600 mb-6 leading-relaxed">{member.bio}</p>
                       <div className="flex gap-4">
                         {member.linkedin_url && (
-                          <a href={member.linkedin_url} className="p-2 bg-blue-100 rounded-full hover:bg-blue-600 hover:text-white transition duration-300">
+                          <a href={member.linkedin_url} className="p-2 bg-amber-100 rounded-full hover:bg-slate-700 hover:text-white transition duration-300">
                             <Linkedin size={20} />
                           </a>
                         )}
                         {member.twitter_url && (
-                          <a href={member.twitter_url} className="p-2 bg-blue-100 rounded-full hover:bg-blue-400 hover:text-white transition duration-300">
+                          <a href={member.twitter_url} className="p-2 bg-amber-100 rounded-full hover:bg-slate-700 hover:text-white transition duration-300">
                             <Twitter size={20} />
                           </a>
                         )}
@@ -156,20 +259,20 @@ export default function AboutPage() {
       {data.history_milestones && data.history_milestones.length > 0 && (
         <section className="py-24 bg-white">
           <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Our Journey</h2>
+            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Our Journey</h2>
             <div className="max-w-4xl mx-auto space-y-12 relative">
-              <div className="absolute left-20 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-600 to-purple-600"></div>
+              <div className="absolute left-20 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-700 to-slate-700"></div>
               {data.history_milestones.map((item, idx) => (
                 <div key={idx} className="flex gap-8 items-start relative">
                   {item.value.year && (
                     <div className="relative z-10">
-                      <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 min-w-[100px]">{item.value.year}</div>
-                      <div className="absolute -right-4 top-3 w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full border-4 border-white shadow-lg"></div>
+                      <div className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-700 to-slate-700 min-w-[100px]">{item.value.year}</div>
+                      <div className="absolute -right-4 top-3 w-8 h-8 bg-gradient-to-r from-amber-700 to-slate-700 rounded-full border-4 border-white shadow-lg"></div>
                     </div>
                   )}
-                  <div className="flex-1 bg-gradient-to-br from-blue-50 to-purple-50 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-1">
-                    {item.value.event && <h3 className="text-2xl font-bold mb-3 text-gray-900">{item.value.event}</h3>}
-                    {item.value.description && <p className="text-gray-600 leading-relaxed">{item.value.description}</p>}
+                  <div className="flex-1 bg-gradient-to-br from-amber-50 to-slate-50 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition duration-500 transform hover:-translate-y-1">
+                    {item.value.event && <h3 className="text-2xl font-bold mb-3 text-slate-900">{item.value.event}</h3>}
+                    {item.value.description && <p className="text-slate-600 leading-relaxed">{item.value.description}</p>}
                   </div>
                 </div>
               ))}
@@ -180,14 +283,14 @@ export default function AboutPage() {
 
       {/* Gallery */}
       {data.gallery && data.gallery.length > 0 && (
-        <section className="py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+        <section className="py-24 bg-amber-50">
           <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Gallery</h2>
+            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Gallery</h2>
             <div className="grid md:grid-cols-3 gap-6">
               {data.gallery.map((item, idx) => (
                 <div key={idx} className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition duration-500">
                   <img src={item.value.url} alt={item.value.title} className="w-full h-72 object-cover transform group-hover:scale-110 transition duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"></div>
                 </div>
               ))}
             </div>
@@ -197,23 +300,23 @@ export default function AboutPage() {
 
       {/* Contact Section */}
       {(data.contact_blurb || data.contact_email || data.contact_phone) && (
-        <section className="py-24 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 relative overflow-hidden">
+        <section className="py-24 bg-gradient-to-r from-amber-900 via-amber-800 to-slate-900 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-pink-300 rounded-full filter blur-3xl animate-blob"></div>
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-yellow-300 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
+            <div className="absolute top-0 left-0 w-96 h-96 bg-amber-300 rounded-full filter blur-3xl animate-blob"></div>
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-slate-300 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
           </div>
           <div className="container mx-auto px-4 text-center relative z-10">
             <h2 className="text-5xl font-bold mb-8 text-white drop-shadow-lg">Get In Touch</h2>
-            {data.contact_blurb && <p className="text-2xl mb-12 max-w-3xl mx-auto text-blue-50 leading-relaxed">{data.contact_blurb}</p>}
+            {data.contact_blurb && <p className="text-2xl mb-12 max-w-3xl mx-auto text-amber-50 leading-relaxed">{data.contact_blurb}</p>}
             <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
               {data.contact_email && (
-                <a href={`mailto:${data.contact_email}`} className="group flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-4 rounded-full text-white text-lg hover:bg-white hover:text-blue-600 transition duration-300 shadow-lg">
+                <a href={`mailto:${data.contact_email}`} className="group flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-4 rounded-full text-white text-lg hover:bg-white hover:text-amber-900 transition duration-300 shadow-lg">
                   <Mail className="group-hover:scale-110 transition duration-300" size={24} />
                   {data.contact_email}
                 </a>
               )}
               {data.contact_phone && (
-                <a href={`tel:${data.contact_phone}`} className="group flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-4 rounded-full text-white text-lg hover:bg-white hover:text-blue-600 transition duration-300 shadow-lg">
+                <a href={`tel:${data.contact_phone}`} className="group flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-4 rounded-full text-white text-lg hover:bg-white hover:text-amber-900 transition duration-300 shadow-lg">
                   <Phone className="group-hover:scale-110 transition duration-300" size={24} />
                   {data.contact_phone}
                 </a>
