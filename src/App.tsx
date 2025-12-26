@@ -7,12 +7,10 @@ import DebugFeaturesAPI from "./pages/DebugFeaturesApi";
 import DebugLandingAPI from "./pages/DebugLandingApi";
 import Maverick from "./components/salespage/Maverick";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { SiteSettingsProvider, useSiteSettings } from "./contexts/SiteSettingsContext";
+import { SiteSettingsProvider } from "./contexts/SiteSettingsContext";
 import { DynamicHead } from "./components/DynamicHead";
-import WidgetButton from "./components/WidgetButton";
 
 function AppContent() {
-  const { settings } = useSiteSettings();
   const [currentView, setCurrentView] = useState<{
     type: "landing" | "features" | "blog" | "debug-features" | "debug-landing" | "salespage";
     slug?: string;
