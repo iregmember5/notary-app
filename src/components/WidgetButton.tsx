@@ -9,8 +9,11 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedWidget, setSelectedWidget] = useState<Widget | null>(null);
 
+  console.log('WidgetButton widgets:', widgets);
+
   const handleWidgetClick = (widget: Widget) => {
     setSelectedWidget(widget);
+    setIsOpen(false);
   };
 
   const closeWidget = () => {
@@ -41,15 +44,19 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
             </button>
           </div>
           <div className="space-y-2">
-            {widgets.filter(w => w.data.is_active).map((widget) => (
-              <button
-                key={widget.data.id}
-                onClick={() => handleWidgetClick(widget)}
-                className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                <span className="font-medium text-gray-700">{widget.data.name}</span>
-              </button>
-            ))}
+            {widgets.length === 0 ? (
+              <p className="text-gray-500 text-sm">No widgets available</p>
+            ) : (
+              widgets.map((widget, index) => (
+                <button
+                  key={widget.data?.id || index}
+                  onClick={() => handleWidgetClick(widget)}
+                  className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <span className="font-medium text-gray-700">{widget.data?.name || 'Widget'}</span>
+                </button>
+              ))
+            )}
           </div>
         </div>
       )}
