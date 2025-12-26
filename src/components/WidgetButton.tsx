@@ -26,6 +26,10 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
     setSelectedWidget(null);
   };
 
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     if (selectedWidget && iframeRef.current) {
       const container = iframeRef.current;
@@ -43,42 +47,45 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
   return (
     <>
       <style>{`
-        @keyframes slideIn {
-          from {
+        @keyframes popIn {
+          0% {
             opacity: 0;
-            transform: scale(0.3) translateY(30px);
+            transform: scale(0) translateY(20px);
           }
-          to {
+          50% {
+            transform: scale(1.1) translateY(-5px);
+          }
+          100% {
             opacity: 1;
             transform: scale(1) translateY(0);
           }
         }
 
-        @keyframes slideUp {
+        @keyframes slideUpMobile {
           from {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px) scale(0.8);
           }
           to {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
           }
         }
 
-        .widget-icon-button {
-          transition: all 0.3s ease;
+        .widget-menu-button {
+          transition: all 0.2s ease;
         }
 
-        .widget-icon-button:active {
-          transform: scale(0.9);
+        .widget-menu-button:active {
+          transform: scale(0.95);
         }
       `}</style>
 
       {/* Main Blue Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed bottom-6 right-6 w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 hover:bg-blue-700 rounded-full shadow-2xl flex items-center justify-center z-50 transition-all duration-300 ${
-          isOpen ? "rotate-45 scale-110" : "hover:scale-110"
+        className={`fixed bottom-6 right-6 w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 hover:bg-blue-700 rounded-full shadow-2xl flex items-center justify-center z-[60] transition-all duration-300 ${
+          isOpen ? "rotate-45" : "hover:scale-110"
         }`}
         aria-label="Toggle widgets"
       >
@@ -92,7 +99,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              strokeWidth={2}
+              strokeWidth={2.5}
               d="M6 18L18 6M6 6l12 12"
             />
           </svg>
@@ -113,13 +120,22 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         )}
       </button>
 
-      {/* Desktop: Circle Layout (above lg screens) */}
+      {/* Backdrop overlay to close menu */}
+      {isOpen && <div className="fixed inset-0 z-[45]" onClick={closeMenu} />}
+
+      {/* Desktop: Circle Layout ABOVE button */}
       {isOpen && (
-        <div className="hidden lg:block fixed z-40">
+        <div className="hidden lg:block fixed z-[50]">
           {widgets.map((widget, index) => {
             const totalWidgets = widgets.length;
-            const angle = 90 + (index - (totalWidgets - 1) / 2) * 45;
-            const radius = 100;
+            const baseAngle = 90; // Start at top (90 degrees)
+            const spreadAngle = Math.min(totalWidgets * 35, 90); // Max 90 degree spread
+            const startAngle = baseAngle - spreadAngle / 2;
+            const angle =
+              startAngle +
+              (index * spreadAngle) / Math.max(totalWidgets - 1, 1);
+
+            const radius = 110; // Distance from main button
             const x = Math.cos((angle * Math.PI) / 180) * radius;
             const y = Math.sin((angle * Math.PI) / 180) * radius;
             const iconUrl = extractIconUrl(widget.data.embed_code);
@@ -128,12 +144,12 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
               <button
                 key={widget.data.id}
                 onClick={() => handleWidgetClick(widget)}
-                className="widget-icon-button fixed w-16 h-16 bg-white hover:bg-gray-50 rounded-full shadow-2xl flex items-center justify-center border-2 border-gray-200 hover:border-blue-400"
+                className="widget-menu-button fixed w-16 h-16 bg-white hover:bg-blue-50 rounded-full shadow-2xl flex items-center justify-center border-2 border-gray-200 hover:border-blue-500"
                 style={{
-                  bottom: `${24 + 32 - y}px`,
+                  bottom: `${24 + 32 + y}px`, // ADDED y instead of subtracted
                   right: `${24 + 32 - x}px`,
-                  animation: `slideIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) ${
-                    index * 0.1
+                  animation: `popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${
+                    index * 0.08
                   }s both`,
                 }}
                 title={widget.data.name}
@@ -157,40 +173,45 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         </div>
       )}
 
-      {/* Tablet & Mobile: Vertical List */}
+      {/* Mobile & Tablet: Vertical List ABOVE button */}
       {isOpen && (
-        <div className="lg:hidden fixed bottom-24 right-6 sm:right-6 flex flex-col gap-3 z-40">
-          {widgets.map((widget, index) => {
-            const iconUrl = extractIconUrl(widget.data.embed_code);
+        <div
+          className="lg:hidden fixed z-[50]"
+          style={{ bottom: "104px", right: "24px" }}
+        >
+          <div className="flex flex-col-reverse gap-3">
+            {widgets.map((widget, index) => {
+              const iconUrl = extractIconUrl(widget.data.embed_code);
 
-            return (
-              <button
-                key={widget.data.id}
-                onClick={() => handleWidgetClick(widget)}
-                className="widget-icon-button w-12 h-12 sm:w-14 sm:h-14 bg-white hover:bg-gray-50 rounded-full shadow-2xl flex items-center justify-center border-2 border-gray-200 hover:border-blue-400"
-                style={{
-                  animation: `slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) ${
-                    index * 0.1
-                  }s both`,
-                }}
-                title={widget.data.name}
-              >
-                {iconUrl ? (
-                  <img
-                    src={iconUrl}
-                    alt={widget.data.name}
-                    className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
-                  />
-                ) : (
-                  <span className="text-2xl sm:text-2xl">
-                    {widget.type === "contact_widget" && "📞"}
-                    {widget.type === "helpdesk_widget" && "💬"}
-                    {widget.type === "w9form_widget" && "📄"}
-                  </span>
-                )}
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={widget.data.id}
+                  onClick={() => handleWidgetClick(widget)}
+                  className="widget-menu-button w-12 h-12 sm:w-14 sm:h-14 bg-white hover:bg-blue-50 rounded-full shadow-2xl flex items-center justify-center border-2 border-gray-200 hover:border-blue-500"
+                  style={{
+                    animation: `slideUpMobile 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${
+                      index * 0.08
+                    }s both`,
+                  }}
+                  title={widget.data.name}
+                >
+                  {iconUrl ? (
+                    <img
+                      src={iconUrl}
+                      alt={widget.data.name}
+                      className="w-9 h-9 sm:w-10 sm:h-10 object-contain"
+                    />
+                  ) : (
+                    <span className="text-xl sm:text-2xl">
+                      {widget.type === "contact_widget" && "📞"}
+                      {widget.type === "helpdesk_widget" && "💬"}
+                      {widget.type === "w9form_widget" && "📄"}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
         </div>
       )}
 
@@ -200,10 +221,22 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
           <div ref={iframeRef} className="widget-container" />
           <button
             onClick={closeWidget}
-            className="fixed bottom-[480px] sm:bottom-[520px] right-6 sm:right-8 w-10 h-10 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center z-[1001] shadow-2xl transition-all hover:scale-110 text-2xl font-bold"
+            className="fixed top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center z-[1001] shadow-2xl transition-all hover:scale-110"
             aria-label="Close widget"
           >
-            ×
+            <svg
+              className="w-6 h-6 sm:w-7 sm:h-7"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
           </button>
         </>
       )}
