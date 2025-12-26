@@ -708,8 +708,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
       )}
 
       {/* Widget Button */}
-      {data.widgets && data.widgets.length > 0 && (
-        <WidgetButton widgets={data.widgets} />
+      {(data.contact_widget || data.helpdesk_widget || data.w9form_widget) && (
+        <WidgetButton
+          widgets={[
+            data.contact_widget && { type: 'contact_widget', data: data.contact_widget },
+            data.helpdesk_widget && { type: 'helpdesk_widget', data: data.helpdesk_widget },
+            data.w9form_widget && { type: 'w9form_widget', data: data.w9form_widget },
+          ].filter(Boolean) as any[]}
+        />
       )}
     </div>
   );

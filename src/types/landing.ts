@@ -309,7 +309,24 @@ export interface LandingPageData {
   how_it_works_section?: HowItWorksSection;
   pricing_section?: PricingSection;
   section_order?: string[];
-  widgets?: Widget[];
+  contact_widget?: {
+    id: number;
+    name: string;
+    embed_code: string;
+    is_active: boolean;
+  };
+  helpdesk_widget?: {
+    id: number;
+    name: string;
+    embed_code: string;
+    is_active: boolean;
+  };
+  w9form_widget?: {
+    id: number;
+    name: string;
+    embed_code: string;
+    is_active: boolean;
+  };
 }
 
 // ===== NEW: FeaturesPage Interface =====
