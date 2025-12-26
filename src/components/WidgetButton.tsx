@@ -94,6 +94,19 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         .widget-menu-button:hover {
           transform: scale(1.1);
         }
+
+        .widget-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 1000;
+          background: white;
+          overflow: auto;
+        }
       `}</style>
 
       {/* Main Blue Button */}
@@ -136,7 +149,13 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       </button>
 
       {/* Backdrop overlay to close menu */}
-      {isOpen && <div className="fixed inset-0 z-[45]" onClick={closeMenu} />}
+      {isOpen && (
+        <div
+          className="fixed inset-0 z-[45]"
+          onClick={closeMenu}
+          style={{ background: "transparent" }}
+        />
+      )}
 
       {/* Desktop: Circle Layout ABOVE button with MORE SPACE from right */}
       {isOpen && (
