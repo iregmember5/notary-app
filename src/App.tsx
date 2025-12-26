@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import { FeaturesPage } from "./components/features/features-page/FeaturesPage";
 import { BlogPage } from "./components/blogs/BlogPage";
+import AboutPage from "./pages/AboutPage";
 import DebugFeaturesAPI from "./pages/DebugFeaturesApi";
 import DebugLandingAPI from "./pages/DebugLandingApi";
 import Maverick from "./components/salespage/Maverick";
@@ -12,7 +13,7 @@ import { DynamicHead } from "./components/DynamicHead";
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<{
-    type: "landing" | "features" | "blog" | "debug-features" | "debug-landing" | "salespage";
+    type: "landing" | "features" | "blog" | "about" | "debug-features" | "debug-landing" | "salespage";
     slug?: string;
   }>({ type: "landing" });
 
@@ -53,6 +54,11 @@ function AppContent() {
 
       if (path.includes("/blog") || hash.includes("#blog")) {
         setCurrentView({ type: "blog" });
+        return;
+      }
+
+      if (path.includes("/about") || hash.includes("#about")) {
+        setCurrentView({ type: "about" });
         return;
       }
 
@@ -123,6 +129,16 @@ function AppContent() {
       <>
         <ThemeProvider>
           <DebugLandingAPI />
+        </ThemeProvider>
+      </>
+    );
+  }
+
+  if (currentView.type === "about") {
+    return (
+      <>
+        <ThemeProvider>
+          <AboutPage />
         </ThemeProvider>
       </>
     );

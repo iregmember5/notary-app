@@ -510,3 +510,37 @@ export const fetchFeaturesPageById = async (
     throw error;
   }
 };
+
+// ===== About Page API =====
+import type { AboutPageData, AboutPageApiResponse } from './about';
+
+export const fetchAboutPage = async (): Promise<AboutPageData> => {
+  try {
+    const apiUrl = `${baseApiUrl}/about-pages/`;
+
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Frontend-Url": frontendUrl,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch about page: ${response.status} ${response.statusText}`
+      );
+    }
+
+    const data: AboutPageApiResponse = await response.json();
+
+    if (!data || !data.items || data.items.length === 0) {
+      throw new Error("No about page data available");
+    }
+
+    return data.items[0];
+  } catch (error) {
+    console.error("Error fetching about page:", error);
+    throw error;
+  }
+};
