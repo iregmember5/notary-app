@@ -708,15 +708,21 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
       )}
 
       {/* Widget Button */}
-      {(data.contact_widget || data.helpdesk_widget || data.w9form_widget) && (
-        <WidgetButton
-          widgets={[
-            ...(data.contact_widget ? [{ type: 'contact_widget', data: data.contact_widget }] : []),
-            ...(data.helpdesk_widget ? [{ type: 'helpdesk_widget', data: data.helpdesk_widget }] : []),
-            ...(data.w9form_widget ? [{ type: 'w9form_widget', data: data.w9form_widget }] : []),
-          ]}
-        />
-      )}
+      {(() => {
+        console.log('LandingPage data.contact_widget:', data.contact_widget);
+        console.log('LandingPage data.helpdesk_widget:', data.helpdesk_widget);
+        console.log('LandingPage data.w9form_widget:', data.w9form_widget);
+        
+        const widgets = [
+          ...(data.contact_widget ? [{ type: 'contact_widget', data: data.contact_widget }] : []),
+          ...(data.helpdesk_widget ? [{ type: 'helpdesk_widget', data: data.helpdesk_widget }] : []),
+          ...(data.w9form_widget ? [{ type: 'w9form_widget', data: data.w9form_widget }] : []),
+        ];
+        
+        console.log('LandingPage constructed widgets:', widgets);
+        
+        return <WidgetButton widgets={widgets} />;
+      })()}
     </div>
   );
 };

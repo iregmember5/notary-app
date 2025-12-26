@@ -439,17 +439,9 @@ export const fetchLandingPageData = async (): Promise<LandingPageData> => {
 
     const data: ApiResponse = await response.json();
 
-    console.log("📦 Raw API Response:", data);
-    console.log("📊 Total count:", data.meta?.total_count);
-    console.log("📋 Items length:", data.items?.length);
-
     if (!data || !data.items || data.items.length === 0) {
       throw new Error("No landing page data available");
     }
-
-    console.log("✅ Returning first item:", data.items[0]);
-    console.log("🎨 Features:", data.items[0].features);
-    console.log("🎯 Benefits:", data.items[0].benefits);
 
     return data.items[0];
   } catch (error) {
