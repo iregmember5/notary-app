@@ -39,12 +39,18 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       const container = iframeRef.current;
       container.innerHTML = selectedWidget.data.embed_code;
 
-      const scripts = container.getElementsByTagName("script");
-      for (let i = 0; i < scripts.length; i++) {
-        const script = document.createElement("script");
-        script.text = scripts[i].innerHTML;
-        document.body.appendChild(script);
-      }
+      // Execute all scripts within the container
+      const scripts = container.querySelectorAll("script");
+      scripts.forEach((oldScript) => {
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes).forEach((attr) => {
+          newScript.setAttribute(attr.name, attr.value);
+        });
+        if (oldScript.innerHTML) {
+          newScript.text = oldScript.innerHTML;
+        }
+        container.replaceChild(newScript, oldScript);
+      });
     }
   }, [selectedWidget]);
 
@@ -160,7 +166,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
                 className="widget-menu-button fixed w-16 h-16 bg-white hover:bg-blue-50 rounded-full shadow-2xl flex items-center justify-center border-2 border-gray-200 hover:border-blue-500"
                 style={{
                   bottom: `${24 + 32 + y}px`,
-                  right: `${24 + 32 - x + 30}px`, // Added 30px extra space from right
+                  right: `${24 + 32 - x + 60}px`, // Added 60px extra space from right for proper icon display
                   animation: `popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${
                     index * 0.08
                   }s both`,
@@ -190,7 +196,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       {isOpen && (
         <div
           className="lg:hidden fixed z-[50]"
-          style={{ bottom: "104px", right: "44px" }}
+          style={{ bottom: "104px", right: "24px" }}
         >
           <div className="flex flex-col-reverse gap-3">
             {widgets.map((widget, index) => {
