@@ -45,6 +45,7 @@ export const SiteSettingsProvider: React.FC<SiteSettingsProviderProps> = ({
         const transformedSettings: SiteSettings = {
           siteTitle: data.site_title || "notary-app",
           favicon: data.favicon?.url || "/vite.svg",
+          widgets: data.widgets || [],
         };
 
         setSettings(transformedSettings);

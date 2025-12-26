@@ -7,10 +7,12 @@ import DebugFeaturesAPI from "./pages/DebugFeaturesApi";
 import DebugLandingAPI from "./pages/DebugLandingApi";
 import Maverick from "./components/salespage/Maverick";
 import { ThemeProvider } from "./contexts/ThemeContext";
-import { SiteSettingsProvider } from "./contexts/SiteSettingsContext";
+import { SiteSettingsProvider, useSiteSettings } from "./contexts/SiteSettingsContext";
 import { DynamicHead } from "./components/DynamicHead";
+import WidgetButton from "./components/WidgetButton";
 
-function App() {
+function AppContent() {
+  const { settings } = useSiteSettings();
   const [currentView, setCurrentView] = useState<{
     type: "landing" | "features" | "blog" | "debug-features" | "debug-landing" | "salespage";
     slug?: string;
@@ -74,13 +76,11 @@ function App() {
         return;
       }
 
-      // Default to landing page
       setCurrentView({ type: "landing" });
     };
 
     checkRoute();
 
-    // Listen for hash changes (for navigation without page reload)
     window.addEventListener("hashchange", checkRoute);
     window.addEventListener("popstate", checkRoute);
 
@@ -90,68 +90,76 @@ function App() {
     };
   }, []);
 
-  // Render based on current view
   if (currentView.type === "blog") {
     return (
-      <SiteSettingsProvider>
-        <DynamicHead />
+      <>
         <ThemeProvider>
           <BlogPage slug={currentView.slug} />
         </ThemeProvider>
-      </SiteSettingsProvider>
+        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+      </>
     );
   }
 
   if (currentView.type === "features") {
     return (
-      <SiteSettingsProvider>
-        <DynamicHead />
+      <>
         <ThemeProvider>
           <FeaturesPage slug={currentView.slug} />
         </ThemeProvider>
-      </SiteSettingsProvider>
+        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+      </>
     );
   }
 
   if (currentView.type === "debug-features") {
     return (
-      <SiteSettingsProvider>
-        <DynamicHead />
+      <>
         <ThemeProvider>
           <DebugFeaturesAPI />
         </ThemeProvider>
-      </SiteSettingsProvider>
+        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+      </>
     );
   }
 
   if (currentView.type === "debug-landing") {
     return (
-      <SiteSettingsProvider>
-        <DynamicHead />
+      <>
         <ThemeProvider>
           <DebugLandingAPI />
         </ThemeProvider>
-      </SiteSettingsProvider>
+        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+      </>
     );
   }
 
   if (currentView.type === "salespage") {
     return (
-      <SiteSettingsProvider>
-        <DynamicHead />
+      <>
         <ThemeProvider>
           <Maverick />
         </ThemeProvider>
-      </SiteSettingsProvider>
+        {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+      </>
     );
   }
 
   return (
-    <SiteSettingsProvider>
-      <DynamicHead />
+    <>
       <ThemeProvider>
         <LandingPage />
       </ThemeProvider>
+      {settings.widgets && <WidgetButton widgets={settings.widgets} />}
+    </>
+  );
+}
+
+function App() {
+  return (
+    <SiteSettingsProvider>
+      <DynamicHead />
+      <AppContent />
     </SiteSettingsProvider>
   );
 }
