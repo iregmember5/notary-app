@@ -128,11 +128,12 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
   switch (block.type) {
     case "rich_text":
       return (
-        <div className="relative mb-12 md:mb-16 overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl border-2 border-slate-200 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 animate-pulse" />
+        <div className="relative mb-12 md:mb-16 overflow-hidden rounded-3xl shadow-2xl border-4 border-amber-400 bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50">
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 via-yellow-400/20 to-orange-400/20 animate-pulse" />
+          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500" />
           <div
             ref={richRef}
-            className="relative p-6 md:p-12 prose prose-lg md:prose-xl max-w-none prose-headings:text-slate-900 prose-headings:font-extrabold prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:font-bold hover:prose-a:text-blue-700 prose-strong:text-slate-900 prose-ul:text-slate-700 prose-ol:text-slate-700"
+            className="relative p-8 md:p-16 prose prose-xl md:prose-2xl max-w-none prose-headings:text-slate-900 prose-headings:font-black prose-headings:drop-shadow-sm prose-p:text-slate-800 prose-p:leading-relaxed prose-p:font-medium prose-a:text-amber-600 prose-a:font-bold hover:prose-a:text-amber-700 prose-strong:text-amber-700 prose-strong:font-extrabold prose-ul:text-slate-800 prose-ol:text-slate-800 prose-li:font-medium"
             dangerouslySetInnerHTML={{ __html: block.value }}
           />
         </div>

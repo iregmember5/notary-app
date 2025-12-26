@@ -58,14 +58,12 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
 
   const ref = useRef(null);
   const [isMobile, setIsMobile] = React.useState(false);
-  
+
   React.useEffect(() => {
     setIsMobile(window.innerWidth < 768);
   }, []);
-  
+
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-
 
   const backendBaseUrl = "https://esign-admin.signmary.com";
 
@@ -84,13 +82,16 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
   return (
     <header
       ref={ref}
-      className="relative pt-24 md:pt-32 flex items-center justify-center overflow-hidden pb-12 md:pb-20 min-h-[80vh] md:min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30"
+      className="relative pt-20 md:pt-32 flex items-center justify-center overflow-hidden pb-12 md:pb-20 min-h-[80vh] md:min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50/30"
     >
       {/* Professional Background Pattern */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }} />
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}
+        />
         <motion.div
           className="absolute top-20 right-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -107,8 +108,8 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-20">
         <motion.div
           variants={containerVariants}
-          initial={isMobile ? 'visible' : 'hidden'}
-          animate={isMobile ? 'visible' : (isInView ? 'visible' : 'hidden')}
+          initial={isMobile ? "visible" : "hidden"}
+          animate={isMobile ? "visible" : isInView ? "visible" : "hidden"}
           className="grid lg:grid-cols-2 gap-16 items-center"
         >
           {/* Text Content - Left Side */}
@@ -118,12 +119,13 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
               {header_subtitle && (
                 <motion.div
                   className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/50 rounded-full text-sm font-semibold text-blue-700 shadow-sm"
-                  whileHover={{ scale: 1.05, boxShadow: "0 4px 12px rgba(59, 130, 246, 0.15)" }}
+                  whileHover={{
+                    scale: 1.05,
+                    boxShadow: "0 4px 12px rgba(59, 130, 246, 0.15)",
+                  }}
                 >
                   <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                  <span className="text-xs sm:text-sm">
-                    {header_subtitle}
-                  </span>
+                  <span className="text-xs sm:text-sm">{header_subtitle}</span>
                 </motion.div>
               )}
 
@@ -156,14 +158,24 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
               className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             >
               {header_cta_primary && (
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
                   {header_cta_primary_url ? (
                     <a
                       href={header_cta_primary_url}
                       className="group flex items-center justify-center px-8 py-4 text-base font-bold text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 gradient-theme-primary relative overflow-hidden"
                     >
-                      <span className="relative z-10">{header_cta_primary}</span>
-                      <EasyIcon icon="FiArrowRight" size={20} color="#FFFFFF" className="ml-2 relative z-10 group-hover:translate-x-1 transition-transform" />
+                      <span className="relative z-10">
+                        {header_cta_primary}
+                      </span>
+                      <EasyIcon
+                        icon="FiArrowRight"
+                        size={20}
+                        color="#FFFFFF"
+                        className="ml-2 relative z-10 group-hover:translate-x-1 transition-transform"
+                      />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </a>
                   ) : (
@@ -171,8 +183,15 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                       onClick={handleGetStartedClick}
                       className="group flex items-center justify-center px-8 py-4 text-base font-bold text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 gradient-theme-primary relative overflow-hidden"
                     >
-                      <span className="relative z-10">{header_cta_primary}</span>
-                      <EasyIcon icon="FiArrowRight" size={20} color="#FFFFFF" className="ml-2 relative z-10 group-hover:translate-x-1 transition-transform" />
+                      <span className="relative z-10">
+                        {header_cta_primary}
+                      </span>
+                      <EasyIcon
+                        icon="FiArrowRight"
+                        size={20}
+                        color="#FFFFFF"
+                        className="ml-2 relative z-10 group-hover:translate-x-1 transition-transform"
+                      />
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </button>
                   )}
@@ -180,13 +199,22 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
               )}
 
               {header_cta_secondary && (
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
-                  {header_cta_secondary_url && header_cta_secondary_url !== "#login" ? (
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  {header_cta_secondary_url &&
+                  header_cta_secondary_url !== "#login" ? (
                     <a
                       href={header_cta_secondary_url}
                       className="group flex items-center justify-center px-8 py-4 text-base font-bold text-slate-700 bg-white border-2 border-slate-300 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
                     >
-                      <EasyIcon icon="FiPlay" size={20} color="currentColor" className="mr-2 group-hover:scale-110 transition-transform" />
+                      <EasyIcon
+                        icon="FiPlay"
+                        size={20}
+                        color="currentColor"
+                        className="mr-2 group-hover:scale-110 transition-transform"
+                      />
                       <span>{header_cta_secondary}</span>
                     </a>
                   ) : (
@@ -194,7 +222,12 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                       onClick={onShowLogin}
                       className="group flex items-center justify-center px-8 py-4 text-base font-bold text-slate-700 bg-white border-2 border-slate-300 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
                     >
-                      <EasyIcon icon="FiPlay" size={20} color="currentColor" className="mr-2 group-hover:scale-110 transition-transform" />
+                      <EasyIcon
+                        icon="FiPlay"
+                        size={20}
+                        color="currentColor"
+                        className="mr-2 group-hover:scale-110 transition-transform"
+                      />
                       <span>{header_cta_secondary}</span>
                     </button>
                   )}
@@ -229,7 +262,10 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           </div>
 
           {/* Image Section - Right Side - Multi-Device Mockup */}
-          <motion.div variants={imageVariants} className="relative px-4 sm:px-0">
+          <motion.div
+            variants={imageVariants}
+            className="relative px-4 sm:px-0"
+          >
             <div className="relative z-10 max-w-lg mx-auto lg:max-w-none">
               {rightImageUrl ? (
                 <div className="relative">
@@ -237,7 +273,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   <motion.div
                     className="relative"
                     whileHover={{ scale: 1.02 }}
-                    transition={{ type: 'spring', stiffness: 300 }}
+                    transition={{ type: "spring", stiffness: 300 }}
                   >
                     {/* Laptop Body */}
                     <div className="relative bg-gradient-to-b from-slate-700 to-slate-800 rounded-t-xl sm:rounded-t-2xl p-2 sm:p-3 shadow-2xl">
@@ -288,7 +324,11 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                   <motion.div
                     className="absolute -bottom-12 sm:-bottom-20 -right-4 sm:-right-8 w-24 sm:w-32 md:w-40"
                     animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   >
                     {/* Phone Body */}
                     <div className="relative bg-slate-900 rounded-[1.5rem] sm:rounded-[2rem] p-1.5 sm:p-2 shadow-2xl border-2 sm:border-4 border-slate-800">
@@ -306,34 +346,55 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                       <div className="absolute bottom-0.5 sm:bottom-1 left-1/2 -translate-x-1/2 w-12 sm:w-16 h-0.5 sm:h-1 bg-slate-700 rounded-full" />
                     </div>
                   </motion.div>
-                  
+
                   {/* Professional Stats Cards */}
                   <motion.div
                     className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 bg-white/95 backdrop-blur-sm border border-slate-200 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl shadow-xl z-20"
                     animate={{ y: [0, -8, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   >
                     <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
                       <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-emerald-100 flex items-center justify-center">
-                        <EasyIcon icon="FiCheckCircle" size={12} color="#10b981" />
+                        <EasyIcon
+                          icon="FiCheckCircle"
+                          size={12}
+                          color="#10b981"
+                        />
                       </div>
-                      <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">98%</div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">
+                        98%
+                      </div>
                     </div>
-                    <div className="text-[10px] sm:text-xs font-medium text-slate-600">Success Rate</div>
+                    <div className="text-[10px] sm:text-xs font-medium text-slate-600">
+                      Success Rate
+                    </div>
                   </motion.div>
-                  
+
                   <motion.div
                     className="absolute top-1/3 -left-3 sm:-left-6 bg-white/95 backdrop-blur-sm border border-slate-200 p-2 sm:p-3 md:p-4 rounded-lg sm:rounded-xl shadow-xl z-20"
                     animate={{ x: [-5, 5, -5] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 1,
+                    }}
                   >
                     <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
                       <div className="w-5 h-5 sm:w-7 sm:h-7 md:w-8 md:h-8 rounded-md sm:rounded-lg bg-blue-100 flex items-center justify-center">
                         <EasyIcon icon="FiClock" size={12} color="#3b82f6" />
                       </div>
-                      <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">5min</div>
+                      <div className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">
+                        5min
+                      </div>
                     </div>
-                    <div className="text-[10px] sm:text-xs font-medium text-slate-600">Avg Time</div>
+                    <div className="text-[10px] sm:text-xs font-medium text-slate-600">
+                      Avg Time
+                    </div>
                   </motion.div>
                 </div>
               ) : (
@@ -345,8 +406,15 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                       </div>
                       <div className="w-full h-80 rounded bg-gradient-to-br from-slate-700 to-slate-800 flex items-center justify-center">
                         <div className="text-center">
-                          <EasyIcon icon="FiImage" size={48} color="#94a3b8" className="mx-auto mb-2" />
-                          <span className="text-slate-400 font-medium">Platform Preview</span>
+                          <EasyIcon
+                            icon="FiImage"
+                            size={48}
+                            color="#94a3b8"
+                            className="mx-auto mb-2"
+                          />
+                          <span className="text-slate-400 font-medium">
+                            Platform Preview
+                          </span>
                         </div>
                       </div>
                     </div>

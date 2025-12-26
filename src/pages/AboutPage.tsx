@@ -46,7 +46,7 @@ export default function AboutPage() {
             </div>
             {/* Right: Image */}
             {data.featured_image && (
-              <div className="flex-1">
+              <div className="flex-1 max-w-md">
                 <div className="relative group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-amber-600 to-amber-800 rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                   <img 
@@ -184,9 +184,31 @@ export default function AboutPage() {
                 <div className="w-32 h-1.5 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-400 mx-auto rounded-full"></div>
               </div>
               <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-12 border border-white/20 shadow-2xl">
-                <div className="prose prose-lg prose-invert max-w-none">
-                  <p className="text-xl leading-relaxed text-amber-50 font-light whitespace-pre-line">{data.mission_statement}</p>
-                </div>
+                <p className="text-xl leading-relaxed text-amber-50 mb-8">Our mission is to help clients achieve financial strength by applying proactive tax planning, accurate accounting, and the strategic use of technology, all within full compliance of tax laws.</p>
+                <h3 className="text-2xl font-bold text-amber-200 mb-6">We believe in:</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-4 text-lg text-amber-50">
+                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
+                    <span>Applying tax strategies before the year ends</span>
+                  </li>
+                  <li className="flex items-start gap-4 text-lg text-amber-50">
+                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
+                    <span>Using tax laws and court cases responsibly and effectively</span>
+                  </li>
+                  <li className="flex items-start gap-4 text-lg text-amber-50">
+                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
+                    <span>Measuring results before and after implementation</span>
+                  </li>
+                  <li className="flex items-start gap-4 text-lg text-amber-50">
+                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
+                    <span>Leveraging cloud technologies to improve collaboration and efficiency</span>
+                  </li>
+                  <li className="flex items-start gap-4 text-lg text-amber-50">
+                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
+                    <span>Resolving financial and accounting bottlenecks through proper systems and integration</span>
+                  </li>
+                </ul>
+                <p className="text-xl text-amber-100 font-semibold mt-8 pt-8 border-t border-white/20">Our goal is simple: deliver measurable results through planning, precision, and compliance.</p>
               </div>
             </div>
           </div>
