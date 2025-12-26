@@ -128,23 +128,11 @@ const DynamicContentRenderer: React.FC<{ block: DynamicContentBlock }> = ({
   switch (block.type) {
     case "rich_text":
       return (
-        <div
-          style={{
-            width: "100%",
-            padding: "20px",
-            background: "red",
-            minHeight: "200px",
-            display: "block",
-          }}
-        >
+        <div className="relative mb-12 md:mb-16 overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl border-2 border-slate-200 bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-purple-500/5 to-pink-500/5 animate-pulse" />
           <div
             ref={richRef}
-            style={{
-              background: "white",
-              padding: "20px",
-              minHeight: "100px",
-              color: "black",
-            }}
+            className="relative p-6 md:p-12 prose prose-lg md:prose-xl max-w-none prose-headings:text-slate-900 prose-headings:font-extrabold prose-p:text-slate-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:font-bold hover:prose-a:text-blue-700 prose-strong:text-slate-900 prose-ul:text-slate-700 prose-ol:text-slate-700"
             dangerouslySetInnerHTML={{ __html: block.value }}
           />
         </div>
