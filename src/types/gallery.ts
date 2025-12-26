@@ -19,13 +19,18 @@ export interface ImageGalleryPage {
   gallery_images: GalleryImage[];
   ending_note: string;
 }
+const isDevelopment = import.meta.env.DEV;
+const frontendUrl = isDevelopment
+  ? "http://localhost:5173"
+  : "https://notarywealthbuilder.com";
 
 const API_BASE_URL = "https://esign-admin.signmary.com/blogs/api/v2";
 
 export async function fetchGalleryPages(): Promise<ImageGalleryPage[]> {
   const response = await fetch(`${API_BASE_URL}/gallery-pages/`, {
     headers: {
-      Accept: "application/json",
+      "Content-Type": "application/json",
+      "X-Frontend-URL": frontendUrl,
     },
   });
   if (!response.ok) throw new Error("Failed to fetch gallery pages");
@@ -39,6 +44,7 @@ export async function fetchGalleryPage(
   const response = await fetch(`${API_BASE_URL}/gallery-pages/?slug=${slug}`, {
     headers: {
       Accept: "application/json",
+      "X-Frontend-URL": window.location.origin,
     },
   });
   if (!response.ok) throw new Error("Failed to fetch gallery page");
