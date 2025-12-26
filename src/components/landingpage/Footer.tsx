@@ -26,9 +26,6 @@ function Footer({ data }: FooterProps) {
     return null;
   }
 
-  // Debug log to see what we're working with
-  console.log("Footer config:", footerConfig);
-
   // Social media links from API
   const socialIconMap: Record<string, any> = {
     Facebook: Facebook,

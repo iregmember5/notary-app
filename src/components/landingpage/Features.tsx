@@ -10,11 +10,6 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
   const { features_head, features_introduction, features } = data;
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  console.log("🎯 Features Component - Received data:", data);
-  console.log("🎯 Features Component - features_head:", features_head);
-  console.log("🎯 Features Component - features array:", features);
-  console.log("🎯 Features Component - features length:", features?.length);
-
   // Auto-scroll effect
   React.useEffect(() => {
     const interval = setInterval(() => {
@@ -55,9 +50,12 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
       className="py-20 sm:py-28 relative overflow-hidden bg-gradient-to-b from-white via-slate-50/50 to-white"
     >
       {/* Professional Grid Pattern */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-      }} />
+      <div
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }}
+      />
 
       {/* Subtle Gradient Accents */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gradient-to-br from-blue-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
@@ -222,9 +220,7 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
 
             {/* Counter - Professional */}
             <div className="flex justify-center mt-6 text-sm font-semibold">
-              <span className="text-blue-600 text-lg">
-                {currentIndex + 1}
-              </span>
+              <span className="text-blue-600 text-lg">{currentIndex + 1}</span>
               <span className="mx-2 text-slate-400">/</span>
               <span className="text-slate-600">{features.length}</span>
             </div>

@@ -92,9 +92,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         const pageData = await fetchLandingPageData();
 
         console.log("📦 LandingPage received data:", pageData);
-        console.log("🎨 Features data:", pageData.features);
-        console.log("🎯 Benefits data:", pageData.benefits);
-        console.log("💬 Testimonials data:", pageData.testimonials);
 
         // Set theme colors first for loading screen
         if (pageData.color_theme) {
@@ -708,21 +705,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
       )}
 
       {/* Widget Button */}
-      {(() => {
-        console.log('LandingPage data.contact_widget:', data.contact_widget);
-        console.log('LandingPage data.helpdesk_widget:', data.helpdesk_widget);
-        console.log('LandingPage data.w9form_widget:', data.w9form_widget);
-        
-        const widgets = [
-          ...(data.contact_widget ? [{ type: 'contact_widget', data: data.contact_widget }] : []),
-          ...(data.helpdesk_widget ? [{ type: 'helpdesk_widget', data: data.helpdesk_widget }] : []),
-          ...(data.w9form_widget ? [{ type: 'w9form_widget', data: data.w9form_widget }] : []),
-        ];
-        
-        console.log('LandingPage constructed widgets:', widgets);
-        
-        return <WidgetButton widgets={widgets} />;
-      })()}
+      <WidgetButton
+        widgets={[
+          ...(data.contact_widget
+            ? [{ type: "contact_widget", data: data.contact_widget }]
+            : []),
+          ...(data.helpdesk_widget
+            ? [{ type: "helpdesk_widget", data: data.helpdesk_widget }]
+            : []),
+          ...(data.w9form_widget
+            ? [{ type: "w9form_widget", data: data.w9form_widget }]
+            : []),
+        ]}
+      />
     </div>
   );
 };
