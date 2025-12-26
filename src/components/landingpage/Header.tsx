@@ -155,7 +155,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
             {/* CTAs - Professional Notary Style */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center"
             >
               {header_cta_primary && (
                 <motion.div

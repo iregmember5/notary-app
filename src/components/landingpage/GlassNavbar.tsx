@@ -363,7 +363,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                             ? "#about"
                             : link.title.toLowerCase() === "demo sales page"
                             ? "#salespage"
-                            : link.title.toLowerCase() === "template" || link.title.toLowerCase() === "templates" || link.title.toLowerCase() === "gallery"
+                            : link.title.toLowerCase().includes("template") || link.title.toLowerCase().includes("gallery")
                             ? "#gallery"
                             : getNavigationItemUrl(link)
                         }
@@ -513,7 +513,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                           ? "#about"
                           : link.title.toLowerCase() === "demo sales page"
                           ? "#salespage"
-                          : link.title.toLowerCase() === "template" || link.title.toLowerCase() === "templates" || link.title.toLowerCase() === "gallery"
+                          : link.title.toLowerCase().includes("template") || link.title.toLowerCase().includes("gallery")
                           ? "#gallery"
                           : getNavigationItemUrl(link)
                       }
