@@ -11,10 +11,10 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
   const [activePhase, setActivePhase] = useState(1);
 
   const phases = [
-    { id: 1, title: "Phase 1: Core Foundation", range: [0, 4] },
-    { id: 2, title: "Phase 2: Wealth Advantage", range: [5, 9] },
-    { id: 3, title: "Phase 3: Operational Efficiency", range: [10, 14] },
-    { id: 4, title: "Phase 4: Scaling & Compliance", range: [15, 19] },
+    { id: 1, title: "Part 1", range: [0, 4] },
+    { id: 2, title: "Part 2", range: [5, 9] },
+    { id: 3, title: "Part 3", range: [10, 14] },
+    { id: 4, title: "Part 4", range: [15, 19] },
   ];
 
   const getPhaseFeatures = (phaseId: number) => {
@@ -96,35 +96,30 @@ const Features: React.FC<FeaturesProps> = ({ data }) => {
           {getPhaseFeatures(activePhase).map((feature: Feature) => (
             <div
               key={feature.id}
-              className="relative p-8 rounded-3xl bg-gradient-to-br from-white to-slate-50 border-2 border-slate-200 hover:border-blue-400 hover:shadow-2xl transition-all duration-500 group overflow-hidden"
+              className="relative p-8 rounded-3xl bg-white border-2 border-slate-200 hover:border-blue-400 hover:shadow-2xl transition-all duration-500 group overflow-hidden"
             >
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 rounded-t-3xl" />
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-blue-500/5 rounded-full blur-3xl group-hover:bg-blue-500/10 transition-all duration-500" />
+              <div className="absolute -top-20 -right-20 w-96 h-96 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full blur-3xl group-hover:opacity-100 opacity-0 transition-all duration-700" />
 
               <div className="relative z-10">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 flex-shrink-0">
-                    <EasyIcon
-                      icon={feature.icon || "FiCheck"}
-                      size={28}
-                      color="#FFFFFF"
-                    />
+                {feature.icon && (
+                  <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600 shadow-xl mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+                    <EasyIcon icon={feature.icon} size={28} color="#FFFFFF" />
                   </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-black text-slate-900 leading-tight">
-                      {feature.title}
-                    </h3>
-                  </div>
-                </div>
+                )}
 
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-slate-200 shadow-inner">
-                  <p className="text-base leading-relaxed text-slate-700 whitespace-pre-line">
+                <h3 className="text-2xl font-black text-slate-900 leading-tight mb-5">
+                  {feature.title}
+                </h3>
+
+                <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-2xl p-6 border border-slate-200">
+                  <p className="text-base leading-loose text-slate-700 whitespace-pre-line">
                     {feature.description}
                   </p>
                 </div>
 
                 {feature.image && (
-                  <div className="mt-6 rounded-2xl overflow-hidden border-4 border-white shadow-xl">
+                  <div className="mt-6 rounded-2xl overflow-hidden border-4 border-slate-100 shadow-xl">
                     <img
                       src={`https://esign-admin.signmary.com${feature.image.url}`}
                       alt={feature.title}
