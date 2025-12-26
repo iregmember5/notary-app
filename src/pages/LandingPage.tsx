@@ -28,61 +28,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   const [error, setError] = useState<string | null>(null);
   const [themeColors, setThemeColors] = useState<any>(null);
 
-  // Scroll animation observer - DISABLED
-  /*
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -80px 0px",
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-in");
-        }
-      });
-    }, observerOptions);
-
-    // Observe all sections and major elements
-    const animatedElements = document.querySelectorAll(
-      "section, .scroll-fade-up, .scroll-fade-in, .scroll-slide-left, .scroll-slide-right, .scroll-scale-up, .scroll-fade-down, header, footer, [class*='group'], [class*='card'], [class*='testimonial'], [class*='feature'], [class*='benefit'], [class*='prose'], [class*='blockquote'], [class*='cta'], [class*='video'], [class*='grid'] > *, article, aside"
-    );
-
-    animatedElements.forEach((el) => {
-      if (!el.classList.contains("animate-in")) {
-        el.classList.add("scroll-fade-up");
-      }
-      observer.observe(el);
-    });
-
-    return () => {
-      animatedElements.forEach((el) => observer.unobserve(el));
-    };
-  }, [data]);
-  */
-
-  // Parallax scroll effect - DISABLED
-  /*
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrolled = window.scrollY;
-      const parallaxElements = document.querySelectorAll(
-        ".parallax-slow, .parallax-fast"
-      );
-
-      parallaxElements.forEach((el) => {
-        const speed = el.classList.contains("parallax-slow") ? 0.5 : 0.3;
-        const yPos = -(scrolled * speed);
-        (el as HTMLElement).style.transform = `translateY(${yPos}px)`;
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  */
-
   const { setTheme } = useTheme();
 
   useEffect(() => {
