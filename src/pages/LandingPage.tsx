@@ -16,6 +16,7 @@ import Footer from "../components/landingpage/Footer";
 import ProblemSolution from "../components/landingpage/ProblemSolution";
 import HowItWorks from "../components/landingpage/HowItWorks";
 import Pricing from "../components/landingpage/Pricing";
+import WidgetButton from "../components/WidgetButton";
 
 interface LandingPageProps {
   onShowLogin?: () => void;
@@ -704,6 +705,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
             <Footer data={data} />
           </div>
         </>
+      )}
+
+      {/* Widget Button */}
+      {data.widgets && data.widgets.length > 0 && (
+        <WidgetButton widgets={data.widgets} />
       )}
     </div>
   );

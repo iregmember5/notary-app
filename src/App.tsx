@@ -150,7 +150,6 @@ function AppContent() {
       <ThemeProvider>
         <LandingPage />
       </ThemeProvider>
-      <WidgetButton widgets={settings.widgets || []} />
     </>
   );
 }

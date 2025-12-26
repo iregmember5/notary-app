@@ -7,6 +7,16 @@ export interface ImageData {
   height?: number;
 }
 
+export interface Widget {
+  type: string;
+  data: {
+    id: number;
+    name: string;
+    embed_code: string;
+    is_active: boolean;
+  };
+}
+
 export interface Feature {
   id: number;
   title: string;
@@ -299,6 +309,7 @@ export interface LandingPageData {
   how_it_works_section?: HowItWorksSection;
   pricing_section?: PricingSection;
   section_order?: string[];
+  widgets?: Widget[];
 }
 
 // ===== NEW: FeaturesPage Interface =====
