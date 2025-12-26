@@ -7,8 +7,14 @@ interface WidgetButtonProps {
 
 export default function WidgetButton({ widgets }: WidgetButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedWidget, setSelectedWidget] = useState<Widget | null>(null);
 
   if (widgets.length === 0) return null;
+
+  const handleWidgetClick = (widget: Widget) => {
+    setSelectedWidget(widget);
+    setIsOpen(false);
+  };
 
   return (
     <>
@@ -22,14 +28,44 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         </svg>
       </button>
 
-      {/* Widget Iframes - Render all at once */}
-      {isOpen && widgets.map((widget) => (
+      {/* Widget Buttons in Circle */}
+      {isOpen && (
+        <>
+          {widgets.map((widget, index) => {
+            const angle = (index * 60) - 30; // Spread buttons in arc
+            const radius = 100;
+            const x = Math.cos((angle * Math.PI) / 180) * radius;
+            const y = Math.sin((angle * Math.PI) / 180) * radius;
+            
+            return (
+              <button
+                key={widget.data.id}
+                onClick={() => handleWidgetClick(widget)}
+                className="fixed w-14 h-14 bg-white hover:bg-gray-100 rounded-full shadow-lg flex items-center justify-center z-50 transition-all"
+                style={{
+                  bottom: `${24 + 32 - y}px`,
+                  right: `${24 + 32 - x}px`,
+                }}
+                title={widget.data.name}
+              >
+                <span className="text-2xl">
+                  {widget.type === 'contact_widget' && '📞'}
+                  {widget.type === 'helpdesk_widget' && '💬'}
+                  {widget.type === 'w9form_widget' && '📄'}
+                </span>
+              </button>
+            );
+          })}
+        </>
+      )}
+
+      {/* Widget Iframe */}
+      {selectedWidget && (
         <div
-          key={widget.data.id}
           className="fixed bottom-0 right-0 z-40"
-          dangerouslySetInnerHTML={{ __html: widget.data.embed_code }}
+          dangerouslySetInnerHTML={{ __html: selectedWidget.data.embed_code }}
         />
-      ))}
+      )}
     </>
   );
 }
