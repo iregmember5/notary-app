@@ -21,6 +21,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
     e.preventDefault();
     e.stopPropagation();
     console.log("Widget clicked:", widget.data.name);
+    setIsOpen(false);
     setSelectedWidget(widget);
   };
 
