@@ -22,7 +22,6 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
     e.stopPropagation();
     console.log("Widget clicked:", widget.data.name);
     setSelectedWidget(widget);
-    setIsOpen(false);
   };
 
   const closeWidget = () => {
@@ -98,7 +97,13 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
 
       {/* Main Blue Button */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => {
+          if (widgets.length === 1) {
+            setSelectedWidget(widgets[0]);
+          } else {
+            setIsOpen(!isOpen);
+          }
+        }}
         className={`fixed bottom-6 right-6 w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 hover:bg-blue-700 rounded-full shadow-2xl flex items-center justify-center z-[60] transition-all duration-300 ${
           isOpen ? "rotate-45" : "hover:scale-110"
         }`}
