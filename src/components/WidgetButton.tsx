@@ -57,6 +57,19 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
           (widgetButton as HTMLElement).click();
         }
       }, 500);
+
+      // Listen for widget close
+      const handleClick = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        if (target.closest('.widget-container') && 
+            (target.matches('button[aria-label*="close" i], button[title*="close" i], [class*="close"]') ||
+             target.closest('button[aria-label*="close" i], button[title*="close" i], [class*="close"]'))) {
+          setTimeout(() => setSelectedWidget(null), 100);
+        }
+      };
+
+      document.addEventListener('click', handleClick);
+      return () => document.removeEventListener('click', handleClick);
     }
   }, [selectedWidget]);
 
