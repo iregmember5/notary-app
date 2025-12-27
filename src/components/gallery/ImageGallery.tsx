@@ -38,11 +38,20 @@ export default function ImageGallery() {
   }
 
   return (
-    <div className="min-h-screen bg-white py-20">
-      <div className="container mx-auto px-4 max-w-7xl">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 py-20 relative">
+      {/* Dotted Pattern */}
+      <div 
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)`,
+          backgroundSize: '24px 24px'
+        }}
+      />
+      
+      <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-black text-slate-900 mb-2">Templates</h1>
-          <p className="text-lg text-slate-600">Our Notary Templates</p>
+          <h1 className="text-5xl font-black text-white mb-2">Templates</h1>
+          <p className="text-lg text-blue-200">Our Notary Templates</p>
         </div>
 
         <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
@@ -51,14 +60,13 @@ export default function ImageGallery() {
               <div
                 key={img.id}
                 onClick={() => openLightbox(idx)}
-                className="group relative overflow-hidden rounded-lg cursor-pointer break-inside-avoid"
+                className="group relative overflow-hidden rounded-lg cursor-pointer break-inside-avoid shadow-xl hover:shadow-2xl transition-all"
               >
                 <img
                   src={getFullImageUrl(img.image.url)}
                   alt={img.image.title}
                   className="w-full h-auto hover:opacity-90 transition-opacity"
                 />
-                <div className="absolute inset-0 bg-black/0 hover:bg-black/10 transition-colors" />
               </div>
             )
           ))}
