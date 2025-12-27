@@ -25,10 +25,6 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
     setSelectedWidget(widget);
   };
 
-  const closeWidget = () => {
-    setSelectedWidget(null);
-  };
-
   const closeMenu = () => {
     setIsOpen(false);
   };
@@ -54,7 +50,9 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
 
       // Auto-click the widget to open it immediately
       setTimeout(() => {
-        const widgetButton = container.querySelector('button, a, [role="button"], .widget-button, [class*="button"]');
+        const widgetButton = container.querySelector(
+          'button, a, [role="button"], .widget-button, [class*="button"]'
+        );
         if (widgetButton) {
           (widgetButton as HTMLElement).click();
         }
@@ -253,9 +251,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       )}
 
       {/* Widget Container */}
-      {selectedWidget && (
-        <div ref={iframeRef} className="widget-container" />
-      )}
+      {selectedWidget && <div ref={iframeRef} className="widget-container" />}
     </>
   );
 }
