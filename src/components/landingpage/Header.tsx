@@ -1,7 +1,8 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import type { LandingPageData } from "../../types/landing";
 import EasyIcon from "./IconRenderer";
+import ContactForm from "./ContactForm";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -58,6 +59,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
 
   const ref = useRef(null);
   const [isMobile, setIsMobile] = React.useState(false);
+  const [showForm, setShowForm] = useState(false);
 
   React.useEffect(() => {
     setIsMobile(window.innerWidth < 768);
@@ -74,9 +76,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
     : null;
 
   const handleGetStartedClick = () => {
-    if (onShowLogin) {
-      onShowLogin();
-    }
+    setShowForm(true);
   };
 
   return (
@@ -431,6 +431,8 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
           </motion.div>
         </motion.div>
       </div>
+
+      <ContactForm isOpen={showForm} onClose={() => setShowForm(false)} />
     </header>
   );
 };
