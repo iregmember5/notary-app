@@ -325,69 +325,82 @@ export default function TaxAdvisorLandingPage() {
               s.cards?.length > 0
           )
           .map((section: any, idx: number) => (
-            <div key={idx} className="container mx-auto px-4 py-16">
-              {section.heading && (
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-                  {section.heading}
-                </h2>
-              )}
-              {section.subheading && (
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 text-center text-yellow-500">
-                  {section.subheading}
-                </h3>
-              )}
-              {section.description && (
-                <p className="text-lg mb-6 text-center max-w-4xl mx-auto">
-                  {section.description}
-                </p>
-              )}
-              {section.subdescription && (
-                <p className="text-base mb-6 text-center text-gray-400">
-                  {section.subdescription}
-                </p>
-              )}
-              {section.button?.text && (
-                <div className="text-center mb-8">
-                  <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
-                    🎯 {section.button.text}
-                  </button>
+            <div key={idx} className="container mx-auto px-4 py-24">
+              <div className="max-w-6xl mx-auto">
+                {/* Section Header */}
+                <div className="text-center mb-16">
+                  {section.heading && (
+                    <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
+                      {section.heading}
+                    </h2>
+                  )}
+                  {section.subheading && (
+                    <h3 className="text-2xl font-bold text-yellow-400 mb-4">
+                      {section.subheading}
+                    </h3>
+                  )}
+                  {section.description && (
+                    <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                      {section.description}
+                    </p>
+                  )}
+                  {section.subdescription && (
+                    <p className="text-base text-gray-400 mt-4">
+                      {section.subdescription}
+                    </p>
+                  )}
                 </div>
-              )}
-              {section.image && (
-                <div className="max-w-4xl mx-auto mb-8">
-                  <img
-                    src={prependImageUrl(section.image.url)}
-                    alt={section.heading || "Section image"}
-                    className="rounded-lg mx-auto w-full"
-                  />
-                </div>
-              )}
-              {section.cards && section.cards.length > 0 && (
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                  {section.cards
-                    .filter((c: any) => c.name || c.description)
-                    .map((card: any, i: number) => (
-                      <div
-                        key={i}
-                        className="bg-gray-800 p-6 rounded-lg border border-gray-700"
-                      >
-                        {card.name && (
-                          <h4 className="text-yellow-500 text-lg font-bold mb-3">
-                            {card.name}
-                          </h4>
-                        )}
-                        {card.description && (
-                          <p
-                            className="text-gray-300 text-sm"
-                            style={{ whiteSpace: "pre-line" }}
-                          >
-                            {card.description}
-                          </p>
-                        )}
-                      </div>
-                    ))}
-                </div>
-              )}
+
+                {/* Image */}
+                {section.image && (
+                  <div className="mb-12">
+                    <img
+                      src={prependImageUrl(section.image.url)}
+                      alt={section.heading || "Section image"}
+                      className="rounded-2xl mx-auto w-full shadow-2xl"
+                    />
+                  </div>
+                )}
+
+                {/* Cards Grid */}
+                {section.cards && section.cards.length > 0 && (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
+                    {section.cards
+                      .filter((c: any) => c.name || c.description)
+                      .map((card: any, i: number) => (
+                        <div
+                          key={i}
+                          className="relative group"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <div className="relative bg-gradient-to-br from-gray-900 to-black border border-gray-800 hover:border-yellow-500/50 rounded-2xl p-6 transition-all h-full">
+                            {card.name && (
+                              <h4 className="text-xl font-bold text-white mb-3 flex items-start gap-2">
+                                {card.name}
+                              </h4>
+                            )}
+                            {card.description && (
+                              <p
+                                className="text-gray-400 text-sm leading-relaxed whitespace-pre-line"
+                              >
+                                {card.description}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                )}
+
+                {/* Button */}
+                {section.button?.text && (
+                  <div className="text-center mt-12">
+                    <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black py-4 px-10 rounded-full text-lg hover:scale-105 transition-transform shadow-xl">
+                      {section.button.text} →
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
           ))}
 
