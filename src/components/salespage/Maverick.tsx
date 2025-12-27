@@ -363,8 +363,8 @@ export default function TaxAdvisorLandingPage() {
                         .filter((c: any) => c.name || c.description)
                         .map((card: any, i: number) => (
                           <div key={i} className="group relative">
-                            <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl opacity-0 group-hover:opacity-100 blur transition-all duration-500" />
-                            <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 border border-yellow-500/20 group-hover:border-yellow-500/60 rounded-2xl p-6 h-full transition-all duration-300">
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 rounded-2xl opacity-75 group-hover:opacity-100 blur transition-all duration-500" />
+                            <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 border-2 border-yellow-600 group-hover:border-yellow-500 rounded-2xl p-6 h-full transition-all duration-300">
                               {card.name && (
                                 <h4 className="text-lg font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors">
                                   {card.name}
