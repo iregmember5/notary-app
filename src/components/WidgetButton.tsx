@@ -51,6 +51,14 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         }
         container.replaceChild(newScript, oldScript);
       });
+
+      // Auto-click the widget to open it immediately
+      setTimeout(() => {
+        const widgetButton = container.querySelector('button, a, [role="button"], .widget-button, [class*="button"]');
+        if (widgetButton) {
+          (widgetButton as HTMLElement).click();
+        }
+      }, 500);
     }
   }, [selectedWidget]);
 
