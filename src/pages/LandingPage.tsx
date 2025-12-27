@@ -27,8 +27,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [themeColors, setThemeColors] = useState<any>(null);
+  const [wordIndex, setWordIndex] = useState(0);
 
   const { setTheme } = useTheme();
+
+  const loadingWords = ["Notary", "Nicely", "Amazing", "Professional", "Secure"];
 
   useEffect(() => {
     const loadData = async () => {
@@ -89,6 +92,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
     loadData();
   }, []);
+
+  useEffect(() => {
+    if (loading) {
+      const interval = setInterval(() => {
+        setWordIndex((prev) => (prev + 1) % loadingWords.length);
+      }, 800);
+      return () => clearInterval(interval);
+    }
+  }, [loading]);
 
   // ===== DYNAMIC SECTION RENDERING FUNCTION =====
   const renderSection = (sectionKey: string, index: number) => {
@@ -195,55 +207,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   };
 
   if (loading) {
-    const loadingPrimary = themeColors?.primary_color || "#3B82F6";
-    const loadingBg = themeColors?.background_color || "#FFFFFF";
-    const loadingText = themeColors?.text_color || "#1F2937";
-
     return (
-      <div
-        className="min-h-screen flex items-center justify-center relative overflow-hidden"
-        style={{ backgroundColor: loadingBg }}
-      >
-        {/* Curtains during loading */}
-        <div className="absolute inset-0 z-10">
-          <div className="absolute top-0 left-0 bottom-0 w-1/2 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div
-                key={i}
-                className="absolute top-0 bottom-0 w-[12.5%] bg-gradient-to-b from-slate-700/30 to-transparent"
-                style={{ left: `${i * 12.5}%` }}
-              />
-            ))}
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="relative inline-block mb-8">
+            <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-200 border-t-blue-600"></div>
+            <div className="absolute inset-0 animate-ping rounded-full bg-blue-400 opacity-20"></div>
           </div>
-          <div className="absolute top-0 right-0 bottom-0 w-1/2 bg-gradient-to-l from-slate-900 via-slate-800 to-slate-900">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div
-                key={i}
-                className="absolute top-0 bottom-0 w-[12.5%] bg-gradient-to-b from-slate-700/30 to-transparent"
-                style={{ right: `${i * 12.5}%` }}
-              />
-            ))}
+          <div className="text-4xl font-bold text-slate-900">
+            Loading{" "}
+            <span className="text-blue-600 inline-block min-w-[200px] text-left">
+              {loadingWords[wordIndex]}
+            </span>
           </div>
-          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-amber-900 via-amber-800 to-amber-900" />
-        </div>
-
-        <div className="text-center relative z-20">
-          <div className="relative inline-block mb-6">
-            <div
-              className="animate-spin rounded-full h-20 w-20 border-4 border-solid"
-              style={{
-                borderColor: `${loadingPrimary}30`,
-                borderTopColor: loadingPrimary,
-              }}
-            ></div>
-            <div
-              className="absolute inset-0 animate-ping rounded-full opacity-20"
-              style={{ backgroundColor: loadingPrimary }}
-            ></div>
-          </div>
-          <p className="text-xl font-medium" style={{ color: loadingText }}>
-            Loading amazing content...
-          </p>
         </div>
       </div>
     );
