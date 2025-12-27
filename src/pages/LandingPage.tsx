@@ -27,17 +27,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [_, setThemeColors] = useState<any>(null);
-  const [wordIndex, setWordIndex] = useState(0);
 
   const { setTheme } = useTheme();
-
-  const loadingWords = [
-    "Notary",
-    "Nicely",
-    "Amazing",
-    "Professional",
-    "Secure",
-  ];
 
   useEffect(() => {
     const loadData = async () => {
@@ -98,15 +89,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
     loadData();
   }, []);
-
-  useEffect(() => {
-    if (loading) {
-      const interval = setInterval(() => {
-        setWordIndex((prev) => (prev + 1) % loadingWords.length);
-      }, 800);
-      return () => clearInterval(interval);
-    }
-  }, [loading]);
 
   // ===== DYNAMIC SECTION RENDERING FUNCTION =====
   const renderSection = (sectionKey: string, index: number) => {
@@ -214,20 +196,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
   if (loading) {
     return (
-      <div
-        className="min-h-screen flex items-center justify-center"
-        style={{ backgroundColor: "#FFFFFF" }}
-      >
-        <div className="text-center">
-          <div className="relative inline-block mb-8">
-            <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-200 border-t-blue-600"></div>
-            <div className="absolute inset-0 animate-ping rounded-full bg-blue-400 opacity-20"></div>
-          </div>
-          <div className="text-4xl font-bold text-slate-900">
-            Loading Notary{" "}
-            <span className="text-blue-600">
-              {loadingWords.slice(1, wordIndex + 1).join(" ")}
-            </span>
+      <div className="min-h-screen bg-white">
+        {/* Instant skeleton - no waiting */}
+        <div className="animate-pulse">
+          <div className="h-16 bg-gray-100"></div>
+          <div className="max-w-7xl mx-auto px-4 py-20">
+            <div className="h-12 bg-gray-200 rounded w-3/4 mb-4"></div>
+            <div className="h-6 bg-gray-200 rounded w-1/2 mb-8"></div>
+            <div className="h-10 bg-blue-200 rounded w-32"></div>
           </div>
         </div>
       </div>
