@@ -30,23 +30,23 @@ export default function AboutPage() {
       {data.header_config && <div className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">{/* Render header */}</div>}
 
       {/* Hero Section with Image */}
-      <section className="relative py-24 overflow-hidden">
+      <section className="relative py-12 md:py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-900 via-amber-800 to-amber-950"></div>
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 -left-4 w-72 h-72 bg-amber-300 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
           <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-2000"></div>
           <div className="absolute -bottom-8 left-20 w-72 h-72 bg-orange-300 rounded-full mix-blend-multiply filter blur-xl animate-blob animation-delay-4000"></div>
         </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row items-center gap-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row items-center gap-8 md:gap-16">
             {/* Left: Text */}
-            <div className="flex-1 text-white space-y-6">
-              <h1 className="text-6xl font-extrabold leading-tight drop-shadow-lg">{data.title}</h1>
-              {data.intro && <p className="text-2xl leading-relaxed text-amber-100 font-light">{data.intro}</p>}
+            <div className="flex-1 text-white space-y-4 md:space-y-6 text-center md:text-left">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight drop-shadow-lg">{data.title}</h1>
+              {data.intro && <p className="text-lg sm:text-xl md:text-2xl leading-relaxed text-amber-100 font-light">{data.intro}</p>}
             </div>
             {/* Right: Image */}
             {data.featured_image && (
-              <div className="flex-1 max-w-md">
+              <div className="flex-1 w-full max-w-md">
                 <div className="relative group">
                   <div className="absolute -inset-1 bg-gradient-to-r from-amber-600 to-amber-800 rounded-3xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
                   <img 
@@ -63,22 +63,22 @@ export default function AboutPage() {
 
       {/* Body Content */}
       {data.body && (
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4 max-w-6xl">
-            <div className="space-y-16">
+        <section className="py-12 md:py-20 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+            <div className="space-y-8 md:space-y-16">
               {/* Opening Statement */}
               <div className="text-center">
-                <h2 className="text-4xl font-bold text-slate-900 mb-6">Our work begins where most tax professionals stop.</h2>
-                <p className="text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-4 md:mb-6">Our work begins where most tax professionals stop.</h2>
+                <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
                   When a tax preparer or accountant says they have taken all possible tax deductions and there is nothing else they can do, the traditional formula looks like this:
                 </p>
               </div>
 
               {/* Traditional Formula */}
-              <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-3xl p-12 border-2 border-slate-200 shadow-lg">
+              <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl md:rounded-3xl p-6 md:p-12 border-2 border-slate-200 shadow-lg">
                 <div className="text-center">
-                  <p className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Traditional Approach</p>
-                  <div className="text-3xl font-bold text-slate-700 space-x-4">
+                  <p className="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Traditional Approach</p>
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-700 space-x-2 md:space-x-4">
                     <span>Income</span>
                     <span className="text-slate-400">−</span>
                     <span>Expenses</span>
@@ -97,12 +97,12 @@ export default function AboutPage() {
               </div>
 
               {/* Our Approach */}
-              <div className="bg-gradient-to-br from-amber-50 via-amber-100 to-amber-50 rounded-3xl p-12 border-2 border-amber-300 shadow-2xl relative overflow-hidden">
+              <div className="bg-gradient-to-br from-amber-50 via-amber-100 to-amber-50 rounded-2xl md:rounded-3xl p-6 md:p-12 border-2 border-amber-300 shadow-2xl relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/30 rounded-full filter blur-3xl"></div>
                 <div className="relative z-10">
-                  <div className="text-center mb-8">
-                    <p className="text-sm font-semibold text-amber-800 uppercase tracking-wider mb-4">Our Strategic Approach</p>
-                    <div className="text-3xl font-bold text-slate-900 space-x-4">
+                  <div className="text-center mb-6 md:mb-8">
+                    <p className="text-xs sm:text-sm font-semibold text-amber-800 uppercase tracking-wider mb-4">Our Strategic Approach</p>
+                    <div className="text-lg sm:text-xl md:text-3xl font-bold text-slate-900 space-x-2 md:space-x-4 flex flex-wrap justify-center gap-2">
                       <span>Income</span>
                       <span className="text-slate-400">−</span>
                       <span>Expenses</span>
@@ -121,13 +121,13 @@ export default function AboutPage() {
               </div>
 
               {/* Key Points */}
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8 text-white shadow-xl">
+              <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
+                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 md:p-8 text-white shadow-xl">
                   <div className="text-5xl mb-4">⏰</div>
                   <h3 className="text-2xl font-bold mb-3">Proactive Planning</h3>
                   <p className="text-slate-300 leading-relaxed">All tax planning is done <span className="font-semibold text-amber-300">in advance</span>, not after the year has ended.</p>
                 </div>
-                <div className="bg-gradient-to-br from-amber-700 to-amber-800 rounded-2xl p-8 text-white shadow-xl">
+                <div className="bg-gradient-to-br from-amber-700 to-amber-800 rounded-2xl p-6 md:p-8 text-white shadow-xl">
                   <div className="text-5xl mb-4">📊</div>
                   <h3 className="text-2xl font-bold mb-3">Measurable Results</h3>
                   <p className="text-amber-100 leading-relaxed">We take measurements <span className="font-semibold">before and after</span> implementation, and the results speak for themselves.</p>
@@ -135,9 +135,9 @@ export default function AboutPage() {
               </div>
 
               {/* Specialties */}
-              <div className="bg-white rounded-3xl p-12 border-2 border-slate-200 shadow-lg">
-                <h3 className="text-3xl font-bold text-center mb-8 text-slate-900">Our Specialties</h3>
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-12 border-2 border-slate-200 shadow-lg">
+                <h3 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-slate-900">Our Specialties</h3>
+                <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
                   <div className="flex items-start gap-4">
                     <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
                     <p className="text-lg text-slate-700">Tax planning, accounting, project and labor costing</p>
@@ -171,19 +171,19 @@ export default function AboutPage() {
 
       {/* Mission Statement */}
       {data.mission_statement && (
-        <section className="py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 relative overflow-hidden">
+        <section className="py-16 md:py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 relative overflow-hidden">
           <div className="absolute inset-0">
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-900/30 rounded-full filter blur-3xl animate-pulse"></div>
             <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-800/30 rounded-full filter blur-3xl animate-pulse animation-delay-2000"></div>
             <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-slate-700/30 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
           </div>
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-5xl mx-auto">
-              <div className="text-center mb-16">
-                <h2 className="text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-white drop-shadow-2xl">Our Mission</h2>
+              <div className="text-center mb-8 md:mb-16">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-white drop-shadow-2xl">Our Mission</h2>
                 <div className="w-32 h-1.5 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-400 mx-auto rounded-full"></div>
               </div>
-              <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-12 border border-white/20 shadow-2xl">
+              <div className="bg-white/10 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 md:p-12 border border-white/20 shadow-2xl">
                 <p className="text-xl leading-relaxed text-amber-50 mb-8">Our mission is to help clients achieve financial strength by applying proactive tax planning, accurate accounting, and the strategic use of technology, all within full compliance of tax laws.</p>
                 <h3 className="text-2xl font-bold text-amber-200 mb-6">We believe in:</h3>
                 <ul className="space-y-4">
@@ -217,10 +217,10 @@ export default function AboutPage() {
 
       {/* Values */}
       {data.values && data.values.length > 0 && (
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Our Values</h2>
-            <div className="grid md:grid-cols-3 gap-10">
+        <section className="py-12 md:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 md:mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Our Values</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
               {data.values.map((item, idx) => (
                 <div key={idx} className="group relative">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-700 to-slate-700 rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
@@ -238,10 +238,10 @@ export default function AboutPage() {
 
       {/* Team Members */}
       {data.team_members && data.team_members.length > 0 && (
-        <section className="py-24 bg-amber-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Meet Our Team</h2>
-            <div className="grid md:grid-cols-3 gap-10">
+        <section className="py-12 md:py-24 bg-amber-50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 md:mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Meet Our Team</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
               {data.team_members.map((member) => (
                 <div key={member.id} className="group relative">
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-700 to-slate-700 rounded-3xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
@@ -279,11 +279,11 @@ export default function AboutPage() {
 
       {/* History Milestones */}
       {data.history_milestones && data.history_milestones.length > 0 && (
-        <section className="py-24 bg-white">
-          <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Our Journey</h2>
-            <div className="max-w-4xl mx-auto space-y-12 relative">
-              <div className="absolute left-20 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-700 to-slate-700"></div>
+        <section className="py-12 md:py-24 bg-white">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 md:mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Our Journey</h2>
+            <div className="max-w-4xl mx-auto space-y-8 md:space-y-12 relative">
+              <div className="hidden md:block absolute left-20 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-700 to-slate-700"></div>
               {data.history_milestones.map((item, idx) => (
                 <div key={idx} className="flex gap-8 items-start relative">
                   {item.value.year && (
@@ -305,10 +305,10 @@ export default function AboutPage() {
 
       {/* Gallery */}
       {data.gallery && data.gallery.length > 0 && (
-        <section className="py-24 bg-amber-50">
-          <div className="container mx-auto px-4">
-            <h2 className="text-5xl font-bold text-center mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Gallery</h2>
-            <div className="grid md:grid-cols-3 gap-6">
+        <section className="py-12 md:py-24 bg-amber-50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 md:mb-16 bg-gradient-to-r from-amber-800 to-slate-800 bg-clip-text text-transparent">Gallery</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {data.gallery.map((item, idx) => (
                 <div key={idx} className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition duration-500">
                   <img src={item.value.url} alt={item.value.title} className="w-full h-72 object-cover transform group-hover:scale-110 transition duration-700" />
@@ -322,15 +322,15 @@ export default function AboutPage() {
 
       {/* Contact Section */}
       {(data.contact_blurb || data.contact_email || data.contact_phone) && (
-        <section className="py-24 bg-gradient-to-r from-amber-900 via-amber-800 to-slate-900 relative overflow-hidden">
+        <section className="py-12 md:py-24 bg-gradient-to-r from-amber-900 via-amber-800 to-slate-900 relative overflow-hidden">
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-0 left-0 w-96 h-96 bg-amber-300 rounded-full filter blur-3xl animate-blob"></div>
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-slate-300 rounded-full filter blur-3xl animate-blob animation-delay-2000"></div>
           </div>
-          <div className="container mx-auto px-4 text-center relative z-10">
-            <h2 className="text-5xl font-bold mb-8 text-white drop-shadow-lg">Get In Touch</h2>
-            {data.contact_blurb && <p className="text-2xl mb-12 max-w-3xl mx-auto text-amber-50 leading-relaxed">{data.contact_blurb}</p>}
-            <div className="flex flex-col md:flex-row gap-8 justify-center items-center">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 md:mb-8 text-white drop-shadow-lg">Get In Touch</h2>
+            {data.contact_blurb && <p className="text-lg sm:text-xl md:text-2xl mb-8 md:mb-12 max-w-3xl mx-auto text-amber-50 leading-relaxed">{data.contact_blurb}</p>}
+            <div className="flex flex-col sm:flex-row gap-4 md:gap-8 justify-center items-center">
               {data.contact_email && (
                 <a href={`mailto:${data.contact_email}`} className="group flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-4 rounded-full text-white text-lg hover:bg-white hover:text-amber-900 transition duration-300 shadow-lg">
                   <Mail className="group-hover:scale-110 transition duration-300" size={24} />
