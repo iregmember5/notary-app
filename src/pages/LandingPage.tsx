@@ -62,22 +62,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         }
 
         setError(null);
+        setLoading(false);
       } catch (err) {
         console.error("Failed to load landing page:", err);
         setError(err instanceof Error ? err.message : "Failed to load page data");
-      } finally {
         setLoading(false);
       }
     };
 
-    // Show skeleton for max 300ms, then show content even if loading
-    const timer = setTimeout(() => {
-      if (loading) setLoading(false);
-    }, 300);
-
     loadData();
-
-    return () => clearTimeout(timer);
   }, []);
 
   // ===== DYNAMIC SECTION RENDERING FUNCTION =====
