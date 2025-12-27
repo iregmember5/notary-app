@@ -26,12 +26,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   const [data, setData] = useState<LandingPageData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [themeColors, setThemeColors] = useState<any>(null);
+  const [_, setThemeColors] = useState<any>(null);
   const [wordIndex, setWordIndex] = useState(0);
 
   const { setTheme } = useTheme();
 
-  const loadingWords = ["Notary", "Nicely", "Amazing", "Professional", "Secure"];
+  const loadingWords = [
+    "Notary",
+    "Nicely",
+    "Amazing",
+    "Professional",
+    "Secure",
+  ];
 
   useEffect(() => {
     const loadData = async () => {
@@ -208,16 +214,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div
+        className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: "#FFFFFF" }}
+      >
         <div className="text-center">
           <div className="relative inline-block mb-8">
             <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-200 border-t-blue-600"></div>
             <div className="absolute inset-0 animate-ping rounded-full bg-blue-400 opacity-20"></div>
           </div>
           <div className="text-4xl font-bold text-slate-900">
-            Loading{" "}
-            <span className="text-blue-600 inline-block min-w-[200px] text-left">
-              {loadingWords[wordIndex]}
+            Loading Notary{" "}
+            <span className="text-blue-600">
+              {loadingWords.slice(1, wordIndex + 1).join(" ")}
             </span>
           </div>
         </div>
