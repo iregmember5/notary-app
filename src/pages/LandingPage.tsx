@@ -179,46 +179,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white">
-        {/* Shimmer Skeleton */}
-        <div className="animate-pulse">
-          {/* Navbar skeleton */}
-          <div className="h-16 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 bg-[length:200%_100%] animate-shimmer"></div>
-          
-          {/* Hero section skeleton */}
-          <div className="max-w-7xl mx-auto px-4 py-20">
-            <div className="h-16 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:200%_100%] animate-shimmer rounded-lg w-3/4 mb-6"></div>
-            <div className="h-8 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:200%_100%] animate-shimmer rounded-lg w-1/2 mb-8"></div>
-            <div className="flex gap-4">
-              <div className="h-12 bg-gradient-to-r from-blue-200 via-blue-300 to-blue-200 bg-[length:200%_100%] animate-shimmer rounded-lg w-40"></div>
-              <div className="h-12 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:200%_100%] animate-shimmer rounded-lg w-40"></div>
-            </div>
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="text-center">
+          <div className="relative inline-block mb-8">
+            <div className="animate-spin rounded-full h-20 w-20 border-4 border-blue-200 border-t-blue-600"></div>
+            <div className="absolute inset-0 animate-ping rounded-full bg-blue-400 opacity-20"></div>
           </div>
-
-          {/* Features skeleton */}
-          <div className="max-w-7xl mx-auto px-4 py-16">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="p-6 rounded-xl bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 bg-[length:200%_100%] animate-shimmer">
-                  <div className="h-12 w-12 bg-gradient-to-r from-gray-300 via-gray-400 to-gray-300 bg-[length:200%_100%] animate-shimmer rounded-lg mb-4"></div>
-                  <div className="h-6 bg-gradient-to-r from-gray-300 via-gray-400 to-gray-300 bg-[length:200%_100%] animate-shimmer rounded w-3/4 mb-3"></div>
-                  <div className="h-4 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 bg-[length:200%_100%] animate-shimmer rounded w-full"></div>
-                </div>
-              ))}
-            </div>
-          </div>
+          <div className="text-2xl font-bold text-slate-900">Loading...</div>
         </div>
-
-        {/* Shimmer animation */}
-        <style>{`
-          @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
-          }
-          .animate-shimmer {
-            animation: shimmer 2s infinite linear;
-          }
-        `}</style>
       </div>
     );
   }
