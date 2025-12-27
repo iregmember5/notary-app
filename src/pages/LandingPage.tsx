@@ -33,12 +33,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        setLoading(true);
         const pageData = await fetchLandingPageData();
 
-        console.log("📦 LandingPage received data:", pageData);
-
-        // Set theme colors first for loading screen
         if (pageData.color_theme) {
           setThemeColors(pageData.color_theme);
           setTheme(pageData.color_theme);
@@ -46,26 +42,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
 
         setData(pageData);
 
-        // Set dynamic meta tags
         if (pageData.meta_title || pageData.title) {
           document.title = pageData.meta_title || pageData.title;
         }
 
-        // Set meta description
-        const metaDescription = document.querySelector(
-          'meta[name="description"]'
-        );
-        if (
-          metaDescription &&
-          (pageData.meta_description || pageData.header_description)
-        ) {
-          metaDescription.setAttribute(
-            "content",
-            pageData.meta_description || pageData.header_description || ""
-          );
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription && (pageData.meta_description || pageData.header_description)) {
+          metaDescription.setAttribute("content", pageData.meta_description || pageData.header_description || "");
         }
 
-        // Set OG image
         if (pageData.og_image) {
           let ogImage = document.querySelector('meta[property="og:image"]');
           if (!ogImage) {
@@ -79,15 +64,20 @@ const LandingPage: React.FC<LandingPageProps> = ({ onShowLogin }) => {
         setError(null);
       } catch (err) {
         console.error("Failed to load landing page:", err);
-        setError(
-          err instanceof Error ? err.message : "Failed to load page data"
-        );
+        setError(err instanceof Error ? err.message : "Failed to load page data");
       } finally {
         setLoading(false);
       }
     };
 
+    // Show skeleton for max 300ms, then show content even if loading
+    const timer = setTimeout(() => {
+      if (loading) setLoading(false);
+    }, 300);
+
     loadData();
+
+    return () => clearTimeout(timer);
   }, []);
 
   // ===== DYNAMIC SECTION RENDERING FUNCTION =====
