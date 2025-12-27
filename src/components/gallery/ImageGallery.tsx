@@ -60,16 +60,16 @@ export default function ImageGallery() {
               <div
                 key={img.id}
                 onClick={() => openLightbox(idx)}
-                className="group relative cursor-pointer break-inside-avoid bg-white rounded-lg shadow-xl hover:shadow-2xl transition-all p-3"
+                className="group relative cursor-pointer break-inside-avoid bg-white rounded-lg shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 p-3"
               >
-                <div className="border-4 border-double border-amber-600 rounded overflow-hidden">
+                <div className="border-4 border-double border-amber-600 group-hover:border-amber-500 rounded overflow-hidden transition-colors">
                   <img
                     src={getFullImageUrl(img.image.url)}
                     alt={img.image.title}
-                    className="w-full h-auto hover:opacity-90 transition-opacity"
+                    className="w-full h-auto group-hover:scale-105 transition-transform duration-300"
                   />
                 </div>
-                <p className="text-center text-sm font-semibold text-slate-800 mt-2">{img.image.title}</p>
+                <p className="text-center text-sm font-semibold text-slate-800 mt-2 group-hover:text-amber-600 transition-colors">{img.image.title}</p>
               </div>
             )
           ))}
