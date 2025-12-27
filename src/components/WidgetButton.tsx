@@ -254,28 +254,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
 
       {/* Widget Container */}
       {selectedWidget && (
-        <>
-          <div ref={iframeRef} className="widget-container" />
-          <button
-            onClick={closeWidget}
-            className="fixed top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 sm:w-12 sm:h-12 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center z-[1001] shadow-2xl transition-all hover:scale-110"
-            aria-label="Close widget"
-          >
-            <svg
-              className="w-6 h-6 sm:w-7 sm:h-7"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2.5}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </>
+        <div ref={iframeRef} className="widget-container" />
       )}
     </>
   );
