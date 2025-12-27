@@ -325,81 +325,79 @@ export default function TaxAdvisorLandingPage() {
               s.cards?.length > 0
           )
           .map((section: any, idx: number) => (
-            <div key={idx} className="container mx-auto px-4 py-24">
-              <div className="max-w-6xl mx-auto">
-                {/* Section Header */}
-                <div className="text-center mb-16">
-                  {section.heading && (
-                    <h2 className="text-4xl md:text-5xl font-black text-white mb-4">
-                      {section.heading}
-                    </h2>
+            <div key={idx} className="relative py-24 overflow-hidden">
+              {/* Background Effects */}
+              <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/5 via-transparent to-orange-500/5" />
+              <div className="absolute top-0 left-1/4 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl" />
+              <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
+              
+              <div className="container mx-auto px-4 relative z-10">
+                <div className="max-w-7xl mx-auto">
+                  {/* Section Header */}
+                  <div className="text-center mb-20">
+                    {section.heading && (
+                      <h2 className="text-5xl md:text-6xl font-black mb-6">
+                        <span className="bg-gradient-to-r from-white via-yellow-200 to-white bg-clip-text text-transparent">
+                          {section.heading}
+                        </span>
+                      </h2>
+                    )}
+                    {section.subheading && (
+                      <div className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 px-6 py-2 rounded-full mb-6">
+                        <h3 className="text-xl font-black text-black">
+                          {section.subheading}
+                        </h3>
+                      </div>
+                    )}
+                    {section.description && (
+                      <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+                        {section.description}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Cards Grid */}
+                  {section.cards && section.cards.length > 0 && (
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                      {section.cards
+                        .filter((c: any) => c.name || c.description)
+                        .map((card: any, i: number) => (
+                          <div key={i} className="group relative">
+                            <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl opacity-0 group-hover:opacity-100 blur transition-all duration-500" />
+                            <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 border border-yellow-500/20 group-hover:border-yellow-500/60 rounded-2xl p-6 h-full transition-all duration-300">
+                              {card.name && (
+                                <h4 className="text-lg font-bold text-white mb-4 group-hover:text-yellow-400 transition-colors">
+                                  {card.name}
+                                </h4>
+                              )}
+                              {card.description && (
+                                <div className="text-gray-400 text-sm leading-relaxed space-y-2">
+                                  {card.description.split('\n').map((line: string, idx: number) => (
+                                    line.trim() && (
+                                      <div key={idx} className="flex items-start gap-2">
+                                        <span className="text-yellow-500 mt-1 flex-shrink-0">•</span>
+                                        <span>{line.replace(/^🔸\s*/, '')}</span>
+                                      </div>
+                                    )
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                    </div>
                   )}
-                  {section.subheading && (
-                    <h3 className="text-2xl font-bold text-yellow-400 mb-4">
-                      {section.subheading}
-                    </h3>
-                  )}
-                  {section.description && (
-                    <p className="text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                      {section.description}
-                    </p>
-                  )}
-                  {section.subdescription && (
-                    <p className="text-base text-gray-400 mt-4">
-                      {section.subdescription}
-                    </p>
+
+                  {/* Button */}
+                  {section.button?.text && (
+                    <div className="text-center mt-16">
+                      <button className="group relative bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 text-black font-black py-5 px-12 rounded-full text-xl hover:scale-105 transition-all shadow-2xl overflow-hidden">
+                        <span className="relative z-10">{section.button.text} →</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+                      </button>
+                    </div>
                   )}
                 </div>
-
-                {/* Image */}
-                {section.image && (
-                  <div className="mb-12">
-                    <img
-                      src={prependImageUrl(section.image.url)}
-                      alt={section.heading || "Section image"}
-                      className="rounded-2xl mx-auto w-full shadow-2xl"
-                    />
-                  </div>
-                )}
-
-                {/* Cards Grid */}
-                {section.cards && section.cards.length > 0 && (
-                  <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6">
-                    {section.cards
-                      .filter((c: any) => c.name || c.description)
-                      .map((card: any, i: number) => (
-                        <div
-                          key={i}
-                          className="relative group"
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity" />
-                          <div className="relative bg-gradient-to-br from-gray-900 to-black border border-gray-800 hover:border-yellow-500/50 rounded-2xl p-6 transition-all h-full">
-                            {card.name && (
-                              <h4 className="text-xl font-bold text-white mb-3 flex items-start gap-2">
-                                {card.name}
-                              </h4>
-                            )}
-                            {card.description && (
-                              <p
-                                className="text-gray-400 text-sm leading-relaxed whitespace-pre-line"
-                              >
-                                {card.description}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                )}
-
-                {/* Button */}
-                {section.button?.text && (
-                  <div className="text-center mt-12">
-                    <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black py-4 px-10 rounded-full text-lg hover:scale-105 transition-transform shadow-xl">
-                      {section.button.text} →
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           ))}
