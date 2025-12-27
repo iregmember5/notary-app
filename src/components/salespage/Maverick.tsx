@@ -194,146 +194,120 @@ export default function TaxAdvisorLandingPage() {
         {/* What You'll Learn */}
         {pageData?.card_sections?.cards &&
           pageData.card_sections.cards.length > 0 && (
-            <div className="container mx-auto px-4 py-20 relative">
-              <div className="absolute inset-0 bg-gradient-to-b from-yellow-500/5 to-orange-500/5 blur-3xl" />
+            <div className="container mx-auto px-4 py-24">
               {pageData.card_sections.main_header && (
-                <h2 className="text-4xl md:text-5xl font-black mb-4 text-center bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                  {pageData.card_sections.main_header}
-                </h2>
+                <div className="text-center mb-16">
+                  <div className="inline-block bg-gradient-to-r from-yellow-400 to-orange-500 text-black px-6 py-2 rounded-full text-sm font-bold mb-4">WHAT YOU'LL DISCOVER</div>
+                  <h2 className="text-5xl md:text-6xl font-black text-white mb-4">
+                    {pageData.card_sections.main_header}
+                  </h2>
+                  {pageData.card_sections.footer_title && (
+                    <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+                      {pageData.card_sections.footer_title}
+                    </p>
+                  )}
+                </div>
               )}
-              {pageData.card_sections.footer_title && (
-                <p className="text-xl mb-12 text-center text-gray-300">
-                  {pageData.card_sections.footer_title}
-                </p>
-              )}
-              <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 p-8 md:p-12 rounded-3xl max-w-4xl mx-auto border-2 border-yellow-500/30 shadow-2xl">
-                <div className="absolute -top-6 -right-6 w-32 h-32 bg-yellow-500/20 rounded-full blur-2xl" />
-                <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-orange-500/20 rounded-full blur-2xl" />
-                {(() => {
-                  return pageData.card_sections.cards.map(
-                    (card: any, idx: number) => (
-                      <div
-                        key={idx}
-                        className="relative bg-gradient-to-br from-yellow-500/10 to-orange-500/10 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-yellow-500/20 mb-6 last:mb-0 hover:border-yellow-500/50 transition-all hover:scale-[1.02] group"
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/0 via-yellow-500/5 to-yellow-500/0 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
-                        {card.title && (
-                          <h3 className="text-yellow-400 font-black text-2xl mb-4 flex items-center gap-3">
-                            <span className="text-3xl animate-pulse">✨</span>
-                            {card.title}
-                          </h3>
-                        )}
-                        {card.subtitle && (
-                          <h4 className="text-white font-bold text-xl mb-4">
-                            {card.subtitle}
-                          </h4>
-                        )}
-                        {card.description && (
-                          <p className="text-gray-300 text-base leading-relaxed">
-                            {card.description}
-                          </p>
-                        )}
+              <div className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+                {pageData.card_sections.cards.map((card: any, idx: number) => (
+                  <div key={idx} className="relative group">
+                    <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-2xl blur-xl opacity-20 group-hover:opacity-40 transition-opacity" />
+                    <div className="relative bg-gray-900 border border-yellow-500/30 rounded-2xl p-8 hover:border-yellow-500 transition-all">
+                      <div className="flex items-start gap-4">
+                        <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center text-2xl font-black text-black">
+                          {idx + 1}
+                        </div>
+                        <div className="flex-1">
+                          {card.title && <h3 className="text-2xl font-bold text-white mb-2">{card.title}</h3>}
+                          {card.subtitle && <h4 className="text-lg font-semibold text-yellow-400 mb-3">{card.subtitle}</h4>}
+                          {card.description && <p className="text-gray-400 leading-relaxed">{card.description}</p>}
+                        </div>
                       </div>
-                    )
-                  );
-                })()}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
 
         {/* Free Registration Banner */}
         {pageData?.secondary_cta_section?.heading && (
-          <div className="container mx-auto px-4 py-16">
-            <div className="relative border-4 border-yellow-500 rounded-3xl p-10 text-center bg-gradient-to-br from-black via-gray-900 to-black shadow-2xl overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/10 via-orange-500/10 to-yellow-500/10 animate-pulse" />
-              <div className="absolute top-0 left-1/4 w-64 h-64 bg-yellow-500/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
-              <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-orange-500/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
-              <h2 className="text-4xl md:text-5xl font-black mb-6 relative z-10">
-                {pageData.secondary_cta_section.heading}
+          <div className="container mx-auto px-4 py-24">
+            <div className="relative max-w-5xl mx-auto">
+              <div className="absolute inset-0 bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 rounded-3xl blur-2xl opacity-30" />
+              <div className="relative bg-black border-4 border-yellow-500 rounded-3xl p-12 text-center">
+                <div className="inline-block bg-yellow-400 text-black px-4 py-1 rounded-full text-xs font-black uppercase mb-6">Limited Time Offer</div>
+                <h2 className="text-4xl md:text-6xl font-black text-white mb-4">
+                  {pageData.secondary_cta_section.heading}
+                </h2>
                 {pageData.secondary_cta_section.description && (
-                  <>
-                    <br />
-                    <span className="text-yellow-400 text-5xl mt-4 inline-block drop-shadow-[0_0_30px_rgba(251,191,36,0.5)]">
-                      {pageData.secondary_cta_section.description}
-                    </span>
-                  </>
+                  <div className="text-6xl md:text-8xl font-black bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-400 bg-clip-text text-transparent mb-6">
+                    {pageData.secondary_cta_section.description}
+                  </div>
                 )}
-              </h2>
-              {pageData.secondary_cta_section.announcement && (
-                <p className="text-2xl mb-8 text-gray-300 relative z-10">
-                  {pageData.secondary_cta_section.announcement}
-                </p>
-              )}
-              {pageData.secondary_cta_section.button?.text && (
-                <button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 text-black font-black py-6 px-12 rounded-full text-2xl hover:scale-110 transition-all shadow-2xl hover:shadow-yellow-500/50 relative z-10 animate-[glow_2s_ease-in-out_infinite]">
-                  🎯 {pageData.secondary_cta_section.button.text}
-                </button>
-              )}
+                {pageData.secondary_cta_section.announcement && (
+                  <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                    {pageData.secondary_cta_section.announcement}
+                  </p>
+                )}
+                {pageData.secondary_cta_section.button?.text && (
+                  <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black py-5 px-12 rounded-full text-xl hover:scale-105 transition-transform shadow-2xl">
+                    {pageData.secondary_cta_section.button.text} →
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         )}
 
         {/* Meet Your Speakers */}
         {pageData?.images_gallery_section?.images &&
-          pageData.images_gallery_section.images.filter((img: any) => img.image)
-            .length > 0 && (
-            <div className="container mx-auto px-4 py-20 relative">
-              <div className="absolute inset-0 bg-gradient-to-b from-orange-500/5 to-yellow-500/5 blur-3xl" />
+          pageData.images_gallery_section.images.filter((img: any) => img.image).length > 0 && (
+            <div className="container mx-auto px-4 py-24">
               {pageData.images_gallery_section.heading && (
-                <div className="relative border-4 border-yellow-500 rounded-full py-4 px-10 text-center inline-block mx-auto mb-16 block w-fit bg-black/50 backdrop-blur-sm shadow-2xl">
-                  <h2 className="text-3xl font-black bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                    {pageData.images_gallery_section.heading}
-                  </h2>
+                <div className="text-center mb-16">
+                  <h2 className="text-5xl font-black text-white mb-4">{pageData.images_gallery_section.heading}</h2>
+                  <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full" />
                 </div>
               )}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto relative">
-                {pageData.images_gallery_section.images
-                  .filter((img: any) => img.image)
-                  .map((img: any, i: number) => (
-                    <div key={i} className="text-center group">
-                      <div className="relative inline-block">
-                        <div className="absolute -inset-4 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full blur-xl opacity-50 group-hover:opacity-100 transition-opacity" />
-                        <img
-                          src={prependImageUrl(img.image?.url)}
-                          alt={img.caption || "Speaker"}
-                          className="relative w-64 h-64 rounded-full mx-auto object-cover border-4 border-yellow-500/50 group-hover:border-yellow-500 transition-all shadow-2xl group-hover:scale-105"
-                        />
-                      </div>
+              <div className="flex flex-wrap justify-center gap-12 max-w-5xl mx-auto">
+                {pageData.images_gallery_section.images.filter((img: any) => img.image).map((img: any, i: number) => (
+                  <div key={i} className="relative group">
+                    <div className="absolute -inset-2 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full blur-lg opacity-50 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-yellow-500 shadow-2xl">
+                      <img src={prependImageUrl(img.image?.url)} alt={img.caption || "Speaker"} className="w-full h-full object-cover" />
                     </div>
-                  ))}
+                  </div>
+                ))}
               </div>
             </div>
           )}
 
         {/* Pricing Section */}
         {pageData?.primary_cta_section?.heading && (
-          <div className="container mx-auto px-4 py-20">
-            <div className="relative bg-gradient-to-br from-yellow-50 to-orange-50 text-black p-10 rounded-3xl max-w-md mx-auto text-center shadow-2xl border-4 border-yellow-400 overflow-hidden group">
-              <div className="absolute -top-20 -right-20 w-40 h-40 bg-yellow-300/30 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
-              <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-orange-300/30 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000" />
-              <p className="text-sm mb-2 font-bold uppercase tracking-wider text-orange-600 relative z-10">
-                {pageData.primary_cta_section.heading}
-              </p>
-              {pageData.primary_cta_section.subtitle && (
-                <h2 className="text-5xl font-black mb-3 bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent relative z-10">
-                  {pageData.primary_cta_section.subtitle}
-                </h2>
-              )}
-              {pageData.primary_cta_section.description && (
-                <p className="text-xs mb-6 text-gray-700 relative z-10">
-                  {pageData.primary_cta_section.description}
-                </p>
-              )}
-              {pageData.primary_cta_section.subdescription && (
-                <p className="text-sm font-bold mb-6 text-gray-900 relative z-10">
-                  {pageData.primary_cta_section.subdescription}
-                </p>
-              )}
-              {pageData.primary_cta_section.button?.text && (
-                <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-black py-4 px-8 rounded-full w-full hover:scale-105 transition-transform shadow-xl hover:shadow-2xl relative z-10">
-                  🎯 {pageData.primary_cta_section.button.text}
-                </button>
-              )}
+          <div className="container mx-auto px-4 py-24">
+            <div className="max-w-lg mx-auto">
+              <div className="bg-gradient-to-br from-gray-900 to-black border-2 border-yellow-500 rounded-3xl overflow-hidden shadow-2xl">
+                <div className="bg-gradient-to-r from-yellow-400 to-orange-500 p-6 text-center">
+                  <p className="text-black font-black text-sm uppercase tracking-wider">{pageData.primary_cta_section.heading}</p>
+                </div>
+                <div className="p-10 text-center">
+                  {pageData.primary_cta_section.subtitle && (
+                    <div className="text-7xl font-black text-white mb-4">{pageData.primary_cta_section.subtitle}</div>
+                  )}
+                  {pageData.primary_cta_section.description && (
+                    <p className="text-gray-400 mb-6">{pageData.primary_cta_section.description}</p>
+                  )}
+                  {pageData.primary_cta_section.subdescription && (
+                    <p className="text-yellow-400 font-bold text-lg mb-8">{pageData.primary_cta_section.subdescription}</p>
+                  )}
+                  {pageData.primary_cta_section.button?.text && (
+                    <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black py-5 rounded-full text-lg hover:scale-105 transition-transform shadow-xl">
+                      {pageData.primary_cta_section.button.text}
+                    </button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -478,45 +452,31 @@ export default function TaxAdvisorLandingPage() {
         )}
 
         {/* FAQ Section */}
-        {pageData?.faq_section?.faqs &&
-          pageData.faq_section.faqs.length > 0 && (
-            <div className="container mx-auto px-4 py-20">
-              <div className="max-w-4xl mx-auto">
-                <div className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black py-6 px-8 rounded-t-3xl text-center shadow-2xl">
-                  <h2 className="text-3xl font-black">
-                    {pageData.faq_section.heading}
-                  </h2>
-                </div>
-                <div className="bg-gradient-to-br from-white to-gray-50 text-black rounded-b-3xl overflow-hidden shadow-2xl border-4 border-t-0 border-yellow-500">
-                  {pageData.faq_section.faqs.map((faq: any, i: number) => (
-                    <div key={i} className="border-b border-gray-200 last:border-b-0">
-                      <button
-                        onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                        className="w-full text-left p-6 flex justify-between items-center hover:bg-yellow-50 transition-colors group"
-                      >
-                        <span className="text-base font-bold group-hover:text-orange-600 transition-colors">
-                          {faq.question}
-                        </span>
-                        <div className="bg-yellow-100 rounded-full p-2 group-hover:bg-yellow-200 transition-colors">
-                          {openFaq === i ? (
-                            <ChevronUp className="w-5 h-5 text-orange-600" />
-                          ) : (
-                            <ChevronDown className="w-5 h-5 text-orange-600" />
-                          )}
-                        </div>
-                      </button>
-                      {openFaq === i && (
-                        <div
-                          className="px-6 pb-6 text-sm text-gray-700 leading-relaxed bg-yellow-50/50"
-                          dangerouslySetInnerHTML={{ __html: faq.answer }}
-                        />
-                      )}
-                    </div>
-                  ))}
-                </div>
+        {pageData?.faq_section?.faqs && pageData.faq_section.faqs.length > 0 && (
+          <div className="container mx-auto px-4 py-24">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-5xl font-black text-white mb-4">{pageData.faq_section.heading}</h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-yellow-400 to-orange-500 mx-auto rounded-full" />
+              </div>
+              <div className="space-y-4">
+                {pageData.faq_section.faqs.map((faq: any, i: number) => (
+                  <div key={i} className="bg-gray-900 border border-gray-800 rounded-2xl overflow-hidden hover:border-yellow-500/50 transition-colors">
+                    <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full text-left p-6 flex justify-between items-center group">
+                      <span className="text-lg font-bold text-white group-hover:text-yellow-400 transition-colors pr-4">{faq.question}</span>
+                      <div className="flex-shrink-0 w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center group-hover:bg-yellow-500/30 transition-colors">
+                        {openFaq === i ? <ChevronUp className="w-5 h-5 text-yellow-400" /> : <ChevronDown className="w-5 h-5 text-yellow-400" />}
+                      </div>
+                    </button>
+                    {openFaq === i && (
+                      <div className="px-6 pb-6 text-gray-400 leading-relaxed border-t border-gray-800" dangerouslySetInnerHTML={{ __html: faq.answer }} />
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
-          )}
+          </div>
+        )}
       </div>
     </>
   );
