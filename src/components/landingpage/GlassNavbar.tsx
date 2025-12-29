@@ -188,7 +188,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
               <img
                 src={getFullImageUrl(logo.url)}
                 alt={logo.title || siteName}
-                className="h-10 w-10 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain transition-transform duration-300 group-hover:scale-105 rounded-lg"
+                className="h-15 w-15 sm:h-12 sm:w-12 md:h-14 md:w-14 object-contain transition-transform duration-300 group-hover:scale-105 rounded-lg"
               />
             ) : (
               <div className="h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center rounded-xl text-white transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 gradient-theme-primary shadow-lg border border-theme-primary/30">
@@ -363,7 +363,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                             ? "#about"
                             : link.title.toLowerCase() === "demo sales page"
                             ? "#salespage"
-                            : link.title.toLowerCase().includes("template") || link.title.toLowerCase().includes("gallery")
+                            : link.title.toLowerCase().includes("template") ||
+                              link.title.toLowerCase().includes("gallery")
                             ? "#gallery"
                             : getNavigationItemUrl(link)
                         }
@@ -513,7 +514,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                           ? "#about"
                           : link.title.toLowerCase() === "demo sales page"
                           ? "#salespage"
-                          : link.title.toLowerCase().includes("template") || link.title.toLowerCase().includes("gallery")
+                          : link.title.toLowerCase().includes("template") ||
+                            link.title.toLowerCase().includes("gallery")
                           ? "#gallery"
                           : getNavigationItemUrl(link)
                       }
