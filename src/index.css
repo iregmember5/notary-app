@@ -3,7 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Dynamic Theme CSS Variables - Professional Notary Palette */
 :root {
   --color-primary: #3B82F6;
   --color-secondary: #1E40AF;
@@ -13,7 +12,6 @@
   --color-text: #0F172A;
 }
 
-/* Professional Typography & Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -21,25 +19,19 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-background);
   color: var(--color-text);
-  font-feature-settings: 'kern' 1, 'liga' 1;
-  text-rendering: optimizeLegibility;
 }
 
-/* Professional Headings */
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
-/* Dynamic Theme Utility Classes */
 @layer utilities {
   .bg-theme-primary { background-color: var(--color-primary) !important; }
   .bg-theme-secondary { background-color: var(--color-secondary) !important; }
@@ -66,7 +58,6 @@ h1, h2, h3, h4, h5, h6 {
     background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-primary) 100%) !important;
   }
 
-  /* Professional Shadow Utilities */
   .shadow-professional {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   }
@@ -78,129 +69,4 @@ h1, h2, h3, h4, h5, h6 {
   .shadow-professional-xl {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
-
-  .bg-theme-primary\/5 { background-color: color-mix(in srgb, var(--color-primary) 5%, transparent) !important; }
-  .bg-theme-primary\/10 { background-color: color-mix(in srgb, var(--color-primary) 10%, transparent) !important; }
-  .bg-theme-primary\/20 { background-color: color-mix(in srgb, var(--color-primary) 20%, transparent) !important; }
-  .bg-theme-primary\/25 { background-color: color-mix(in srgb, var(--color-primary) 25%, transparent) !important; }
-  .bg-theme-primary\/30 { background-color: color-mix(in srgb, var(--color-primary) 30%, transparent) !important; }
-  
-  .bg-theme-neutral\/5 { background-color: color-mix(in srgb, var(--color-neutral) 5%, transparent) !important; }
-  .bg-theme-neutral\/10 { background-color: color-mix(in srgb, var(--color-neutral) 10%, transparent) !important; }
-  
-  .border-theme-primary\/10 { border-color: color-mix(in srgb, var(--color-primary) 10%, transparent) !important; }
-  .border-theme-primary\/20 { border-color: color-mix(in srgb, var(--color-primary) 20%, transparent) !important; }
-  .border-theme-primary\/25 { border-color: color-mix(in srgb, var(--color-primary) 25%, transparent) !important; }
-  .border-theme-primary\/30 { border-color: color-mix(in srgb, var(--color-primary) 30%, transparent) !important; }
-  .border-theme-primary\/40 { border-color: color-mix(in srgb, var(--color-primary) 40%, transparent) !important; }
-  
-  .border-theme-neutral\/10 { border-color: color-mix(in srgb, var(--color-neutral) 10%, transparent) !important; }
-  .border-theme-neutral\/20 { border-color: color-mix(in srgb, var(--color-neutral) 20%, transparent) !important; }
-  .border-theme-neutral\/30 { border-color: color-mix(in srgb, var(--color-neutral) 30%, transparent) !important; }
-  .border-theme-neutral\/50 { border-color: color-mix(in srgb, var(--color-neutral) 50%, transparent) !important; }
-}
-
-/* Rich text content styling for DynamicContent */
-[dangerouslySetInnerHTML] h1,
-[dangerouslySetInnerHTML] h2,
-[dangerouslySetInnerHTML] h3,
-[dangerouslySetInnerHTML] h4,
-[dangerouslySetInnerHTML] h5,
-[dangerouslySetInnerHTML] h6 {
-  font-weight: 700;
-  margin-top: 1.5em;
-  margin-bottom: 0.75em;
-  line-height: 1.3;
-  color: #1e293b;
-}
-
-[dangerouslySetInnerHTML] h1 { font-size: 2em; }
-[dangerouslySetInnerHTML] h2 { font-size: 1.5em; }
-[dangerouslySetInnerHTML] h3 { font-size: 1.25em; }
-[dangerouslySetInnerHTML] h4 { font-size: 1.1em; }
-
-[dangerouslySetInnerHTML] p {
-  margin-bottom: 1em;
-  line-height: 1.7;
-}
-
-[dangerouslySetInnerHTML] ul,
-[dangerouslySetInnerHTML] ol {
-  margin: 1em 0;
-  padding-left: 2em;
-}
-
-[dangerouslySetInnerHTML] li {
-  margin-bottom: 0.5em;
-}
-
-[dangerouslySetInnerHTML] a {
-  color: #3b82f6;
-  text-decoration: underline;
-}
-
-[dangerouslySetInnerHTML] img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 1em 0;
-}
-
-[dangerouslySetInnerHTML] strong,
-[dangerouslySetInnerHTML] b {
-  font-weight: 600;
-}
-
-[dangerouslySetInnerHTML] em,
-[dangerouslySetInnerHTML] i {
-  font-style: italic;
-}
-
-[dangerouslySetInnerHTML] blockquote {
-  border-left: 4px solid #3b82f6;
-  padding-left: 1em;
-  margin: 1.5em 0;
-  font-style: italic;
-  color: #475569;
-}
-
-[dangerouslySetInnerHTML] code {
-  background: #f1f5f9;
-  padding: 0.2em 0.4em;
-  border-radius: 0.25em;
-  font-size: 0.9em;
-  font-family: monospace;
-}
-
-[dangerouslySetInnerHTML] pre {
-  background: #1e293b;
-  color: #f1f5f9;
-  padding: 1em;
-  border-radius: 0.5em;
-  overflow-x: auto;
-  margin: 1em 0;
-}
-
-[dangerouslySetInnerHTML] pre code {
-  background: transparent;
-  padding: 0;
-  color: inherit;
-}
-
-[dangerouslySetInnerHTML] table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1em 0;
-}
-
-[dangerouslySetInnerHTML] th,
-[dangerouslySetInnerHTML] td {
-  border: 1px solid #e2e8f0;
-  padding: 0.5em;
-  text-align: left;
-}
-
-[dangerouslySetInnerHTML] th {
-  background: #f1f5f9;
-  font-weight: 600;
 }

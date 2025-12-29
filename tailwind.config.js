@@ -8,5 +8,16 @@ export default {
     extend: {},
   },
   plugins: [],
+  corePlugins: {
+    preflight: true,
+  },
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
+  safelist: [
+    'bg-theme-primary',
+    'bg-theme-secondary',
+    'text-theme-primary',
+    'text-theme-accent',
+  ],
 }
-

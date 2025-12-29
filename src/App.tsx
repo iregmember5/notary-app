@@ -1,15 +1,38 @@
-import { useState, useEffect } from "react";
-import LandingPage from "./pages/LandingPage";
-import { FeaturesPage } from "./components/features/features-page/FeaturesPage";
-import { BlogPage } from "./components/blogs/BlogPage";
-import AboutPage from "./pages/AboutPage";
-import DebugFeaturesAPI from "./pages/DebugFeaturesApi";
-import DebugLandingAPI from "./pages/DebugLandingApi";
-import Maverick from "./components/salespage/Maverick";
-import ImageGallery from "./components/gallery/ImageGallery";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { SiteSettingsProvider } from "./contexts/SiteSettingsContext";
 import { DynamicHead } from "./components/DynamicHead";
+
+// Lazy load all pages
+const LandingPage = lazy(() => import("./pages/LandingPage"));
+const FeaturesPage = lazy(() => import("./components/features/features-page/FeaturesPage").then(m => ({ default: m.FeaturesPage })));
+const BlogPage = lazy(() => import("./components/blogs/BlogPage").then(m => ({ default: m.BlogPage })));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const DebugFeaturesAPI = lazy(() => import("./pages/DebugFeaturesApi"));
+const DebugLandingAPI = lazy(() => import("./pages/DebugLandingApi"));
+const Maverick = lazy(() => import("./components/salespage/Maverick"));
+const ImageGallery = lazy(() => import("./components/gallery/ImageGallery"));
+
+// Loading component
+const PageLoader = () => (
+  <div style={{ 
+    display: 'flex', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
+    height: '100vh',
+    background: 'var(--color-background)'
+  }}>
+    <div style={{ 
+      width: '40px', 
+      height: '40px', 
+      border: '3px solid var(--color-primary)', 
+      borderTopColor: 'transparent',
+      borderRadius: '50%',
+      animation: 'spin 0.8s linear infinite'
+    }} />
+    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+  </div>
+);
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<{
@@ -99,82 +122,19 @@ function AppContent() {
     };
   }, []);
 
-  if (currentView.type === "blog") {
-    return (
-      <>
-        <ThemeProvider>
-          <BlogPage slug={currentView.slug} />
-        </ThemeProvider>
-      </>
-    );
-  }
-
-  if (currentView.type === "features") {
-    return (
-      <>
-        <ThemeProvider>
-          <FeaturesPage slug={currentView.slug} />
-        </ThemeProvider>
-      </>
-    );
-  }
-
-  if (currentView.type === "debug-features") {
-    return (
-      <>
-        <ThemeProvider>
-          <DebugFeaturesAPI />
-        </ThemeProvider>
-      </>
-    );
-  }
-
-  if (currentView.type === "debug-landing") {
-    return (
-      <>
-        <ThemeProvider>
-          <DebugLandingAPI />
-        </ThemeProvider>
-      </>
-    );
-  }
-
-  if (currentView.type === "about") {
-    return (
-      <>
-        <ThemeProvider>
-          <AboutPage />
-        </ThemeProvider>
-      </>
-    );
-  }
-
-  if (currentView.type === "salespage") {
-    return (
-      <>
-        <ThemeProvider>
-          <Maverick />
-        </ThemeProvider>
-      </>
-    );
-  }
-
-  if (currentView.type === "gallery") {
-    return (
-      <>
-        <ThemeProvider>
-          <ImageGallery />
-        </ThemeProvider>
-      </>
-    );
-  }
-
   return (
-    <>
+    <Suspense fallback={<PageLoader />}>
       <ThemeProvider>
-        <LandingPage />
+        {currentView.type === "blog" && <BlogPage slug={currentView.slug} />}
+        {currentView.type === "features" && <FeaturesPage slug={currentView.slug} />}
+        {currentView.type === "debug-features" && <DebugFeaturesAPI />}
+        {currentView.type === "debug-landing" && <DebugLandingAPI />}
+        {currentView.type === "about" && <AboutPage />}
+        {currentView.type === "salespage" && <Maverick />}
+        {currentView.type === "gallery" && <ImageGallery />}
+        {currentView.type === "landing" && <LandingPage />}
       </ThemeProvider>
-    </>
+    </Suspense>
   );
 }
 
