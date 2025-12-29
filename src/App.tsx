@@ -5,8 +5,14 @@ import { DynamicHead } from "./components/DynamicHead";
 
 // Lazy load all pages
 const LandingPage = lazy(() => import("./pages/LandingPage"));
-const FeaturesPage = lazy(() => import("./components/features/features-page/FeaturesPage").then(m => ({ default: m.FeaturesPage })));
-const BlogPage = lazy(() => import("./components/blogs/BlogPage").then(m => ({ default: m.BlogPage })));
+const FeaturesPage = lazy(() =>
+  import("./components/features/features-page/FeaturesPage").then((m) => ({
+    default: m.FeaturesPage,
+  }))
+);
+const BlogPage = lazy(() =>
+  import("./components/blogs/BlogPage").then((m) => ({ default: m.BlogPage }))
+);
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const DebugFeaturesAPI = lazy(() => import("./pages/DebugFeaturesApi"));
 const DebugLandingAPI = lazy(() => import("./pages/DebugLandingApi"));
@@ -15,28 +21,40 @@ const ImageGallery = lazy(() => import("./components/gallery/ImageGallery"));
 
 // Loading component
 const PageLoader = () => (
-  <div style={{ 
-    display: 'flex', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
-    height: '100vh',
-    background: 'var(--color-background)'
-  }}>
-    <div style={{ 
-      width: '40px', 
-      height: '40px', 
-      border: '3px solid var(--color-primary)', 
-      borderTopColor: 'transparent',
-      borderRadius: '50%',
-      animation: 'spin 0.8s linear infinite'
-    }} />
+  <div
+    style={{
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      height: "100vh",
+      background: "var(--color-background)",
+    }}
+  >
+    <div
+      style={{
+        width: "40px",
+        height: "40px",
+        border: "3px solid var(--color-primary)",
+        borderTopColor: "transparent",
+        borderRadius: "50%",
+        animation: "spin 0.8s linear infinite",
+      }}
+    />
     <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
   </div>
 );
 
 function AppContent() {
   const [currentView, setCurrentView] = useState<{
-    type: "landing" | "features" | "blog" | "about" | "debug-features" | "debug-landing" | "salespage" | "gallery";
+    type:
+      | "landing"
+      | "features"
+      | "blog"
+      | "about"
+      | "debug-features"
+      | "debug-landing"
+      | "salespage"
+      | "gallery";
     slug?: string;
   }>({ type: "landing" });
 
@@ -103,7 +121,8 @@ function AppContent() {
         if (slugMatch && slugMatch[1]) {
           setCurrentView({ type: "features", slug: slugMatch[1] });
         } else {
-          setCurrentView({ type: "features", slug: "sales-marketing" });
+          //localhost:4173/
+          http: setCurrentView({ type: "features", slug: "sales-marketing" });
         }
         return;
       }
@@ -126,7 +145,9 @@ function AppContent() {
     <Suspense fallback={<PageLoader />}>
       <ThemeProvider>
         {currentView.type === "blog" && <BlogPage slug={currentView.slug} />}
-        {currentView.type === "features" && <FeaturesPage slug={currentView.slug} />}
+        {currentView.type === "features" && (
+          <FeaturesPage slug={currentView.slug} />
+        )}
         {currentView.type === "debug-features" && <DebugFeaturesAPI />}
         {currentView.type === "debug-landing" && <DebugLandingAPI />}
         {currentView.type === "about" && <AboutPage />}
