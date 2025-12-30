@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import type { LandingPageData } from "../../types/landing";
 import EasyIcon from "./IconRenderer";
-import ContactForm from "./ContactForm";
 import WebForm from "./WebForm";
 
 const containerVariants = {
@@ -46,7 +45,7 @@ interface HeaderProps {
   onShowLogin?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ data }) => {
+const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
   const {
     header_title,
     header_subtitle,
@@ -60,7 +59,6 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
 
   const ref = useRef(null);
   const [isMobile, setIsMobile] = React.useState(false);
-  const [showForm, setShowForm] = useState(false);
   const [showWebForm, setShowWebForm] = useState(false);
 
   React.useEffect(() => {
@@ -76,10 +74,6 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
     : header_section_image?.url
     ? `${backendBaseUrl}${header_section_image.url}`
     : null;
-
-  const handleGetStartedClick = () => {
-    setShowForm(true);
-  };
 
   return (
     <header
@@ -181,10 +175,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </a>
                   ) : (
-                    <button
-                      onClick={handleGetStartedClick}
-                      className="group flex items-center justify-center px-8 py-4 text-base font-bold text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 gradient-theme-primary relative overflow-hidden"
-                    >
+                    <button className="group flex items-center justify-center px-8 py-4 text-base font-bold text-white rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 gradient-theme-primary relative overflow-hidden">
                       <span className="relative z-10">
                         {header_cta_primary}
                       </span>
@@ -221,7 +212,7 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
                     </a>
                   ) : (
                     <button
-                      onClick={() => setShowWebForm(true)}
+                      onClick={onShowLogin}
                       className="group flex items-center justify-center px-8 py-4 text-base font-bold text-slate-700 bg-white border-2 border-slate-300 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
                     >
                       <EasyIcon
@@ -434,7 +425,6 @@ const Header: React.FC<HeaderProps> = ({ data }) => {
         </motion.div>
       </div>
 
-      <ContactForm isOpen={showForm} onClose={() => setShowForm(false)} />
       {data.web_form_section && (
         <WebForm
           isOpen={showWebForm}

@@ -62,7 +62,10 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
     try {
       const response = await fetch("https://esign-admin.signmary.com/api/v2/submit-form/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-Frontend-Url": "https://notarywealthbuilder.com",
+        },
         body: JSON.stringify({ form_id: data.form.id, data: formData }),
       });
 
@@ -89,10 +92,10 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
         return (
           <input
             type="text"
-            placeholder={field.placeholder}
+            placeholder={field.placeholder || "Your answer"}
             value={formData[field.id] || ""}
             onChange={(e) => handleChange(field.id, e.target.value)}
-            className="w-full px-4 py-3 border-b-2 border-gray-300 focus:border-blue-600 outline-none transition-colors bg-transparent"
+            className="w-full px-0 py-2 border-0 border-b border-gray-300 focus:border-purple-600 outline-none transition-colors text-sm bg-transparent"
           />
         );
 
@@ -100,10 +103,10 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
         return (
           <input
             type="email"
-            placeholder={field.placeholder}
+            placeholder={field.placeholder || "Your email"}
             value={formData[field.id] || ""}
             onChange={(e) => handleChange(field.id, e.target.value)}
-            className="w-full px-4 py-3 border-b-2 border-gray-300 focus:border-blue-600 outline-none transition-colors bg-transparent"
+            className="w-full px-0 py-2 border-0 border-b border-gray-300 focus:border-purple-600 outline-none transition-colors text-sm bg-transparent"
           />
         );
 
@@ -111,38 +114,40 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
         return (
           <input
             type="tel"
-            placeholder={field.placeholder}
+            placeholder={field.placeholder || "Your answer"}
             value={formData[field.id] || ""}
             onChange={(e) => handleChange(field.id, e.target.value)}
-            className="w-full px-4 py-3 border-b-2 border-gray-300 focus:border-blue-600 outline-none transition-colors bg-transparent"
+            className="w-full px-0 py-2 border-0 border-b border-gray-300 focus:border-purple-600 outline-none transition-colors text-sm bg-transparent"
           />
         );
 
       case "textarea":
         return (
           <textarea
-            placeholder={field.placeholder}
+            placeholder={field.placeholder || "Your answer"}
             value={formData[field.id] || ""}
             onChange={(e) => handleChange(field.id, e.target.value)}
-            rows={4}
-            className="w-full px-4 py-3 border-b-2 border-gray-300 focus:border-blue-600 outline-none transition-colors bg-transparent resize-none"
+            rows={3}
+            className="w-full px-0 py-2 border-0 border-b border-gray-300 focus:border-purple-600 outline-none transition-colors text-sm bg-transparent resize-none"
           />
         );
 
       case "radio":
         return (
-          <div className="space-y-3">
+          <div className="space-y-2">
             {cleanChoices.map((choice, idx) => (
-              <label key={idx} className="flex items-center gap-3 cursor-pointer group">
-                <input
-                  type="radio"
-                  name={`field-${field.id}`}
-                  value={choice}
-                  checked={formData[field.id] === choice}
-                  onChange={(e) => handleChange(field.id, e.target.value)}
-                  className="w-5 h-5 text-blue-600 focus:ring-2 focus:ring-blue-500"
-                />
-                <span className="text-gray-700 group-hover:text-gray-900">{choice}</span>
+              <label key={idx} className="flex items-center gap-3 cursor-pointer group py-1">
+                <div className="relative">
+                  <input
+                    type="radio"
+                    name={`field-${field.id}`}
+                    value={choice}
+                    checked={formData[field.id] === choice}
+                    onChange={(e) => handleChange(field.id, e.target.value)}
+                    className="w-5 h-5 text-purple-600 border-gray-400 focus:ring-purple-600 cursor-pointer"
+                  />
+                </div>
+                <span className="text-sm text-gray-700">{choice}</span>
               </label>
             ))}
           </div>
@@ -150,14 +155,14 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
 
       case "checkbox":
         return (
-          <label className="flex items-center gap-3 cursor-pointer">
+          <label className="flex items-center gap-3 cursor-pointer py-1">
             <input
               type="checkbox"
               checked={formData[field.id] || false}
               onChange={(e) => handleChange(field.id, e.target.checked)}
-              className="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+              className="w-5 h-5 text-purple-600 border-gray-400 rounded focus:ring-purple-600 cursor-pointer"
             />
-            <span className="text-gray-700">I agree</span>
+            <span className="text-sm text-gray-700">I agree</span>
           </label>
         );
 
@@ -166,9 +171,9 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
           <select
             value={formData[field.id] || ""}
             onChange={(e) => handleChange(field.id, e.target.value)}
-            className="w-full px-4 py-3 border-b-2 border-gray-300 focus:border-blue-600 outline-none transition-colors bg-transparent"
+            className="w-full px-0 py-2 border-0 border-b border-gray-300 focus:border-purple-600 outline-none transition-colors text-sm bg-transparent cursor-pointer"
           >
-            <option value="">Select an option</option>
+            <option value="">Choose</option>
             {cleanChoices.map((choice, idx) => (
               <option key={idx} value={choice}>
                 {choice}
@@ -189,72 +194,72 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-gray-100 overflow-y-auto"
           onClick={onClose}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+            exit={{ scale: 0.95, opacity: 0 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-white rounded-2xl shadow-2xl"
+            className="relative w-full max-w-2xl my-8 bg-white rounded-lg shadow-sm"
           >
             <button
               onClick={onClose}
-              className="sticky top-4 right-4 float-right z-10 p-2 bg-white rounded-full shadow-lg hover:bg-gray-100 transition-colors"
+              className="absolute top-4 right-4 z-10 p-2 hover:bg-gray-100 rounded-full transition-colors"
             >
-              <EasyIcon icon="FiX" size={24} color="#374151" />
+              <EasyIcon icon="FiX" size={20} color="#5f6368" />
             </button>
 
             {showSuccess ? (
               <div className="flex flex-col items-center justify-center p-12 text-center">
-                <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                  <EasyIcon icon="FiCheckCircle" size={48} color="#10b981" />
+                <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-4">
+                  <EasyIcon icon="FiCheckCircle" size={32} color="#1e8e3e" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-normal text-gray-800">
                   {data.form.success_message}
                 </h3>
               </div>
             ) : (
-              <div className="p-8 md:p-12">
-                <div className="mb-8 pb-6 border-b-4 border-blue-600">
-                  <h2 className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="p-6">
+                <div className="bg-purple-600 rounded-t-lg p-6 -m-6 mb-6">
+                  <h2 className="text-3xl font-normal text-white mb-2">
                     {data.form.form_title}
                   </h2>
                   {data.form.form_description && (
-                    <p className="text-gray-600">{data.form.form_description}</p>
+                    <p className="text-purple-100 text-sm">{data.form.form_description}</p>
                   )}
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   {data.form.fields
                     .sort((a, b) => a.order - b.order)
                     .map((field) => (
-                      <div key={field.id} className="space-y-2">
-                        <label className="block text-base font-medium text-gray-900">
+                      <div key={field.id} className="bg-white border border-gray-300 rounded-lg p-6 hover:border-gray-400 transition-colors">
+                        <label className="block text-sm font-normal text-gray-700 mb-4">
                           {field.label}
                         </label>
                         {renderField(field)}
                         {errors[field.id] && (
-                          <p className="text-sm text-red-600">{errors[field.id]}</p>
+                          <p className="text-xs text-red-600 mt-2">{errors[field.id]}</p>
                         )}
                       </div>
                     ))}
 
-                  <div className="flex gap-4 pt-6">
+                  <div className="flex gap-3 pt-2">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors"
+                      className="px-6 py-2.5 bg-purple-600 text-white text-sm font-medium rounded hover:bg-purple-700 disabled:opacity-50 transition-colors"
                     >
                       {isSubmitting ? "Submitting..." : data.form.button_text}
                     </button>
                     <button
                       type="button"
-                      onClick={onClose}
-                      className="px-8 py-3 text-gray-700 font-semibold hover:bg-gray-100 rounded-lg transition-colors"
+                      onClick={() => setFormData({})}
+                      className="px-6 py-2.5 text-purple-600 text-sm font-medium hover:bg-purple-50 rounded transition-colors"
                     >
-                      Cancel
+                      Clear form
                     </button>
                   </div>
                 </form>
