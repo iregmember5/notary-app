@@ -46,7 +46,7 @@ interface HeaderProps {
   onShowLogin?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
+const Header: React.FC<HeaderProps> = ({ data }) => {
   const {
     header_title,
     header_subtitle,
@@ -62,90 +62,6 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
   const [isMobile, setIsMobile] = React.useState(false);
   const [showForm, setShowForm] = useState(false);
   const [showWebForm, setShowWebForm] = useState(false);
-
-  const webFormData = {
-    heading: "Enter Bio to Begins",
-    description: "Hello, this is webform.",
-    form: {
-      id: 1,
-      name: "User Qs",
-      form_title: "Bio Data",
-      form_description: "",
-      success_message: "Thank you for your submission!",
-      button_text: "Submit",
-      fields: [
-        {
-          id: 1,
-          label: "What type of business do you own? (We don't work with Ecom) *",
-          field_type: "radio",
-          placeholder: "",
-          required: true,
-          choices: [
-            "Gym Owner",
-            "Local Service Based Business",
-            "Online Fitness Coach",
-            "Digital Agency Owner",
-            "Online Business Coach",
-          ],
-          order: 1,
-        },
-        {
-          id: 2,
-          label: "You're qualified. Add your details below and book your free demo call on the next page.",
-          field_type: "text",
-          placeholder: "Enter your name",
-          required: true,
-          choices: [],
-          order: 2,
-        },
-        {
-          id: 3,
-          label: "Mobile Number *",
-          field_type: "number",
-          placeholder: "",
-          required: true,
-          choices: [],
-          order: 3,
-        },
-        {
-          id: 4,
-          label: "Email *",
-          field_type: "email",
-          placeholder: "",
-          required: true,
-          choices: [],
-          order: 4,
-        },
-        {
-          id: 5,
-          label: "thsi is text area",
-          field_type: "textarea",
-          placeholder: "",
-          required: true,
-          choices: [],
-          order: 5,
-        },
-        {
-          id: 6,
-          label: "this is check box",
-          field_type: "checkbox",
-          placeholder: "",
-          required: true,
-          choices: [],
-          order: 6,
-        },
-        {
-          id: 7,
-          label: "This is dropdown",
-          field_type: "select",
-          placeholder: "",
-          required: true,
-          choices: [],
-          order: 7,
-        },
-      ],
-    },
-  };
 
   React.useEffect(() => {
     setIsMobile(window.innerWidth < 768);
@@ -519,7 +435,13 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
       </div>
 
       <ContactForm isOpen={showForm} onClose={() => setShowForm(false)} />
-      <WebForm isOpen={showWebForm} onClose={() => setShowWebForm(false)} data={webFormData} />
+      {data.web_form_section && (
+        <WebForm
+          isOpen={showWebForm}
+          onClose={() => setShowWebForm(false)}
+          data={data.web_form_section}
+        />
+      )}
     </header>
   );
 };

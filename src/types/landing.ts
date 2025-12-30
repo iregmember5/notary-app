@@ -327,6 +327,27 @@ export interface LandingPageData {
     embed_code: string;
     is_active: boolean;
   };
+  web_form_section?: {
+    heading: string;
+    description: string;
+    form: {
+      id: number;
+      name: string;
+      form_title: string;
+      form_description: string;
+      success_message: string;
+      button_text: string;
+      fields: Array<{
+        id: number;
+        label: string;
+        field_type: string;
+        placeholder: string;
+        required: boolean;
+        choices: string[];
+        order: number;
+      }>;
+    };
+  };
 }
 
 // ===== NEW: FeaturesPage Interface =====
