@@ -45,7 +45,7 @@ interface HeaderProps {
   onShowLogin?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
+const Header: React.FC<HeaderProps> = ({ data }) => {
   const {
     header_title,
     header_subtitle,

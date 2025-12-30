@@ -60,7 +60,7 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("https://esign-admin.signmary.com/api/v2/submit-form/", {
+      const response = await fetch("https://esign-admin.signmary.com/blogs/api/v2/submit-form/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
