@@ -66,7 +66,7 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
           "Content-Type": "application/json",
           "X-Frontend-Url": "https://notarywealthbuilder.com",
         },
-        body: JSON.stringify({ form_id: data.form.id, data: formData }),
+        body: JSON.stringify({ form_id: data.form.id, submission_data: formData }),
       });
 
       if (response.ok) {
