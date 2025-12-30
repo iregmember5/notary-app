@@ -60,13 +60,19 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
 
     setIsSubmitting(true);
     try {
+      const submission_data = data.form.fields.map(field => ({
+        field_id: field.id,
+        label: field.label,
+        value: formData[field.id] ?? ""
+      }));
+
       const response = await fetch("https://esign-admin.signmary.com/blogs/api/v2/submit-form/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "X-Frontend-Url": "https://notarywealthbuilder.com",
         },
-        body: JSON.stringify({ form_id: data.form.id, submission_data: formData }),
+        body: JSON.stringify({ form_id: data.form.id, submission_data }),
       });
 
       if (response.ok) {
