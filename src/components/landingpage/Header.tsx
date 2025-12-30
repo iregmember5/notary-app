@@ -212,7 +212,7 @@ const Header: React.FC<HeaderProps> = ({ data, onShowLogin }) => {
                     </a>
                   ) : (
                     <button
-                      onClick={onShowLogin}
+                      onClick={() => setShowWebForm(true)}
                       className="group flex items-center justify-center px-8 py-4 text-base font-bold text-slate-700 bg-white border-2 border-slate-300 hover:border-blue-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
                     >
                       <EasyIcon
