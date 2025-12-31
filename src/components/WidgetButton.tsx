@@ -31,9 +31,11 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
 
   useEffect(() => {
     if (selectedWidget && iframeRef.current) {
+      console.log("Loading widget iframe:", selectedWidget.data.name);
       const container = iframeRef.current;
       container.innerHTML = selectedWidget.data.embed_code;
 
+      // Execute all scripts within the container
       const scripts = container.querySelectorAll("script");
       scripts.forEach((oldScript) => {
         const newScript = document.createElement("script");
@@ -46,6 +48,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         container.replaceChild(newScript, oldScript);
       });
 
+      // Auto-click the widget to open it immediately
       setTimeout(() => {
         const widgetButton = container.querySelector(
           'button, a, [role="button"], .widget-button, [class*="button"]'
@@ -248,15 +251,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       )}
 
       {/* Widget Container */}
-      {selectedWidget && (
-        <>
-          <div 
-            className="fixed inset-0 z-[55]" 
-            onClick={() => setSelectedWidget(null)}
-          />
-          <div ref={iframeRef} className="widget-container" />
-        </>
-      )}
+      {selectedWidget && <div ref={iframeRef} className="widget-container" />}
     </>
   );
 }
