@@ -266,32 +266,43 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
 
       {/* Widget Container */}
       {selectedWidget && (
-        <div className="fixed inset-0 z-[55] flex items-center justify-center bg-black/50">
-          <div className="relative w-full h-full sm:w-auto sm:h-auto sm:max-w-2xl sm:max-h-[90vh] sm:rounded-lg overflow-auto bg-white">
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedWidget(null)}
-              className="absolute top-4 right-4 z-[56] w-10 h-10 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center shadow-lg transition-colors"
-              aria-label="Close widget"
-            >
-              <svg
-                className="w-6 h-6 text-white"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+        <>
+          {/* Backdrop overlay */}
+          <div
+            className="fixed inset-0 z-[55] bg-black/50"
+            onClick={() => setSelectedWidget(null)}
+          />
+          {/* Modal */}
+          <div className="fixed inset-0 z-[56] flex items-center justify-center pointer-events-none">
+            <div className="relative w-11/12 h-5/6 md:w-3/4 lg:w-2/3 xl:w-1/2 bg-white rounded-lg shadow-2xl overflow-auto pointer-events-auto">
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedWidget(null)}
+                className="absolute top-4 right-4 w-10 h-10 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center shadow-lg transition-colors z-[57]"
+                aria-label="Close widget"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2.5}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-            {/* Widget Content */}
-            <div ref={iframeRef} className="widget-container w-full h-full" />
+                <svg
+                  className="w-6 h-6 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2.5}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+              {/* Widget Content */}
+              <div
+                ref={iframeRef}
+                className="widget-container w-full h-full pt-4"
+              />
+            </div>
           </div>
-        </div>
+        </>
       )}
     </>
   );
