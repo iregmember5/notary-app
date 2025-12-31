@@ -62,12 +62,30 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   // Process navigation items
   const rawNavigationItems = headerConfig?.navigation_items || [];
   const processedLinks: NavigationItem[] = rawNavigationItems.map(
-    (item: any) => ({
-      ...item,
-      link_type: (item.link_type as "page" | "url" | "dropdown") || "url",
-      url: getNavigationItemUrl(item),
-      children: item.children || [],
-    })
+    (item: any) => {
+      let url = item.url || "#";
+      
+      // Override URL for page type links
+      if (item.link_type === "page" && item.page?.meta) {
+        const pageType = item.page.meta.type;
+        const pageSlug = item.page.meta.slug;
+        
+        if (pageType === "landing.AboutPage" && pageSlug) {
+          url = `#about/${pageSlug}`;
+        } else if (pageType === "landing.SalesPage") {
+          url = "#salespage";
+        } else if (pageType === "landing.ImageGalleryPage") {
+          url = "#gallery";
+        }
+      }
+      
+      return {
+        ...item,
+        link_type: (item.link_type as "page" | "url" | "dropdown") || "url",
+        url: url,
+        children: item.children || [],
+      };
+    }
   );
 
   const links: NavigationItem[] =
@@ -129,20 +147,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const stickyNavbar = headerConfig?.sticky_navbar !== false;
   const transparentOnHome = headerConfig?.transparent_on_home || false;
 
-  function getNavigationItemUrl(item: any): string {
-    if (item.link_type === "page") {
-      if (item.page?.meta?.type === "landing.AboutPage" && item.page?.meta?.slug) {
-        return `#about/${item.page.meta.slug}`;
-      }
-      if (item.page?.meta?.type === "landing.SalesPage") {
-        return "#salespage";
-      }
-      if (item.page?.meta?.type === "landing.ImageGalleryPage") {
-        return "#gallery";
-      }
-    }
-    return item.url || "#";
-  }
+
 
   function isFeatureDropdown(item: NavigationItem): boolean {
     return (
