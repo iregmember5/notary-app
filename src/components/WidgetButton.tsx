@@ -57,6 +57,23 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
           (widgetButton as HTMLElement).click();
         }
       }, 500);
+
+      // Listen for widget close events
+      const observer = new MutationObserver(() => {
+        const iframe = container.querySelector('iframe');
+        if (!iframe || iframe.style.display === 'none') {
+          setSelectedWidget(null);
+        }
+      });
+
+      observer.observe(container, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style']
+      });
+
+      return () => observer.disconnect();
     }
   }, [selectedWidget]);
 
