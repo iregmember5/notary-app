@@ -70,10 +70,9 @@ export default function AboutPage({ slug }: { slug?: string }) {
                 const text = paragraph.replace(/<[^>]+>/g, '').trim();
                 if (!text) return null;
                 
-                const isQuestion = text.toLowerCase().startsWith('why') || text.includes('?');
-                const isHeading = idx === 0 || text.includes('—') || text.length < 100;
+                const startsWithWhy = text.toLowerCase().startsWith('why');
                 
-                if (isQuestion) {
+                if (startsWithWhy) {
                   return (
                     <div key={idx} className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border-l-4 border-blue-600 shadow-md">
                       <div className="flex items-start gap-4">
@@ -84,17 +83,8 @@ export default function AboutPage({ slug }: { slug?: string }) {
                   );
                 }
                 
-                if (isHeading) {
-                  return (
-                    <div key={idx} className="text-center">
-                      <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{text}</h2>
-                      <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto rounded-full"></div>
-                    </div>
-                  );
-                }
-                
                 return (
-                  <div key={idx} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                  <div key={idx}>
                     <p className="text-lg text-slate-700 leading-relaxed">{text}</p>
                   </div>
                 );
