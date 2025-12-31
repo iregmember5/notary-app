@@ -63,16 +63,12 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const rawNavigationItems = headerConfig?.navigation_items || [];
   const processedLinks: NavigationItem[] = rawNavigationItems.map(
     (item: any) => {
-      let url = "#";
-      
-      console.log('Processing nav item:', item.title, 'link_type:', item.link_type, 'page:', item.page);
+      let url = item.url || "#";
       
       // Override URL for page type links
       if (item.link_type === "page" && item.page?.meta) {
         const pageType = item.page.meta.type;
         const pageSlug = item.page.meta.slug;
-        
-        console.log('Page type:', pageType, 'slug:', pageSlug);
         
         if (pageType === "landing.AboutPage" && pageSlug) {
           url = `#about/${pageSlug}`;
@@ -81,11 +77,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
         } else if (pageType === "landing.ImageGalleryPage") {
           url = "#gallery";
         }
-      } else {
-        url = item.url || "#";
       }
-      
-      console.log('Final URL:', url);
       
       return {
         ...item,
