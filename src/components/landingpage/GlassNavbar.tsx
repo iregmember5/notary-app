@@ -65,7 +65,15 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
     (item: any) => {
       let url = item.url || "#";
       
-      // Override URL for page type links
+      // Convert /slug/ URLs to #about/slug for about pages
+      if (url.startsWith('/') && !url.startsWith('/blog')) {
+        const slug = url.replace(/^\//g, '').replace(/\//g, '');
+        if (slug) {
+          url = `#about/${slug}`;
+        }
+      }
+      
+      // Override URL for page type links if page meta exists
       if (item.link_type === "page" && item.page?.meta) {
         const pageType = item.page.meta.type;
         const pageSlug = item.page.meta.slug;
@@ -370,6 +378,12 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                       // Regular link
                       <a
                         href={link.url || "#"}
+                        onClick={(e) => {
+                          if (link.url?.startsWith('#')) {
+                            e.preventDefault();
+                            window.location.hash = link.url.substring(1);
+                          }
+                        }}
                         className="text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2 inline-block text-theme-text"
                       >
                         {link.title}
@@ -510,8 +524,14 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                   ) : (
                     <a
                       href={link.url || "#"}
+                      onClick={(e) => {
+                        if (link.url?.startsWith('#')) {
+                          e.preventDefault();
+                          window.location.hash = link.url.substring(1);
+                        }
+                        setOpen(false);
+                      }}
                       className="block text-base font-medium py-2 px-2 rounded transition hover:text-blue-600 text-theme-text"
-                      onClick={() => setOpen(false)}
                     >
                       {link.title}
                     </a>
