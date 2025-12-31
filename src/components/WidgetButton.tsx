@@ -29,6 +29,11 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
     setIsOpen(false);
   };
 
+  // Function to close widget and show blue button
+  const closeWidget = () => {
+    setSelectedWidget(null);
+  };
+
   useEffect(() => {
     if (selectedWidget && iframeRef.current) {
       const container = iframeRef.current;
@@ -55,21 +60,127 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         }
       }, 500);
 
+      // Listen for clicks on close buttons within the widget
+      const handleCloseClick = (e: Event) => {
+        const target = e.target as HTMLElement;
+
+        // Check if clicked element is a close button (X button)
+        const isCloseButton =
+          target.closest('[class*="close"]') ||
+          target.closest('[aria-label*="close" i]') ||
+          target.closest('[aria-label*="Close" i]') ||
+          target.closest('button[class*="x"]') ||
+          target.closest(".close-button") ||
+          target.closest("[data-close]") ||
+          // Check for X icon SVG paths or common close patterns
+          (target.closest("svg")?.closest("button") &&
+            (target
+              .closest("button")
+              ?.getAttribute("aria-label")
+              ?.toLowerCase()
+              .includes("close") ||
+              target
+                .closest("button")
+                ?.className.toLowerCase()
+                .includes("close")));
+
+        if (isCloseButton) {
+          // Small delay to let widget's own close animation play
+          setTimeout(() => {
+            closeWidget();
+          }, 100);
+        }
+      };
+
+      // Observe for widget being removed/closed by its own logic
       const observer = new MutationObserver(() => {
-        const hasContent =
-          container.innerHTML.trim().length > 0 && container.querySelector("*");
-        if (!hasContent) {
-          setSelectedWidget(null);
+        // Check if the widget content has been removed or significantly changed
+        const hasVisibleContent = container.querySelector(
+          'iframe, [class*="modal"], [class*="popup"], [class*="dialog"], [class*="widget"]'
+        );
+
+        // Also check if any modal/popup is still visible
+        const anyModalVisible = document.querySelector(
+          '[class*="modal"]:not([style*="display: none"]), [class*="popup"]:not([style*="display: none"])'
+        );
+
+        if (
+          !hasVisibleContent &&
+          !anyModalVisible &&
+          container.innerHTML.trim().length < 50
+        ) {
+          closeWidget();
         }
       });
+
+      container.addEventListener("click", handleCloseClick, true);
+
+      // Also listen on document for widgets that render modals outside the container
+      document.addEventListener(
+        "click",
+        (e) => {
+          const target = e.target as HTMLElement;
+          // Check if it's a close button in a modal/popup anywhere in the document
+          if (
+            target.closest('[class*="modal"] [class*="close"]') ||
+            target.closest('[class*="popup"] [class*="close"]') ||
+            target.closest('[class*="dialog"] [class*="close"]')
+          ) {
+            setTimeout(() => {
+              closeWidget();
+            }, 300);
+          }
+        },
+        true
+      );
 
       observer.observe(container, {
         childList: true,
         subtree: true,
+        attributes: true,
+        attributeFilter: ["style", "class"],
       });
 
-      return () => observer.disconnect();
+      // Also observe the body for modals that might be added there
+      const bodyObserver = new MutationObserver(() => {
+        // Check if widget modal is still present
+        setTimeout(() => {
+          const widgetModalStillOpen = document.querySelector(
+            '[class*="clicflo"], [class*="widget-modal"], [class*="helpdesk"], iframe[src*="widget"]'
+          );
+          if (!widgetModalStillOpen && selectedWidget) {
+            // Double check the container too
+            const containerHasContent = container.innerHTML.trim().length > 100;
+            if (!containerHasContent) {
+              closeWidget();
+            }
+          }
+        }, 500);
+      });
+
+      bodyObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
+
+      return () => {
+        observer.disconnect();
+        bodyObserver.disconnect();
+        container.removeEventListener("click", handleCloseClick, true);
+      };
     }
+  }, [selectedWidget]);
+
+  // Listen for escape key to close widget
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && selectedWidget) {
+        closeWidget();
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [selectedWidget]);
 
   return (
@@ -114,7 +225,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         }
       `}</style>
 
-      {/* Main Blue Button */}
+      {/* Main Blue Button - Only show when NO widget is selected */}
       {!selectedWidget && (
         <button
           onClick={() => {
@@ -176,7 +287,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
               startAngle +
               (index * spreadAngle) / Math.max(totalWidgets - 1, 1);
 
-            const radius = 130; // Increased from 110 to 130 for more space
+            const radius = 130;
             const x = Math.cos((angle * Math.PI) / 180) * radius;
             const y = Math.sin((angle * Math.PI) / 180) * radius;
             const iconUrl = extractIconUrl(widget.data.embed_code);
@@ -192,7 +303,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
                 className="widget-menu-button fixed w-16 h-16 bg-white hover:bg-blue-50 rounded-full shadow-2xl flex items-center justify-center border-2 border-gray-200 hover:border-blue-500"
                 style={{
                   bottom: `${24 + 32 + y}px`,
-                  right: `${24 + 32 - x + 60}px`, // Added 60px extra space from right for proper icon display
+                  right: `${24 + 32 - x + 60}px`,
                   animation: `popIn 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${
                     index * 0.08
                   }s both`,
@@ -264,42 +375,12 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         </div>
       )}
 
-      {/* Widget Container */}
+      {/* Widget Container - NO extra close button, relies on widget's own X */}
       {selectedWidget && (
-        <>
-          {/* Backdrop overlay */}
-          <div
-            className="fixed inset-0 z-[55] bg-black/50"
-            onClick={() => setSelectedWidget(null)}
-          />
-          {/* Widget Wrapper with Close Button */}
-          <div className="fixed inset-0 z-[56] flex items-center justify-center sm:items-end sm:justify-end sm:p-6">
-            <div className="relative w-full h-full sm:w-96 sm:h-auto sm:max-h-[80vh] bg-white rounded-lg shadow-2xl overflow-auto">
-              {/* Close Button ON the Widget */}
-              <button
-                onClick={() => setSelectedWidget(null)}
-                className="absolute top-3 right-3 w-8 h-8 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center shadow-lg transition-colors z-50"
-                aria-label="Close widget"
-              >
-                <svg
-                  className="w-5 h-5 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2.5}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-              {/* Widget Content */}
-              <div ref={iframeRef} className="widget-container w-full" />
-            </div>
-          </div>
-        </>
+        <div
+          ref={iframeRef}
+          className="widget-container fixed inset-0 z-[56]"
+        />
       )}
     </>
   );
