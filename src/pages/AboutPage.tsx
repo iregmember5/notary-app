@@ -63,9 +63,43 @@ export default function AboutPage({ slug }: { slug?: string }) {
 
       {/* Body Content */}
       {data.body && (
-        <section className="py-12 md:py-20 bg-white">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-            <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: data.body }} />
+        <section className="py-12 md:py-20 bg-gradient-to-b from-white to-gray-50">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+            <div className="space-y-8">
+              {data.body.split('</p>').filter(p => p.trim()).map((paragraph, idx) => {
+                const text = paragraph.replace(/<[^>]+>/g, '').trim();
+                if (!text) return null;
+                
+                const isQuestion = text.toLowerCase().startsWith('why') || text.includes('?');
+                const isHeading = idx === 0 || text.includes('—') || text.length < 100;
+                
+                if (isQuestion) {
+                  return (
+                    <div key={idx} className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 border-l-4 border-blue-600 shadow-md">
+                      <div className="flex items-start gap-4">
+                        <div className="text-4xl font-bold text-blue-600">Q</div>
+                        <p className="text-2xl font-semibold text-slate-900 leading-relaxed">{text}</p>
+                      </div>
+                    </div>
+                  );
+                }
+                
+                if (isHeading) {
+                  return (
+                    <div key={idx} className="text-center">
+                      <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">{text}</h2>
+                      <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto rounded-full"></div>
+                    </div>
+                  );
+                }
+                
+                return (
+                  <div key={idx} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                    <p className="text-lg text-slate-700 leading-relaxed">{text}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </section>
       )}
