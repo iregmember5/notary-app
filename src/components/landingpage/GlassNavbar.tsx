@@ -130,23 +130,17 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const transparentOnHome = headerConfig?.transparent_on_home || false;
 
   function getNavigationItemUrl(item: any): string {
-    console.log('Nav item:', item);
-    if (item.link_type === "page" && item.page) {
-      const pageType = item.page.meta?.type;
-      const pageSlug = item.page.meta?.slug;
-      console.log('Page type:', pageType, 'Slug:', pageSlug);
-      if (pageType === "landing.AboutPage" && pageSlug) {
-        return `#about/${pageSlug}`;
+    if (item.link_type === "page") {
+      if (item.page?.meta?.type === "landing.AboutPage" && item.page?.meta?.slug) {
+        return `#about/${item.page.meta.slug}`;
       }
-      if (pageType === "landing.SalesPage") {
+      if (item.page?.meta?.type === "landing.SalesPage") {
         return "#salespage";
       }
-      if (pageType === "landing.ImageGalleryPage") {
+      if (item.page?.meta?.type === "landing.ImageGalleryPage") {
         return "#gallery";
       }
-    }
-    if (item.link_type === "page" && !item.url) {
-      return "#";
+      return item.url || "#";
     }
     return item.url || "#";
   }
