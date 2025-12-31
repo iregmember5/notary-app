@@ -140,7 +140,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
       if (item.page?.meta?.type === "landing.ImageGalleryPage") {
         return "#gallery";
       }
-      return item.url || "#";
     }
     return item.url || "#";
   }
