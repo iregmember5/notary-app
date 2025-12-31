@@ -65,10 +65,14 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
     (item: any) => {
       let url = "#";
       
+      console.log('Processing nav item:', item.title, 'link_type:', item.link_type, 'page:', item.page);
+      
       // Override URL for page type links
       if (item.link_type === "page" && item.page?.meta) {
         const pageType = item.page.meta.type;
         const pageSlug = item.page.meta.slug;
+        
+        console.log('Page type:', pageType, 'slug:', pageSlug);
         
         if (pageType === "landing.AboutPage" && pageSlug) {
           url = `#about/${pageSlug}`;
@@ -80,6 +84,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
       } else {
         url = item.url || "#";
       }
+      
+      console.log('Final URL:', url);
       
       return {
         ...item,
