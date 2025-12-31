@@ -65,14 +65,6 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
     (item: any) => {
       let url = item.url || "#";
       
-      // Convert /slug/ URLs to #about/slug for about pages
-      if (url.startsWith('/') && !url.startsWith('/blog')) {
-        const slug = url.replace(/^\//g, '').replace(/\//g, '');
-        if (slug) {
-          url = `#about/${slug}`;
-        }
-      }
-      
       // Override URL for page type links if page meta exists
       if (item.link_type === "page" && item.page?.meta) {
         const pageType = item.page.meta.type;
@@ -84,6 +76,12 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
           url = "#salespage";
         } else if (pageType === "landing.ImageGalleryPage") {
           url = "#gallery";
+        }
+      } else if (url.startsWith('/') && !url.startsWith('/blog')) {
+        // Fallback: Convert /slug/ URLs to #about/slug
+        const slug = url.replace(/^\//g, '').replace(/\//g, '');
+        if (slug) {
+          url = `#about/${slug}`;
         }
       }
       
