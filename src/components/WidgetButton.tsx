@@ -29,8 +29,25 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
     setIsOpen(false);
   };
 
-  // Function to close widget and show blue button
+  // Function to close widget and show blue button - with thorough cleanup
   const closeWidget = () => {
+    // Clean up the widget container
+    if (iframeRef.current) {
+      iframeRef.current.innerHTML = "";
+    }
+
+    // Remove any widget-related elements that may have been added to body
+    const widgetElements = document.querySelectorAll(
+      '[class*="clicflo"], [class*="widget-modal"], [class*="helpdesk"], ' +
+        '[class*="we-are-here"], [class*="help-desk"], ' +
+        'iframe[src*="widget"], [class*="chat-widget"], [class*="floating"]'
+    );
+    widgetElements.forEach((el) => {
+      if (el.parentNode) {
+        el.parentNode.removeChild(el);
+      }
+    });
+
     setSelectedWidget(null);
   };
 
@@ -116,23 +133,21 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       container.addEventListener("click", handleCloseClick, true);
 
       // Also listen on document for widgets that render modals outside the container
-      document.addEventListener(
-        "click",
-        (e) => {
-          const target = e.target as HTMLElement;
-          // Check if it's a close button in a modal/popup anywhere in the document
-          if (
-            target.closest('[class*="modal"] [class*="close"]') ||
-            target.closest('[class*="popup"] [class*="close"]') ||
-            target.closest('[class*="dialog"] [class*="close"]')
-          ) {
-            setTimeout(() => {
-              closeWidget();
-            }, 300);
-          }
-        },
-        true
-      );
+      const documentClickHandler = (e: MouseEvent) => {
+        const target = e.target as HTMLElement;
+        // Check if it's a close button in a modal/popup anywhere in the document
+        if (
+          target.closest('[class*="modal"] [class*="close"]') ||
+          target.closest('[class*="popup"] [class*="close"]') ||
+          target.closest('[class*="dialog"] [class*="close"]')
+        ) {
+          setTimeout(() => {
+            closeWidget();
+          }, 300);
+        }
+      };
+
+      document.addEventListener("click", documentClickHandler, true);
 
       observer.observe(container, {
         childList: true,
@@ -167,6 +182,20 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         observer.disconnect();
         bodyObserver.disconnect();
         container.removeEventListener("click", handleCloseClick, true);
+        document.removeEventListener("click", documentClickHandler, true);
+
+        // Clean up on unmount - remove any lingering widget elements
+        container.innerHTML = "";
+        const widgetElements = document.querySelectorAll(
+          '[class*="clicflo"], [class*="widget-modal"], [class*="helpdesk"], ' +
+            '[class*="we-are-here"], [class*="help-desk"], ' +
+            'iframe[src*="widget"], [class*="chat-widget"], [class*="floating"]'
+        );
+        widgetElements.forEach((el) => {
+          if (el.parentNode) {
+            el.parentNode.removeChild(el);
+          }
+        });
       };
     }
   }, [selectedWidget]);
