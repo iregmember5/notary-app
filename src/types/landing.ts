@@ -561,7 +561,57 @@ export const fetchAboutPage = async (slug?: string): Promise<AboutPageData> => {
       throw new Error("No about page data available");
     }
 
-    return data.items[0];
+    const pageData = data.items[0];
+    
+    // Parse StructValue strings to objects
+    if (pageData.values) {
+      pageData.values = pageData.values.map((item: any) => {
+        if (typeof item.value === 'string' && item.value.startsWith('StructValue')) {
+          const match = item.value.match(/{(.+)}/);
+          if (match) {
+            const parsed: any = {};
+            const content = match[1];
+            const pairs = content.match(/'(\w+)':\s*'([^']*)'/g);
+            if (pairs) {
+              pairs.forEach((pair: string) => {
+                const [key, val] = pair.split(/:\s*/);
+                const cleanKey = key.replace(/'/g, '');
+                const cleanVal = val.replace(/'/g, '');
+                parsed[cleanKey] = cleanVal;
+              });
+            }
+            return { ...item, value: parsed };
+          }
+        }
+        return item;
+      });
+    }
+    
+    // Parse history_milestones
+    if (pageData.history_milestones) {
+      pageData.history_milestones = pageData.history_milestones.map((item: any) => {
+        if (typeof item.value === 'string' && item.value.startsWith('StructValue')) {
+          const match = item.value.match(/{(.+)}/);
+          if (match) {
+            const parsed: any = {};
+            const content = match[1];
+            const pairs = content.match(/'(\w+)':\s*'([^']*)'/g);
+            if (pairs) {
+              pairs.forEach((pair: string) => {
+                const [key, val] = pair.split(/:\s*/);
+                const cleanKey = key.replace(/'/g, '');
+                const cleanVal = val.replace(/'/g, '').replace(/\\r\\n/g, '\n');
+                parsed[cleanKey] = cleanVal;
+              });
+            }
+            return { ...item, value: parsed };
+          }
+        }
+        return item;
+      });
+    }
+
+    return pageData;
   } catch (error) {
     console.error("Error fetching about page:", error);
     throw error;
