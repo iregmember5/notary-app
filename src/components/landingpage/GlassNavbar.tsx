@@ -130,9 +130,11 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const transparentOnHome = headerConfig?.transparent_on_home || false;
 
   function getNavigationItemUrl(item: any): string {
+    console.log('Nav item:', item);
     if (item.link_type === "page" && item.page) {
       const pageType = item.page.meta?.type;
       const pageSlug = item.page.meta?.slug;
+      console.log('Page type:', pageType, 'Slug:', pageSlug);
       if (pageType === "landing.AboutPage" && pageSlug) {
         return `#about/${pageSlug}`;
       }
