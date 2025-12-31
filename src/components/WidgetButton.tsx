@@ -54,14 +54,6 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
           (widgetButton as HTMLElement).click();
         }
       }, 500);
-
-      const interval = setInterval(() => {
-        if (!container.querySelector('iframe, [class*="widget"]')) {
-          setSelectedWidget(null);
-        }
-      }, 300);
-
-      return () => clearInterval(interval);
     }
   }, [selectedWidget]);
 
