@@ -54,6 +54,16 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
           (widgetButton as HTMLElement).click();
         }
       }, 500);
+
+      const checkInterval = setInterval(() => {
+        const iframe = container.querySelector('iframe');
+        if (!iframe) {
+          setSelectedWidget(null);
+          clearInterval(checkInterval);
+        }
+      }, 500);
+
+      return () => clearInterval(checkInterval);
     }
   }, [selectedWidget]);
 
@@ -100,49 +110,51 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       `}</style>
 
       {/* Main Blue Button */}
-      <button
-        onClick={() => {
-          if (widgets.length === 1) {
-            setSelectedWidget(widgets[0]);
-          } else {
-            setIsOpen(!isOpen);
-          }
-        }}
-        className={`fixed bottom-6 right-6 w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 hover:bg-blue-700 rounded-full shadow-2xl flex items-center justify-center z-[60] transition-all duration-300 ${
-          isOpen ? "rotate-45" : "hover:scale-110"
-        }`}
-        aria-label="Toggle widgets"
-      >
-        {isOpen ? (
-          <svg
-            className="w-7 h-7 sm:w-8 sm:h-8 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2.5}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        ) : (
-          <svg
-            className="w-7 h-7 sm:w-8 sm:h-8 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-            />
-          </svg>
-        )}
-      </button>
+      {!selectedWidget && (
+        <button
+          onClick={() => {
+            if (widgets.length === 1) {
+              setSelectedWidget(widgets[0]);
+            } else {
+              setIsOpen(!isOpen);
+            }
+          }}
+          className={`fixed bottom-6 right-6 w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 hover:bg-blue-700 rounded-full shadow-2xl flex items-center justify-center z-[60] transition-all duration-300 ${
+            isOpen ? "rotate-45" : "hover:scale-110"
+          }`}
+          aria-label="Toggle widgets"
+        >
+          {isOpen ? (
+            <svg
+              className="w-7 h-7 sm:w-8 sm:h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-7 h-7 sm:w-8 sm:h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+              />
+            </svg>
+          )}
+        </button>
+      )}
 
       {/* Backdrop overlay to close menu */}
       {isOpen && <div className="fixed inset-0 z-[45]" onClick={closeMenu} />}
