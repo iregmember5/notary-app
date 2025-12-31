@@ -77,11 +77,17 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
         } else if (pageType === "landing.ImageGalleryPage") {
           url = "#gallery";
         }
-      } else if (url.startsWith('/') && !url.startsWith('/blog')) {
-        // Fallback: Convert /slug/ URLs to #about/slug
-        const slug = url.replace(/^\//g, '').replace(/\//g, '');
-        if (slug) {
-          url = `#about/${slug}`;
+      } else if (!url || url === "#") {
+        // Fallback: Match by title for empty URLs
+        const title = item.title.toLowerCase();
+        if (title === "about") {
+          url = "#about";
+        } else if (title.includes("sales") || title.includes("powered by")) {
+          url = "#salespage";
+        } else if (title.includes("template") || title.includes("gallery")) {
+          url = "#gallery";
+        } else if (title.includes("why our website builder")) {
+          url = "#about/why-our-website-builder";
         }
       }
       
