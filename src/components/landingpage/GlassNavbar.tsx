@@ -63,7 +63,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const rawNavigationItems = headerConfig?.navigation_items || [];
   const processedLinks: NavigationItem[] = rawNavigationItems.map(
     (item: any) => {
-      let url = item.url || "#";
+      let url = "#";
       
       // Override URL for page type links
       if (item.link_type === "page" && item.page?.meta) {
@@ -77,6 +77,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
         } else if (pageType === "landing.ImageGalleryPage") {
           url = "#gallery";
         }
+      } else {
+        url = item.url || "#";
       }
       
       return {
