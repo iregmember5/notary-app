@@ -9,7 +9,6 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedWidget, setSelectedWidget] = useState<Widget | null>(null);
   const iframeRef = useRef<HTMLDivElement>(null);
-  const documentClickHandlerRef = useRef<((e: Event) => void) | null>(null);
 
   if (widgets.length === 0) return null;
 
@@ -32,21 +31,6 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
 
   // Function to close widget and show blue button
   const closeWidget = () => {
-    // Clean up any widget elements that might have been added to body
-    const widgetElements = document.querySelectorAll(
-      '[class*="clicflo"], [class*="widget-modal"], [class*="helpdesk-widget"], [id*="widget"], [class*="intercom"], [class*="crisp"], [class*="tawk"], [class*="zendesk"], [class*="drift"], [class*="hubspot"]'
-    );
-    widgetElements.forEach((el) => {
-      if (el.closest(".widget-container") === null && el.tagName !== "SCRIPT") {
-        // This is a widget element added to body, might need cleanup
-        // Don't remove it, but we can hide it if needed
-      }
-    });
-
-    if (iframeRef.current) {
-      iframeRef.current.innerHTML = "";
-    }
-
     setSelectedWidget(null);
   };
 
@@ -67,7 +51,6 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         container.replaceChild(newScript, oldScript);
       });
 
-      // Auto-click the widget button after a delay
       setTimeout(() => {
         const widgetButton = container.querySelector(
           'button, a, [role="button"], .widget-button, [class*="button"]'
@@ -77,11 +60,11 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         }
       }, 500);
 
-      // Listen for clicks on close buttons within the widget or anywhere in document
-      const handleDocumentClick = (e: Event) => {
+      // Listen for clicks on close buttons within the widget
+      const handleCloseClick = (e: Event) => {
         const target = e.target as HTMLElement;
 
-        // Check if clicked element is a close button (X button) - comprehensive check
+        // Check if clicked element is a close button (X button)
         const isCloseButton =
           target.closest('[class*="close"]') ||
           target.closest('[aria-label*="close" i]') ||
@@ -89,47 +72,101 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
           target.closest('button[class*="x"]') ||
           target.closest(".close-button") ||
           target.closest("[data-close]") ||
-          target.closest('[class*="dismiss"]') ||
-          target.closest('[class*="cancel"]') ||
-          // SVG close icons
-          ((target.tagName === "svg" || target.tagName === "path") &&
-            target.closest("button"));
-
-        // Additional check: see if the button contains an X-like SVG
-        const parentButton = target.closest("button");
-        const hasCloseIcon =
-          parentButton &&
-          (parentButton.querySelector('svg path[d*="M6 18L18 6"]') ||
-            parentButton.querySelector('svg path[d*="M18 6L6 18"]') ||
-            parentButton.querySelector('[class*="close"]') ||
-            parentButton
-              .getAttribute("aria-label")
+          // Check for X icon SVG paths or common close patterns
+          (target.closest("svg")?.closest("button") &&
+            (target
+              .closest("button")
+              ?.getAttribute("aria-label")
               ?.toLowerCase()
-              .includes("close"));
+              .includes("close") ||
+              target
+                .closest("button")
+                ?.className.toLowerCase()
+                .includes("close")));
 
-        if (isCloseButton || hasCloseIcon) {
+        if (isCloseButton) {
           // Small delay to let widget's own close animation play
           setTimeout(() => {
             closeWidget();
-          }, 300);
+          }, 100);
         }
       };
 
-      // Store reference for cleanup
-      documentClickHandlerRef.current = handleDocumentClick;
+      // Observe for widget being removed/closed by its own logic
+      const observer = new MutationObserver(() => {
+        // Check if the widget content has been removed or significantly changed
+        const hasVisibleContent = container.querySelector(
+          'iframe, [class*="modal"], [class*="popup"], [class*="dialog"], [class*="widget"]'
+        );
 
-      // Listen on document for any close button clicks
-      document.addEventListener("click", handleDocumentClick, true);
+        // Also check if any modal/popup is still visible
+        const anyModalVisible = document.querySelector(
+          '[class*="modal"]:not([style*="display: none"]), [class*="popup"]:not([style*="display: none"])'
+        );
+
+        if (
+          !hasVisibleContent &&
+          !anyModalVisible &&
+          container.innerHTML.trim().length < 50
+        ) {
+          closeWidget();
+        }
+      });
+
+      container.addEventListener("click", handleCloseClick, true);
+
+      // Also listen on document for widgets that render modals outside the container
+      document.addEventListener(
+        "click",
+        (e) => {
+          const target = e.target as HTMLElement;
+          // Check if it's a close button in a modal/popup anywhere in the document
+          if (
+            target.closest('[class*="modal"] [class*="close"]') ||
+            target.closest('[class*="popup"] [class*="close"]') ||
+            target.closest('[class*="dialog"] [class*="close"]')
+          ) {
+            setTimeout(() => {
+              closeWidget();
+            }, 300);
+          }
+        },
+        true
+      );
+
+      observer.observe(container, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["style", "class"],
+      });
+
+      // Also observe the body for modals that might be added there
+      const bodyObserver = new MutationObserver(() => {
+        // Check if widget modal is still present
+        setTimeout(() => {
+          const widgetModalStillOpen = document.querySelector(
+            '[class*="clicflo"], [class*="widget-modal"], [class*="helpdesk"], iframe[src*="widget"]'
+          );
+          if (!widgetModalStillOpen && selectedWidget) {
+            // Double check the container too
+            const containerHasContent = container.innerHTML.trim().length > 100;
+            if (!containerHasContent) {
+              closeWidget();
+            }
+          }
+        }, 500);
+      });
+
+      bodyObserver.observe(document.body, {
+        childList: true,
+        subtree: true,
+      });
 
       return () => {
-        if (documentClickHandlerRef.current) {
-          document.removeEventListener(
-            "click",
-            documentClickHandlerRef.current,
-            true
-          );
-          documentClickHandlerRef.current = null;
-        }
+        observer.disconnect();
+        bodyObserver.disconnect();
+        container.removeEventListener("click", handleCloseClick, true);
       };
     }
   }, [selectedWidget]);
@@ -137,18 +174,14 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
   // Listen for escape key to close widget
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        if (selectedWidget) {
-          closeWidget();
-        } else if (isOpen) {
-          setIsOpen(false);
-        }
+      if (e.key === "Escape" && selectedWidget) {
+        closeWidget();
       }
     };
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, [selectedWidget, isOpen]);
+  }, [selectedWidget]);
 
   return (
     <>
@@ -192,67 +225,58 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         }
       `}</style>
 
-      {/* Main Blue Button - ALWAYS visible, changes to X when widget is active */}
-      <button
-        onClick={() => {
-          if (selectedWidget) {
-            // If widget is open, close it
-            closeWidget();
-          } else if (widgets.length === 1) {
-            // If only one widget, open it directly
-            setSelectedWidget(widgets[0]);
-          } else {
-            // Toggle the menu
-            setIsOpen(!isOpen);
-          }
-        }}
-        className={`fixed bottom-6 right-6 w-14 h-14 sm:w-16 sm:h-16 rounded-full shadow-2xl flex items-center justify-center z-[9999] transition-all duration-300 ${
-          selectedWidget
-            ? "bg-red-600 hover:bg-red-700"
-            : "bg-blue-600 hover:bg-blue-700"
-        } ${isOpen || selectedWidget ? "rotate-0" : "hover:scale-110"}`}
-        aria-label={selectedWidget ? "Close widget" : "Toggle widgets"}
-      >
-        {selectedWidget || isOpen ? (
-          // X icon when menu is open OR widget is active
-          <svg
-            className="w-7 h-7 sm:w-8 sm:h-8 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2.5}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        ) : (
-          // Chat icon when nothing is open
-          <svg
-            className="w-7 h-7 sm:w-8 sm:h-8 text-white"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-            />
-          </svg>
-        )}
-      </button>
-
-      {/* Backdrop overlay to close menu */}
-      {isOpen && !selectedWidget && (
-        <div className="fixed inset-0 z-[45]" onClick={closeMenu} />
+      {/* Main Blue Button - Only show when NO widget is selected */}
+      {!selectedWidget && (
+        <button
+          onClick={() => {
+            if (widgets.length === 1) {
+              setSelectedWidget(widgets[0]);
+            } else {
+              setIsOpen(!isOpen);
+            }
+          }}
+          className={`fixed bottom-6 right-6 w-14 h-14 sm:w-16 sm:h-16 bg-blue-600 hover:bg-blue-700 rounded-full shadow-2xl flex items-center justify-center z-[60] transition-all duration-300 ${
+            isOpen ? "rotate-45" : "hover:scale-110"
+          }`}
+          aria-label="Toggle widgets"
+        >
+          {isOpen ? (
+            <svg
+              className="w-7 h-7 sm:w-8 sm:h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-7 h-7 sm:w-8 sm:h-8 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+              />
+            </svg>
+          )}
+        </button>
       )}
 
+      {/* Backdrop overlay to close menu */}
+      {isOpen && <div className="fixed inset-0 z-[45]" onClick={closeMenu} />}
+
       {/* Desktop: Circle Layout ABOVE button with MORE SPACE from right */}
-      {isOpen && !selectedWidget && (
+      {isOpen && (
         <div className="hidden lg:block fixed z-[50]">
           {widgets.map((widget, index) => {
             const totalWidgets = widgets.length;
@@ -306,7 +330,7 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       )}
 
       {/* Mobile & Tablet: Vertical List ABOVE button with MORE SPACE from right */}
-      {isOpen && !selectedWidget && (
+      {isOpen && (
         <div
           className="lg:hidden fixed z-[50]"
           style={{ bottom: "104px", right: "24px" }}
@@ -351,12 +375,11 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         </div>
       )}
 
-      {/* Widget Container - renders the widget embed code */}
+      {/* Widget Container - NO extra close button, relies on widget's own X */}
       {selectedWidget && (
         <div
           ref={iframeRef}
-          className="widget-container fixed inset-0 z-[56] pointer-events-auto"
-          style={{ pointerEvents: "auto" }}
+          className="widget-container fixed inset-0 z-[56]"
         />
       )}
     </>
