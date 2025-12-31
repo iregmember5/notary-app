@@ -55,15 +55,19 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
         }
       }, 500);
 
-      const checkInterval = setInterval(() => {
-        const iframe = container.querySelector('iframe');
-        if (!iframe) {
+      const observer = new MutationObserver(() => {
+        const hasContent = container.innerHTML.trim().length > 0 && container.querySelector('*');
+        if (!hasContent) {
           setSelectedWidget(null);
-          clearInterval(checkInterval);
         }
-      }, 500);
+      });
 
-      return () => clearInterval(checkInterval);
+      observer.observe(container, {
+        childList: true,
+        subtree: true,
+      });
+
+      return () => observer.disconnect();
     }
   }, [selectedWidget]);
 
