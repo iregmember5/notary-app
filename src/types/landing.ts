@@ -535,9 +535,11 @@ export const fetchFeaturesPageById = async (
 // ===== About Page API =====
 import type { AboutPageData, AboutPageApiResponse } from './about';
 
-export const fetchAboutPage = async (): Promise<AboutPageData> => {
+export const fetchAboutPage = async (slug?: string): Promise<AboutPageData> => {
   try {
-    const apiUrl = `${baseApiUrl}/about-pages/`;
+    const apiUrl = slug 
+      ? `${baseApiUrl}/about-pages/?slug=${slug}`
+      : `${baseApiUrl}/about-pages/`;
 
     const response = await fetch(apiUrl, {
       method: "GET",

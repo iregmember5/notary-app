@@ -4,13 +4,13 @@ import type { AboutPageData } from '../types/about';
 import { useTheme } from '../contexts/ThemeContext';
 import { Mail, Phone, Linkedin, Twitter } from 'lucide-react';
 
-export default function AboutPage() {
+export default function AboutPage({ slug }: { slug?: string }) {
   const [data, setData] = useState<AboutPageData | null>(null);
   const [loading, setLoading] = useState(true);
   const { setTheme } = useTheme();
 
   useEffect(() => {
-    fetchAboutPage()
+    fetchAboutPage(slug)
       .then((pageData) => {
         setData(pageData);
         if (pageData.color_theme) {
@@ -19,7 +19,7 @@ export default function AboutPage() {
       })
       .catch((error) => console.error('Failed to load about page:', error))
       .finally(() => setLoading(false));
-  }, [setTheme]);
+  }, [setTheme, slug]);
 
   if (loading) return <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100"><div className="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-600"></div></div>;
   if (!data) return <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 text-xl text-gray-600">About page not found</div>;

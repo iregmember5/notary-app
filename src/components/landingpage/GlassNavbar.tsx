@@ -130,6 +130,19 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   const transparentOnHome = headerConfig?.transparent_on_home || false;
 
   function getNavigationItemUrl(item: any): string {
+    if (item.link_type === "page" && item.page) {
+      const pageType = item.page.meta?.type;
+      const pageSlug = item.page.meta?.slug;
+      if (pageType === "landing.AboutPage" && pageSlug) {
+        return `#about/${pageSlug}`;
+      }
+      if (pageType === "landing.SalesPage") {
+        return "#salespage";
+      }
+      if (pageType === "landing.ImageGalleryPage") {
+        return "#gallery";
+      }
+    }
     if (item.link_type === "page" && !item.url) {
       return "#";
     }

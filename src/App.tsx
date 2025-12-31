@@ -98,6 +98,17 @@ function AppContent() {
         return;
       }
 
+      if (path.includes("/about/") || hash.includes("#about/")) {
+        const slugMatch =
+          path.match(/\/about\/([^\/]+)/) || hash.match(/#about\/([^\/]+)/);
+        if (slugMatch && slugMatch[1]) {
+          setCurrentView({ type: "about", slug: slugMatch[1] });
+        } else {
+          setCurrentView({ type: "about" });
+        }
+        return;
+      }
+
       if (path.includes("/about") || hash.includes("#about")) {
         setCurrentView({ type: "about" });
         return;
@@ -150,7 +161,7 @@ function AppContent() {
         )}
         {currentView.type === "debug-features" && <DebugFeaturesAPI />}
         {currentView.type === "debug-landing" && <DebugLandingAPI />}
-        {currentView.type === "about" && <AboutPage />}
+        {currentView.type === "about" && <AboutPage slug={currentView.slug} />}
         {currentView.type === "salespage" && <Maverick />}
         {currentView.type === "gallery" && <ImageGallery />}
         {currentView.type === "landing" && <LandingPage />}
