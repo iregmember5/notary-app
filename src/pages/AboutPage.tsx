@@ -65,106 +65,7 @@ export default function AboutPage({ slug }: { slug?: string }) {
       {data.body && (
         <section className="py-12 md:py-20 bg-white">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-            <div className="space-y-8 md:space-y-16">
-              {/* Opening Statement */}
-              <div className="text-center">
-                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-4 md:mb-6">Our work begins where most tax professionals stop.</h2>
-                <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-4xl mx-auto leading-relaxed">
-                  When a tax preparer or accountant says they have taken all possible tax deductions and there is nothing else they can do, the traditional formula looks like this:
-                </p>
-              </div>
-
-              {/* Traditional Formula */}
-              <div className="bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl md:rounded-3xl p-6 md:p-12 border-2 border-slate-200 shadow-lg">
-                <div className="text-center">
-                  <p className="text-xs sm:text-sm font-semibold text-slate-500 uppercase tracking-wider mb-4">Traditional Approach</p>
-                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-700 space-x-2 md:space-x-4">
-                    <span>Income</span>
-                    <span className="text-slate-400">−</span>
-                    <span>Expenses</span>
-                    <span className="text-slate-400">=</span>
-                    <span className="text-red-600">Profit</span>
-                  </div>
-                  <p className="text-slate-600 mt-6 text-lg">That profit is then <span className="font-semibold text-red-600">fully taxed</span>.</p>
-                </div>
-              </div>
-
-              {/* Arrow Down */}
-              <div className="flex justify-center">
-                <div className="w-1 h-16 bg-gradient-to-b from-amber-600 to-amber-800 rounded-full relative">
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-amber-800"></div>
-                </div>
-              </div>
-
-              {/* Our Approach */}
-              <div className="bg-gradient-to-br from-amber-50 via-amber-100 to-amber-50 rounded-2xl md:rounded-3xl p-6 md:p-12 border-2 border-amber-300 shadow-2xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-amber-200/30 rounded-full filter blur-3xl"></div>
-                <div className="relative z-10">
-                  <div className="text-center mb-6 md:mb-8">
-                    <p className="text-xs sm:text-sm font-semibold text-amber-800 uppercase tracking-wider mb-4">Our Strategic Approach</p>
-                    <div className="text-lg sm:text-xl md:text-3xl font-bold text-slate-900 space-x-2 md:space-x-4 flex flex-wrap justify-center gap-2">
-                      <span>Income</span>
-                      <span className="text-slate-400">−</span>
-                      <span>Expenses</span>
-                      <span className="text-amber-600">−</span>
-                      <span className="text-amber-700">Tax Strategies</span>
-                      <span className="text-slate-400">=</span>
-                      <span className="text-green-600">New Profit</span>
-                    </div>
-                  </div>
-                  <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 mt-8">
-                    <p className="text-lg text-slate-700 leading-relaxed text-center">
-                      As a result, taxes are paid on a <span className="font-bold text-green-600">new profit that is substantially lower</span>, achieved through strategic tax planning carried out with <span className="font-semibold text-amber-700">complete compliance</span> to tax laws and supporting court cases.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Key Points */}
-              <div className="grid sm:grid-cols-2 gap-6 md:gap-8">
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-6 md:p-8 text-white shadow-xl">
-                  <div className="text-5xl mb-4">⏰</div>
-                  <h3 className="text-2xl font-bold mb-3">Proactive Planning</h3>
-                  <p className="text-slate-300 leading-relaxed">All tax planning is done <span className="font-semibold text-amber-300">in advance</span>, not after the year has ended.</p>
-                </div>
-                <div className="bg-gradient-to-br from-amber-700 to-amber-800 rounded-2xl p-6 md:p-8 text-white shadow-xl">
-                  <div className="text-5xl mb-4">📊</div>
-                  <h3 className="text-2xl font-bold mb-3">Measurable Results</h3>
-                  <p className="text-amber-100 leading-relaxed">We take measurements <span className="font-semibold">before and after</span> implementation, and the results speak for themselves.</p>
-                </div>
-              </div>
-
-              {/* Specialties */}
-              <div className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-12 border-2 border-slate-200 shadow-lg">
-                <h3 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-8 text-slate-900">Our Specialties</h3>
-                <div className="grid sm:grid-cols-2 gap-4 md:gap-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-lg text-slate-700">Tax planning, accounting, project and labor costing</p>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-lg text-slate-700">Tax problem solving</p>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-lg text-slate-700">Application integration with existing accounting systems</p>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-lg text-slate-700">Resolving operational bottlenecks</p>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-lg text-slate-700">Cloud-based integration setup, migration, and training</p>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-2 h-2 bg-amber-600 rounded-full mt-2 flex-shrink-0"></div>
-                    <p className="text-lg text-slate-700">Long-term financial strength planning</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div className="prose prose-lg max-w-none" dangerouslySetInnerHTML={{ __html: data.body }} />
           </div>
         </section>
       )}
@@ -172,43 +73,13 @@ export default function AboutPage({ slug }: { slug?: string }) {
       {/* Mission Statement */}
       {data.mission_statement && (
         <section className="py-16 md:py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 relative overflow-hidden">
-          <div className="absolute inset-0">
-            <div className="absolute top-0 left-1/4 w-96 h-96 bg-amber-900/30 rounded-full filter blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-amber-800/30 rounded-full filter blur-3xl animate-pulse animation-delay-2000"></div>
-            <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-slate-700/30 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
-          </div>
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-5xl mx-auto">
               <div className="text-center mb-8 md:mb-16">
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-100 to-white drop-shadow-2xl">Our Mission</h2>
-                <div className="w-32 h-1.5 bg-gradient-to-r from-amber-600 via-amber-500 to-amber-400 mx-auto rounded-full"></div>
               </div>
               <div className="bg-white/10 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 md:p-12 border border-white/20 shadow-2xl">
-                <p className="text-xl leading-relaxed text-amber-50 mb-8">Our mission is to help clients achieve financial strength by applying proactive tax planning, accurate accounting, and the strategic use of technology, all within full compliance of tax laws.</p>
-                <h3 className="text-2xl font-bold text-amber-200 mb-6">We believe in:</h3>
-                <ul className="space-y-4">
-                  <li className="flex items-start gap-4 text-lg text-amber-50">
-                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
-                    <span>Applying tax strategies before the year ends</span>
-                  </li>
-                  <li className="flex items-start gap-4 text-lg text-amber-50">
-                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
-                    <span>Using tax laws and court cases responsibly and effectively</span>
-                  </li>
-                  <li className="flex items-start gap-4 text-lg text-amber-50">
-                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
-                    <span>Measuring results before and after implementation</span>
-                  </li>
-                  <li className="flex items-start gap-4 text-lg text-amber-50">
-                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
-                    <span>Leveraging cloud technologies to improve collaboration and efficiency</span>
-                  </li>
-                  <li className="flex items-start gap-4 text-lg text-amber-50">
-                    <span className="text-amber-400 text-2xl flex-shrink-0">✓</span>
-                    <span>Resolving financial and accounting bottlenecks through proper systems and integration</span>
-                  </li>
-                </ul>
-                <p className="text-xl text-amber-100 font-semibold mt-8 pt-8 border-t border-white/20">Our goal is simple: deliver measurable results through planning, precision, and compliance.</p>
+                <p className="text-xl leading-relaxed text-amber-50 whitespace-pre-line">{data.mission_statement}</p>
               </div>
             </div>
           </div>
