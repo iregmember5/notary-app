@@ -70,7 +70,51 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
     })
   );
 
-  const links: NavigationItem[] = processedLinks.sort((a, b) => a.order - b.order);
+  const links: NavigationItem[] =
+    processedLinks.length > 0
+      ? processedLinks
+      : [
+          {
+            id: 1,
+            title: "Home",
+            url: "#",
+            link_type: "url" as const,
+            order: 1,
+            children: [],
+          },
+          {
+            id: 2,
+            title: "Features",
+            url: "#features",
+            link_type: "dropdown" as const,
+            order: 2,
+            children: [],
+          },
+          {
+            id: 3,
+            title: "Pricing",
+            url: "#pricing",
+            link_type: "url" as const,
+            order: 3,
+            children: [],
+          },
+          {
+            id: 4,
+            title: "Contact",
+            url: "#contact",
+            link_type: "url" as const,
+            order: 4,
+            children: [],
+          },
+          {
+            id: 3,
+            title: "Blog",
+            url: "/blog",
+            link_type: "url" as const,
+            order: 3,
+            children: [],
+          },
+        ].sort((a, b) => a.order - b.order);
 
   const getFullImageUrl = (url: string) => {
     if (!url) return "";
@@ -248,11 +292,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                                       key={page.id}
                                       href={`/#features/${page.slug}`}
                                       className="flex items-start gap-3 p-2 rounded-xl hover:bg-gray-100 transition-all group"
-                                      onClick={(e) => {
-                                        e.preventDefault();
-                                        setActiveDropdown(null);
-                                        window.location.hash = `features/${page.slug}`;
-                                      }}
+                                      onClick={() => setActiveDropdown(null)}
                                     >
                                       <div className="w-9 h-9 rounded-lg bg-gray-100 flex items-center justify-center text-xl flex-shrink-0">
                                         <EasyIcon icon={icon} size={20} />
@@ -316,7 +356,18 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     ) : (
                       // Regular link
                       <a
-                        href={link.url || "#"}
+                        href={
+                          link.title.toLowerCase() === "powered by"
+                            ? "#salespage"
+                            : link.title.toLowerCase() === "about"
+                            ? "#about"
+                            : link.title.toLowerCase() === "demo sales page"
+                            ? "#salespage"
+                            : link.title.toLowerCase().includes("template") ||
+                              link.title.toLowerCase().includes("gallery")
+                            ? "#gallery"
+                            : getNavigationItemUrl(link)
+                        }
                         className="text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2 inline-block text-theme-text"
                       >
                         {link.title}
@@ -398,13 +449,11 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                             {featuresPages.map((page) => (
                               <a
                                 key={page.id}
-                                href={`/#features/${page.slug}`}
+                                href={`/features/${page.slug}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="block text-sm py-2 px-3 rounded-lg transition-all duration-200 relative overflow-hidden group text-theme-text"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  setOpen(false);
-                                  window.location.hash = `features/${page.slug}`;
-                                }}
+                                onClick={() => setOpen(false)}
                               >
                                 <div className="relative z-10 flex items-center gap-2">
                                   <span className="w-1.5 h-1.5 rounded-full bg-theme-primary" />
@@ -458,7 +507,18 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                     </div>
                   ) : (
                     <a
-                      href={link.url || "#"}
+                      href={
+                        link.title.toLowerCase() === "powered by"
+                          ? "#salespage"
+                          : link.title.toLowerCase() === "about"
+                          ? "#about"
+                          : link.title.toLowerCase() === "demo sales page"
+                          ? "#salespage"
+                          : link.title.toLowerCase().includes("template") ||
+                            link.title.toLowerCase().includes("gallery")
+                          ? "#gallery"
+                          : getNavigationItemUrl(link)
+                      }
                       className="block text-base font-medium py-2 px-2 rounded transition hover:text-blue-600 text-theme-text"
                       onClick={() => setOpen(false)}
                     >

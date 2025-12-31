@@ -56,7 +56,8 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       }, 500);
 
       const observer = new MutationObserver(() => {
-        const hasContent = container.innerHTML.trim().length > 0 && container.querySelector('*');
+        const hasContent =
+          container.innerHTML.trim().length > 0 && container.querySelector("*");
         if (!hasContent) {
           setSelectedWidget(null);
         }
@@ -264,7 +265,34 @@ export default function WidgetButton({ widgets }: WidgetButtonProps) {
       )}
 
       {/* Widget Container */}
-      {selectedWidget && <div ref={iframeRef} className="widget-container" />}
+      {selectedWidget && (
+        <div className="fixed inset-0 z-[55] flex items-center justify-center bg-black/50">
+          <div className="relative w-full h-full sm:w-auto sm:h-auto sm:max-w-2xl sm:max-h-[90vh] sm:rounded-lg overflow-auto bg-white">
+            {/* Close Button */}
+            <button
+              onClick={() => setSelectedWidget(null)}
+              className="absolute top-4 right-4 z-[56] w-10 h-10 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center shadow-lg transition-colors"
+              aria-label="Close widget"
+            >
+              <svg
+                className="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.5}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            {/* Widget Content */}
+            <div ref={iframeRef} className="widget-container w-full h-full" />
+          </div>
+        </div>
+      )}
     </>
   );
 }
