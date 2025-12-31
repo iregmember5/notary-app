@@ -88,51 +88,7 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
     }
   );
 
-  const links: NavigationItem[] =
-    processedLinks.length > 0
-      ? processedLinks
-      : [
-          {
-            id: 1,
-            title: "Home",
-            url: "#",
-            link_type: "url" as const,
-            order: 1,
-            children: [],
-          },
-          {
-            id: 2,
-            title: "Features",
-            url: "#features",
-            link_type: "dropdown" as const,
-            order: 2,
-            children: [],
-          },
-          {
-            id: 3,
-            title: "Pricing",
-            url: "#pricing",
-            link_type: "url" as const,
-            order: 3,
-            children: [],
-          },
-          {
-            id: 4,
-            title: "Contact",
-            url: "#contact",
-            link_type: "url" as const,
-            order: 4,
-            children: [],
-          },
-          {
-            id: 3,
-            title: "Blog",
-            url: "/blog",
-            link_type: "url" as const,
-            order: 3,
-            children: [],
-          },
-        ].sort((a, b) => a.order - b.order);
+  const links: NavigationItem[] = processedLinks.sort((a, b) => a.order - b.order);
 
   const getFullImageUrl = (url: string) => {
     if (!url) return "";
