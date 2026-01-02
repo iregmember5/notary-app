@@ -43,6 +43,12 @@ export default function Pricing({ data }: { data: LandingPageData }) {
 
   return (
     <div className="w-full mx-auto max-w-6xl">
+      {data.pricing_section?.heading && (
+        <h2 className="text-3xl font-bold text-center mb-4">{data.pricing_section.heading}</h2>
+      )}
+      {data.pricing_section?.description && (
+        <p className="text-center text-gray-600 mb-8">{data.pricing_section.description}</p>
+      )}
       {/* This div will get the correct ID and the widget will render inside it */}
       <div ref={containerRef} />
     </div>
