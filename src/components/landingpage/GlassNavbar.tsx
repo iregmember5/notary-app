@@ -61,34 +61,65 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
 
   // Process navigation items
   const rawNavigationItems = headerConfig?.navigation_items || [];
+  // Intelligent page type to route mapping
+  const getRouteFromPageType = (pageType: string, slug?: string): string => {
+    const typeMap: Record<string, string> = {
+      'landing.AboutPage': slug ? `#about/${slug}` : '#about',
+      'landing.SalesPage': '#salespage',
+      'landing.ImageGalleryPage': '#gallery',
+      'landing.PricingPage': '#pricing',
+      'landing.ContactPage': '#contact',
+      'landing.TestimonialsPage': '#testimonials',
+      'landing.FeaturesPage': '#features',
+      'landing.FAQPage': '#faq',
+      'landing.TeamPage': '#team',
+      'landing.BlogPage': '#blog',
+      'landing.PortfolioPage': '#portfolio',
+      'landing.ServicesPage': '#services',
+    };
+    return typeMap[pageType] || '#';
+  };
+
+  // Intelligent title to route mapping
+  const getRouteFromTitle = (title: string): string => {
+    const lower = title.toLowerCase();
+    const titleMap: Record<string, string> = {
+      'about': '#about',
+      'sales': '#salespage',
+      'partner': '#salespage',
+      'become': '#salespage',
+      'pricing': '#pricing',
+      'contact': '#contact',
+      'testimonial': '#testimonials',
+      'review': '#testimonials',
+      'feature': '#features',
+      'faq': '#faq',
+      'question': '#faq',
+      'team': '#team',
+      'blog': '#blog',
+      'portfolio': '#portfolio',
+      'gallery': '#gallery',
+      'template': '#gallery',
+      'service': '#services',
+    };
+    
+    for (const [key, route] of Object.entries(titleMap)) {
+      if (lower.includes(key)) return route;
+    }
+    return '#';
+  };
+
   const processedLinks: NavigationItem[] = rawNavigationItems.map(
     (item: any) => {
       let url = item.url || "#";
       
-      // Override URL for page type links if page meta exists
-      if (item.link_type === "page" && item.page?.meta) {
-        const pageType = item.page.meta.type;
-        const pageSlug = item.page.meta.slug;
-        
-        if (pageType === "landing.AboutPage" && pageSlug) {
-          url = `#about/${pageSlug}`;
-        } else if (pageType === "landing.SalesPage") {
-          url = "#salespage";
-        } else if (pageType === "landing.ImageGalleryPage") {
-          url = "#gallery";
-        }
-      } else if (!url || url === "#") {
-        // Fallback: Match by title for empty URLs
-        const title = item.title.toLowerCase();
-        if (title === "about") {
-          url = "#about";
-        } else if (title.includes("sales") || title.includes("powered by")) {
-          url = "#salespage";
-        } else if (title.includes("template") || title.includes("gallery")) {
-          url = "#gallery";
-        } else if (title.includes("why our website builder")) {
-          url = "#about/why-our-website-builder";
-        }
+      // Priority 1: Use page meta type if available
+      if (item.link_type === "page" && item.page?.meta?.type) {
+        url = getRouteFromPageType(item.page.meta.type, item.page.meta.slug);
+      }
+      // Priority 2: If no valid URL, use intelligent title matching
+      else if (!url || url === "#") {
+        url = getRouteFromTitle(item.title);
       }
       
       return {

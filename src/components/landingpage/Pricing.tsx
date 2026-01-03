@@ -3,7 +3,7 @@ import type { LandingPageData } from "../../types/landing";
 
 export default function Pricing({ data }: { data: LandingPageData }) {
   const widgetCode = data.pricing_section?.widget_code;
-  const slug = widgetCode?.match(/slug=([^&'"]+)/)?.[1] || "untitled-pricing-table-82";
+  const slug = widgetCode?.match(/slug=([^&'"]+)/)?.[1] || "";
   const containerId = `widget-${slug}`;
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -26,7 +26,7 @@ export default function Pricing({ data }: { data: LandingPageData }) {
     }
 
     // Create and inject the loader script
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = `https://pricing-bundler-green.vercel.app/widget-loader.js?slug=${slug}`;
     script.async = true;
 
@@ -44,10 +44,14 @@ export default function Pricing({ data }: { data: LandingPageData }) {
   return (
     <div className="w-full mx-auto max-w-6xl">
       {data.pricing_section?.heading && (
-        <h2 className="text-3xl font-bold text-center mb-4">{data.pricing_section.heading}</h2>
+        <h2 className="text-3xl font-bold text-center mb-4">
+          {data.pricing_section.heading}
+        </h2>
       )}
       {data.pricing_section?.description && (
-        <p className="text-center text-gray-600 mb-8">{data.pricing_section.description}</p>
+        <p className="text-center text-gray-600 mb-8">
+          {data.pricing_section.description}
+        </p>
       )}
       {/* This div will get the correct ID and the widget will render inside it */}
       <div ref={containerRef} />
