@@ -33,56 +33,56 @@ interface WebFormProps {
 }
 
 const countries = [
-  { code: "+1", flag: "🇺🇸", name: "US" },
-  { code: "+86", flag: "🇨🇳", name: "CN" },
-  { code: "+91", flag: "🇮🇳", name: "IN" },
-  { code: "+62", flag: "🇮🇩", name: "ID" },
-  { code: "+92", flag: "🇵🇰", name: "PK" },
-  { code: "+55", flag: "🇧🇷", name: "BR" },
-  { code: "+234", flag: "🇳🇬", name: "NG" },
-  { code: "+880", flag: "🇧🇩", name: "BD" },
-  { code: "+7", flag: "🇷🇺", name: "RU" },
-  { code: "+52", flag: "🇲🇽", name: "MX" },
-  { code: "+81", flag: "🇯🇵", name: "JP" },
-  { code: "+251", flag: "🇪🇹", name: "ET" },
-  { code: "+63", flag: "🇵🇭", name: "PH" },
-  { code: "+20", flag: "🇪🇬", name: "EG" },
-  { code: "+84", flag: "🇻🇳", name: "VN" },
-  { code: "+243", flag: "🇨🇩", name: "CD" },
-  { code: "+90", flag: "🇹🇷", name: "TR" },
-  { code: "+98", flag: "🇮🇷", name: "IR" },
-  { code: "+49", flag: "🇩🇪", name: "DE" },
-  { code: "+66", flag: "🇹🇭", name: "TH" },
-  { code: "+44", flag: "🇬🇧", name: "UK" },
-  { code: "+255", flag: "🇹🇿", name: "TZ" },
-  { code: "+33", flag: "🇫🇷", name: "FR" },
-  { code: "+39", flag: "🇮🇹", name: "IT" },
-  { code: "+27", flag: "🇿🇦", name: "ZA" },
-  { code: "+95", flag: "🇲🇲", name: "MM" },
-  { code: "+254", flag: "🇰🇪", name: "KE" },
-  { code: "+82", flag: "🇰🇷", name: "KR" },
-  { code: "+57", flag: "🇨🇴", name: "CO" },
-  { code: "+34", flag: "🇪🇸", name: "ES" },
-  { code: "+256", flag: "🇺🇬", name: "UG" },
-  { code: "+54", flag: "🇦🇷", name: "AR" },
-  { code: "+213", flag: "🇩🇿", name: "DZ" },
-  { code: "+249", flag: "🇸🇩", name: "SD" },
-  { code: "+380", flag: "🇺🇦", name: "UA" },
-  { code: "+964", flag: "🇮🇶", name: "IQ" },
-  { code: "+48", flag: "🇵🇱", name: "PL" },
-  { code: "+1", flag: "🇨🇦", name: "CA" },
-  { code: "+212", flag: "🇲🇦", name: "MA" },
-  { code: "+966", flag: "🇸🇦", name: "SA" },
-  { code: "+998", flag: "🇺🇿", name: "UZ" },
-  { code: "+51", flag: "🇵🇪", name: "PE" },
-  { code: "+60", flag: "🇲🇾", name: "MY" },
-  { code: "+93", flag: "🇦🇫", name: "AF" },
-  { code: "+967", flag: "🇾🇪", name: "YE" },
-  { code: "+233", flag: "🇬🇭", name: "GH" },
-  { code: "+258", flag: "🇲🇿", name: "MZ" },
-  { code: "+977", flag: "🇳🇵", name: "NP" },
-  { code: "+261", flag: "🇲🇬", name: "MG" },
-  { code: "+61", flag: "🇦🇺", name: "AU" },
+  { code: "+1", name: "US", flag: "US" },
+  { code: "+86", name: "CN", flag: "CN" },
+  { code: "+91", name: "IN", flag: "IN" },
+  { code: "+62", name: "ID", flag: "ID" },
+  { code: "+92", name: "PK", flag: "PK" },
+  { code: "+55", name: "BR", flag: "BR" },
+  { code: "+234", name: "NG", flag: "NG" },
+  { code: "+880", name: "BD", flag: "BD" },
+  { code: "+7", name: "RU", flag: "RU" },
+  { code: "+52", name: "MX", flag: "MX" },
+  { code: "+81", name: "JP", flag: "JP" },
+  { code: "+251", name: "ET", flag: "ET" },
+  { code: "+63", name: "PH", flag: "PH" },
+  { code: "+20", name: "EG", flag: "EG" },
+  { code: "+84", name: "VN", flag: "VN" },
+  { code: "+243", name: "CD", flag: "CD" },
+  { code: "+90", name: "TR", flag: "TR" },
+  { code: "+98", name: "IR", flag: "IR" },
+  { code: "+49", name: "DE", flag: "DE" },
+  { code: "+66", name: "TH", flag: "TH" },
+  { code: "+44", name: "GB", flag: "GB" },
+  { code: "+255", name: "TZ", flag: "TZ" },
+  { code: "+33", name: "FR", flag: "FR" },
+  { code: "+39", name: "IT", flag: "IT" },
+  { code: "+27", name: "ZA", flag: "ZA" },
+  { code: "+95", name: "MM", flag: "MM" },
+  { code: "+254", name: "KE", flag: "KE" },
+  { code: "+82", name: "KR", flag: "KR" },
+  { code: "+57", name: "CO", flag: "CO" },
+  { code: "+34", name: "ES", flag: "ES" },
+  { code: "+256", name: "UG", flag: "UG" },
+  { code: "+54", name: "AR", flag: "AR" },
+  { code: "+213", name: "DZ", flag: "DZ" },
+  { code: "+249", name: "SD", flag: "SD" },
+  { code: "+380", name: "UA", flag: "UA" },
+  { code: "+964", name: "IQ", flag: "IQ" },
+  { code: "+48", name: "PL", flag: "PL" },
+  { code: "+1", name: "CA", flag: "CA" },
+  { code: "+212", name: "MA", flag: "MA" },
+  { code: "+966", name: "SA", flag: "SA" },
+  { code: "+998", name: "UZ", flag: "UZ" },
+  { code: "+51", name: "PE", flag: "PE" },
+  { code: "+60", name: "MY", flag: "MY" },
+  { code: "+93", name: "AF", flag: "AF" },
+  { code: "+967", name: "YE", flag: "YE" },
+  { code: "+233", name: "GH", flag: "GH" },
+  { code: "+258", name: "MZ", flag: "MZ" },
+  { code: "+977", name: "NP", flag: "NP" },
+  { code: "+261", name: "MG", flag: "MG" },
+  { code: "+61", name: "AU", flag: "AU" },
 ];
 
 const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
@@ -173,18 +173,24 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
       case "number":
         return (
           <div className="flex items-center gap-2 border-b border-gray-300 focus-within:border-purple-600 transition-colors">
-            <select
-              value={countryCode}
-              onChange={(e) => setCountryCode(e.target.value)}
-              className="px-0 py-2 border-0 outline-none text-sm bg-transparent cursor-pointer"
-              style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif' }}
-            >
-              {countries.map((c) => (
-                <option key={c.code + c.name} value={c.code} style={{ fontFamily: 'inherit' }}>
-                  {c.flag} {c.code}
-                </option>
-              ))}
-            </select>
+            <div className="flex items-center gap-1">
+              <img 
+                src={`https://flagcdn.com/16x12/${countries.find(c => c.code === countryCode)?.flag.toLowerCase()}.png`}
+                alt=""
+                className="w-4 h-3"
+              />
+              <select
+                value={countryCode}
+                onChange={(e) => setCountryCode(e.target.value)}
+                className="px-0 py-2 border-0 outline-none text-sm bg-transparent cursor-pointer"
+              >
+                {countries.map((c, idx) => (
+                  <option key={`${c.code}-${c.name}-${idx}`} value={c.code}>
+                    {c.name} {c.code}
+                  </option>
+                ))}
+              </select>
+            </div>
             <input
               type="tel"
               placeholder={field.placeholder || "Your answer"}
