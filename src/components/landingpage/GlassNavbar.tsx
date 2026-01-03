@@ -83,6 +83,12 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
   // Intelligent title to route mapping
   const getRouteFromTitle = (title: string): string => {
     const lower = title.toLowerCase();
+    
+    // Exact phrase matching first
+    if (lower.includes('why our website builder') || lower.includes('why website builder')) {
+      return '#about/why-our-website-builder';
+    }
+    
     const titleMap: Record<string, string> = {
       'about': '#about',
       'sales': '#salespage',

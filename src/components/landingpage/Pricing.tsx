@@ -9,6 +9,8 @@ export default function Pricing({ data }: { data: LandingPageData }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!slug) return;
+    
     // Create the container with the exact ID the loader expects
     if (containerRef.current) {
       containerRef.current.id = containerId;
@@ -40,6 +42,8 @@ export default function Pricing({ data }: { data: LandingPageData }) {
       }
     };
   }, [slug]);
+
+  if (!slug) return null;
 
   return (
     <div className="w-full mx-auto max-w-6xl">

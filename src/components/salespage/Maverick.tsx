@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 import IconRenderer from "./IconRenderer";
+import WebForm from "./WebForm";
 import {
   fetchLandingPageData,
   fetchAllFeaturesPages,
@@ -45,6 +46,7 @@ const styles = `
 export default function TaxAdvisorLandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [pageData, setPageData] = useState<SalesPages | null>(null);
+  const [showWebForm, setShowWebForm] = useState(false);
 
   const [_, setFeaturesData] = useState<FeaturesPageData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -85,7 +87,10 @@ export default function TaxAdvisorLandingPage() {
                 {pageData.header_section.title}
               </p>
               {pageData.header_section.button?.text && (
-                <button className="bg-black hover:bg-gray-900 text-yellow-400 px-6 py-2.5 rounded-full text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap font-bold shadow-xl hover:scale-105 transition-all">
+                <button
+                  onClick={() => setShowWebForm(true)}
+                  className="bg-black hover:bg-gray-900 text-yellow-400 px-6 py-2.5 rounded-full text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap font-bold shadow-xl hover:scale-105 transition-all"
+                >
                   <svg
                     className="w-4 h-4"
                     fill="currentColor"
@@ -129,7 +134,10 @@ export default function TaxAdvisorLandingPage() {
                 )}
 
                 {pageData?.main_hero_section?.button?.text && (
-                  <button className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 text-black font-black py-5 px-10 rounded-full text-xl hover:scale-110 transition-all shadow-2xl hover:shadow-yellow-500/50 animate-[glow_2s_ease-in-out_infinite]">
+                  <button
+                    onClick={() => setShowWebForm(true)}
+                    className="bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 text-black font-black py-5 px-10 rounded-full text-xl hover:scale-110 transition-all shadow-2xl hover:shadow-yellow-500/50 animate-[glow_2s_ease-in-out_infinite]"
+                  >
                     🎯 {pageData.main_hero_section.button.text}
                   </button>
                 )}
@@ -251,7 +259,10 @@ export default function TaxAdvisorLandingPage() {
                   </p>
                 )}
                 {pageData.secondary_cta_section.button?.text && (
-                  <button className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black py-5 px-12 rounded-full text-xl hover:scale-105 transition-transform shadow-2xl">
+                  <button
+                    onClick={() => setShowWebForm(true)}
+                    className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black py-5 px-12 rounded-full text-xl hover:scale-105 transition-transform shadow-2xl"
+                  >
                     {pageData.secondary_cta_section.button.text} →
                   </button>
                 )}
@@ -302,7 +313,10 @@ export default function TaxAdvisorLandingPage() {
                     <p className="text-yellow-400 font-bold text-lg mb-8">{pageData.primary_cta_section.subdescription}</p>
                   )}
                   {pageData.primary_cta_section.button?.text && (
-                    <button className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black py-5 rounded-full text-lg hover:scale-105 transition-transform shadow-xl">
+                    <button
+                      onClick={() => setShowWebForm(true)}
+                      className="w-full bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-black py-5 rounded-full text-lg hover:scale-105 transition-transform shadow-xl"
+                    >
                       {pageData.primary_cta_section.button.text}
                     </button>
                   )}
@@ -391,7 +405,10 @@ export default function TaxAdvisorLandingPage() {
                   {/* Button */}
                   {section.button?.text && (
                     <div className="text-center mt-16">
-                      <button className="group relative bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 text-black font-black py-5 px-12 rounded-full text-xl hover:scale-105 transition-all shadow-2xl overflow-hidden">
+                      <button
+                        onClick={() => setShowWebForm(true)}
+                        className="group relative bg-gradient-to-r from-yellow-400 via-orange-500 to-yellow-400 text-black font-black py-5 px-12 rounded-full text-xl hover:scale-105 transition-all shadow-2xl overflow-hidden"
+                      >
                         <span className="relative z-10">{section.button.text} →</span>
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
                       </button>
@@ -416,7 +433,10 @@ export default function TaxAdvisorLandingPage() {
               {cta.subtitle && <p className="text-xl mb-8">{cta.subtitle}</p>}
               {cta.description && <p className="mb-4">{cta.description}</p>}
               {cta.button?.text && (
-                <button className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform">
+                <button
+                  onClick={() => setShowWebForm(true)}
+                  className="bg-gradient-to-r from-yellow-500 to-orange-500 text-black font-bold py-4 px-8 rounded-full text-lg hover:scale-105 transition-transform"
+                >
                   🎯 {cta.button.text}
                 </button>
               )}
@@ -437,9 +457,8 @@ export default function TaxAdvisorLandingPage() {
               </p>
             )}
             <div className="max-w-2xl mx-auto">
-              {/* Form rendering would go here */}
               <p className="text-center text-gray-400">
-                Form ID: {pageData.web_form_section.form}
+                Form ID: {typeof pageData.web_form_section.form === 'object' ? pageData.web_form_section.form.id : pageData.web_form_section.form}
               </p>
             </div>
           </div>
@@ -489,6 +508,14 @@ export default function TaxAdvisorLandingPage() {
           </div>
         )}
       </div>
+
+      {pageData?.web_form_section && (
+        <WebForm
+          isOpen={showWebForm}
+          onClose={() => setShowWebForm(false)}
+          data={pageData.web_form_section}
+        />
+      )}
     </>
   );
 }
