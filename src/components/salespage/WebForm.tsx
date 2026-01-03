@@ -177,9 +177,10 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
               value={countryCode}
               onChange={(e) => setCountryCode(e.target.value)}
               className="px-0 py-2 border-0 outline-none text-sm bg-transparent cursor-pointer"
+              style={{ fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif' }}
             >
               {countries.map((c) => (
-                <option key={c.code} value={c.code}>
+                <option key={c.code + c.name} value={c.code} style={{ fontFamily: 'inherit' }}>
                   {c.flag} {c.code}
                 </option>
               ))}
