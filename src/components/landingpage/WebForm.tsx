@@ -91,6 +91,7 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [countryCode, setCountryCode] = useState("+1");
+  const [showCountryDropdown, setShowCountryDropdown] = useState(false);
 
   const handleChange = (fieldId: number, value: any) => {
     setFormData((prev) => ({ ...prev, [fieldId]: value }));
@@ -173,23 +174,41 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
       case "number":
         return (
           <div className="flex items-center gap-2 border-b border-gray-300 focus-within:border-purple-600 transition-colors">
-            <div className="flex items-center gap-1">
-              <img 
-                src={`https://flagcdn.com/16x12/${countries.find(c => c.code === countryCode)?.flag.toLowerCase()}.png`}
-                alt=""
-                className="w-4 h-3"
-              />
-              <select
-                value={countryCode}
-                onChange={(e) => setCountryCode(e.target.value)}
-                className="px-0 py-2 border-0 outline-none text-sm bg-transparent cursor-pointer"
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setShowCountryDropdown(!showCountryDropdown)}
+                className="flex items-center gap-1 px-2 py-2 hover:bg-gray-50 rounded"
               >
-                {countries.map((c, idx) => (
-                  <option key={`${c.code}-${c.name}-${idx}`} value={c.code}>
-                    {c.name} {c.code}
-                  </option>
-                ))}
-              </select>
+                <img 
+                  src={`https://flagcdn.com/16x12/${countries.find(c => c.code === countryCode)?.flag.toLowerCase()}.png`}
+                  alt=""
+                  className="w-4 h-3"
+                />
+                <span className="text-sm">{countryCode}</span>
+              </button>
+              {showCountryDropdown && (
+                <div className="absolute top-full left-0 mt-1 w-64 max-h-60 overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-lg z-10">
+                  {countries.map((c, idx) => (
+                    <button
+                      key={`${c.code}-${c.name}-${idx}`}
+                      type="button"
+                      onClick={() => {
+                        setCountryCode(c.code);
+                        setShowCountryDropdown(false);
+                      }}
+                      className="w-full flex items-center gap-2 px-3 py-2 hover:bg-gray-100 text-left"
+                    >
+                      <img 
+                        src={`https://flagcdn.com/16x12/${c.flag.toLowerCase()}.png`}
+                        alt=""
+                        className="w-4 h-3"
+                      />
+                      <span className="text-sm">{c.name} {c.code}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
             <input
               type="tel"
