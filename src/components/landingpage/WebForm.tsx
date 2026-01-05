@@ -186,6 +186,9 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
                   className="w-4 h-3"
                 />
                 <span className="text-sm">{countryCode}</span>
+                <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
               </button>
               {showCountryDropdown && (
                 <div className="absolute top-full left-0 mt-1 w-64 max-h-60 overflow-y-auto bg-white border border-gray-300 rounded-lg shadow-lg z-10">

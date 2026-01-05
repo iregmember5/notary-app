@@ -174,11 +174,19 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
             children: [],
           },
           {
-            id: 3,
+            id: 5,
             title: "Blog",
             url: "/blog",
             link_type: "url" as const,
-            order: 3,
+            order: 5,
+            children: [],
+          },
+          {
+            id: 6,
+            title: "Affiliate",
+            url: "/#affiliate",
+            link_type: "url" as const,
+            order: 6,
             children: [],
           },
         ].sort((a, b) => a.order - b.order);
@@ -425,6 +433,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                             window.location.hash = link.url.substring(1);
                           }
                         }}
+                        target={link.title === "Affiliate" ? "_blank" : undefined}
+                        rel={link.title === "Affiliate" ? "noopener noreferrer" : undefined}
                         className="text-sm font-semibold transition-all duration-300 hover:scale-105 relative group py-2 inline-block text-theme-text"
                       >
                         {link.title}
@@ -572,6 +582,8 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
                         }
                         setOpen(false);
                       }}
+                      target={link.title === "Affiliate" ? "_blank" : undefined}
+                      rel={link.title === "Affiliate" ? "noopener noreferrer" : undefined}
                       className="block text-base font-medium py-2 px-2 rounded transition hover:text-blue-600 text-theme-text"
                     >
                       {link.title}
