@@ -18,6 +18,7 @@ const DebugFeaturesAPI = lazy(() => import("./pages/DebugFeaturesApi"));
 const DebugLandingAPI = lazy(() => import("./pages/DebugLandingApi"));
 const Maverick = lazy(() => import("./components/salespage/Maverick"));
 const ImageGallery = lazy(() => import("./components/gallery/ImageGallery"));
+const AffiliateDashboard = lazy(() => import("./components/landingpage/AffiliateDashboard"));
 
 // Loading component
 const PageLoader = () => (
@@ -54,7 +55,8 @@ function AppContent() {
       | "debug-features"
       | "debug-landing"
       | "salespage"
-      | "gallery";
+      | "gallery"
+      | "affiliate";
     slug?: string;
   }>({ type: "landing" });
 
@@ -124,6 +126,11 @@ function AppContent() {
         return;
       }
 
+      if (path.includes("/affiliate") || hash.includes("#affiliate")) {
+        setCurrentView({ type: "affiliate" });
+        return;
+      }
+
       if (path.includes("/features/") || hash.includes("#features/")) {
         const slugMatch =
           path.match(/\/features\/([^\/]+)/) ||
@@ -164,6 +171,7 @@ function AppContent() {
         {currentView.type === "about" && <AboutPage slug={currentView.slug} />}
         {currentView.type === "salespage" && <Maverick />}
         {currentView.type === "gallery" && <ImageGallery />}
+        {currentView.type === "affiliate" && <AffiliateDashboard />}
         {currentView.type === "landing" && <LandingPage />}
       </ThemeProvider>
     </Suspense>
