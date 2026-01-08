@@ -176,10 +176,18 @@ function GlassNavbar({ data, onShowLogin }: GlassNavbarProps) {
           },
           {
             id: 5,
+            title: "Team",
+            url: "#team",
+            link_type: "url" as const,
+            order: 5,
+            children: [],
+          },
+          {
+            id: 6,
             title: "Blog",
             url: "/blog",
             link_type: "url" as const,
-            order: 5,
+            order: 6,
             children: [],
           },
         ].sort((a, b) => a.order - b.order);
