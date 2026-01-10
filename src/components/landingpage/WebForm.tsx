@@ -98,6 +98,18 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
     setErrors((prev) => ({ ...prev, [fieldId]: "" }));
   };
 
+  const handleFileChange = (fieldId: number, file: File | null) => {
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        handleChange(fieldId, { file, preview: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      handleChange(fieldId, null);
+    }
+  };
+
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     data.form.fields.forEach((field) => {
@@ -304,6 +316,55 @@ const WebForm: React.FC<WebFormProps> = ({ isOpen, onClose, data }) => {
               </option>
             ))}
           </select>
+        );
+
+      case "image":
+        return (
+          <div className="space-y-3">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleFileChange(field.id, e.target.files?.[0] || null)}
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 cursor-pointer"
+            />
+            {formData[field.id]?.preview && (
+              <div className="relative inline-block">
+                <img src={formData[field.id].preview} alt="Preview" className="max-w-xs max-h-48 rounded border border-gray-300" />
+                <button
+                  type="button"
+                  onClick={() => handleChange(field.id, null)}
+                  className="absolute -top-2 -right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600"
+                >
+                  <EasyIcon icon="FiX" size={16} />
+                </button>
+              </div>
+            )}
+          </div>
+        );
+
+      case "file":
+        return (
+          <div className="space-y-3">
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx"
+              onChange={(e) => handleFileChange(field.id, e.target.files?.[0] || null)}
+              className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-medium file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100 cursor-pointer"
+            />
+            {formData[field.id]?.file && (
+              <div className="flex items-center gap-2 p-3 bg-gray-50 rounded border border-gray-300">
+                <EasyIcon icon="FiFile" size={20} color="#6b7280" />
+                <span className="text-sm text-gray-700 flex-1">{formData[field.id].file.name}</span>
+                <button
+                  type="button"
+                  onClick={() => handleChange(field.id, null)}
+                  className="p-1 text-red-500 hover:bg-red-50 rounded"
+                >
+                  <EasyIcon icon="FiX" size={16} />
+                </button>
+              </div>
+            )}
+          </div>
         );
 
       default:
