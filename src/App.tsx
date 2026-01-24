@@ -8,17 +8,16 @@ const LandingPage = lazy(() => import("./pages/LandingPage"));
 const FeaturesPage = lazy(() =>
   import("./components/features/features-page/FeaturesPage").then((m) => ({
     default: m.FeaturesPage,
-  }))
+  })),
 );
 const BlogPage = lazy(() =>
-  import("./components/blogs/BlogPage").then((m) => ({ default: m.BlogPage }))
+  import("./components/blogs/BlogPage").then((m) => ({ default: m.BlogPage })),
 );
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const DebugFeaturesAPI = lazy(() => import("./pages/DebugFeaturesApi"));
 const DebugLandingAPI = lazy(() => import("./pages/DebugLandingApi"));
 const Maverick = lazy(() => import("./components/salespage/Maverick"));
 const ImageGallery = lazy(() => import("./components/gallery/ImageGallery"));
-const AffiliateDashboard = lazy(() => import("./components/landingpage/AffiliateDashboard"));
 const TeamPage = lazy(() => import("./components/teams/TeamPage"));
 
 // Loading component
@@ -178,7 +177,6 @@ function AppContent() {
         {currentView.type === "about" && <AboutPage slug={currentView.slug} />}
         {currentView.type === "salespage" && <Maverick />}
         {currentView.type === "gallery" && <ImageGallery />}
-        {currentView.type === "affiliate" && <AffiliateDashboard />}
         {currentView.type === "team" && <TeamPage />}
         {currentView.type === "landing" && <LandingPage />}
       </ThemeProvider>
